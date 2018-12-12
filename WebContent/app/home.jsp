@@ -4,27 +4,81 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
-<title>Insert title here</title>
+<title>Dashboard</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<style>
+body {
+	margin: 0;
+	font-family: Arial, Helvetica, sans-serif;
+}
+
+.topnav {
+	overflow: hidden;
+	background-color: #333;
+}
+
+.topnav a {
+	float: left;
+	color: #f2f2f2;
+	text-align: center;
+	padding: 14px 16px;
+	text-decoration: none;
+	font-size: 17px;
+}
+
+.topnav a:hover {
+	background-color: #ddd;
+	color: black;
+}
+
+.topnav a.active {
+	background-color: #4CAF50;
+	color: white;
+}
+
+#logout {
+	background:none;
+	float: right;
+	color: #f2f2f2;
+	text-align: center;
+	padding: 10px;
+	text-decoration: none;
+	font-size: 17px;
+}
+
+</style>
 </head>
 <body>
 
-    <%
+	<div class="topnav">
+		<a class="active" href="#home">Home</a> 
+		<a href="#news">News</a> 
+		<a href="#contact">Contact</a> 
+		<a href="#about">About</a>
+		<form id="logout" action="LogoutController" method="post">
+			<input class="w3-button w3-red" type="submit" value="Logout">
+		</form>
+	</div>
+
+
+	<%
 		if (session != null) {
 			if (session.getAttribute("role") != null) {
 				response.setHeader("Cache-Control", "no-cache, no-store, must-revalidate"); // HTTP 1.1.
 				response.setHeader("Pragma", "no-cache"); // HTTP 1.0.
 				response.setDateHeader("Expires", 0);
-				
+
 				String role = (String) session.getAttribute("role");
-				out.print("Hello, " + role + "  Welcome to your Dashboard");
+				out.print("<h2>Hello, " + role + "  Welcome to your Dashboard</h2>");
+				out.print("  <p>Some content..</p>");
 			} else {
 				response.sendRedirect("/index.html");
 			}
 		}
 	%>
 
-	<form action="LogoutController" method="post">
-		<input type="submit" value="Logout">
-	</form>
+	<div style="padding-left: 16px"></div>
+
+
 </body>
 </html>
