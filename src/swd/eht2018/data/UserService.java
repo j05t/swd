@@ -1,4 +1,4 @@
-package org.fustercluck;
+package swd.eht2018.data;
 
 public class UserService {
 	private static UserService instance;

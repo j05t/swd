@@ -1,4 +1,4 @@
-package org.fustercluck;
+package swd.eht2018.web;
 
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -9,6 +9,9 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
+
+import swd.eht2018.data.User;
+import swd.eht2018.data.UserService;
 
 
 /**
@@ -59,7 +62,7 @@ public class LoginController extends HttpServlet {
 															// session if exist
 															// or create one
 			session.setAttribute("role", user.getRole());
-			session.setMaxInactiveInterval(30); // 30 seconds
+			session.setMaxInactiveInterval(300); // 5 minutes
 			response.sendRedirect("app/home.jsp");
 		} else {
 			javax.servlet.RequestDispatcher rd = request.getRequestDispatcher("/login.html");

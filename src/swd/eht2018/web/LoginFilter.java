@@ -1,4 +1,4 @@
-package org.fustercluck;
+package swd.eht2018.web;
 
 import java.io.IOException;
 import javax.servlet.Filter;
