@@ -1,7 +1,7 @@
 # Setup
 
 ## Eclipse
-File - Import - General/Projects from Folder or Archive
+File - Import - General/Projects - From Folder or Archive
 
 ### Project - Properties - Java Build Path - Libraries - Add Library:
   
