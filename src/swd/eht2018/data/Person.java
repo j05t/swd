@@ -44,15 +44,15 @@ public class Person implements Serializable{
 	private Betreuer betreuer;
 
 	@ManyToMany
-	@JoinTable(joinColumns = @JoinColumn(name = "PERSON_ID"), inverseJoinColumns = @JoinColumn(name = "PROJECT_ID"))
-	private List<Project> projects = new ArrayList<Project>();
+	@JoinTable(joinColumns = @JoinColumn(name = "PERSON_ID"), inverseJoinColumns = @JoinColumn(name = "TERMIN_ID"))
+	private List<Termin> termine = new ArrayList<Termin>();
 
-	public List<Project> getProjects() {
-		return projects;
+	public List<Termin> getTermine() {
+		return termine;
 	}
 
-	public void add(Project project) {
-		projects.add(project);
+	public void add(Termin project) {
+		termine.add(project);
 		project.add(this);
 	}
 

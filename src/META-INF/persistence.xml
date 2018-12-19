@@ -4,7 +4,7 @@
 		<class>swd.eht2018.data.User</class>
 		<class>swd.eht2018.data.Address</class>
 		<class>swd.eht2018.data.Betreuer</class>
-		<class>swd.eht2018.data.Project</class>
+		<class>swd.eht2018.data.Termin</class>
 		<class>swd.eht2018.data.Person</class>
 		<properties>
           <!-- Configuring JDBC properties -->

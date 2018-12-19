@@ -9,22 +9,20 @@ import javax.persistence.Id;
 import javax.persistence.ManyToMany;
 
 @Entity
-public class Project implements Serializable {
-	/**
-	 * 
-	 */
+public class Termin implements Serializable {
+
 	private static final long serialVersionUID = 1L;
 	@Id
 	private int id;
 	private String name;
 
-	@ManyToMany(mappedBy = "projects")
+	@ManyToMany(mappedBy = "termine")
 	private List<Person> persons = new ArrayList<Person>();
 
-	protected Project() {
+	protected Termin() {
 	};
 
-	public Project(int id, String name) {
+	public Termin(int id, String name) {
 		setId(id);
 		setName(name);
 	}
