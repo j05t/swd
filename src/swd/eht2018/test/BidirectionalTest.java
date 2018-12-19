@@ -17,7 +17,7 @@ import org.junit.Test;
 import org.junit.runners.MethodSorters;
 
 import swd.eht2018.data.Address;
-import swd.eht2018.data.Department;
+import swd.eht2018.data.Betreuer;
 import swd.eht2018.data.Person;
 
 @FixMethodOrder(MethodSorters.NAME_ASCENDING)
@@ -29,7 +29,7 @@ public class BidirectionalTest {
 
 	private static Person person;
 	private static Address address;
-	private static Department department;
+	private static Betreuer betreuer;
 
 	@BeforeClass
 	public static void init() {
@@ -48,13 +48,13 @@ public class BidirectionalTest {
 	public void setup() {
 		person = new Person(1, "John", "Doe");
 		address = new Address("Kasernstrasse 12", "Graz", "8010");
-		department = new Department(1, "Marketing");
+		betreuer = new Betreuer(1, "Marketing");
 
 		person.setAddress(address);
-		person.setDepartment(department);
+		person.setBetreuer(betreuer);
 
 		transaction.begin();
-		manager.persist(department);
+		manager.persist(betreuer);
 		manager.persist(person);
 		transaction.commit();
 	}
@@ -62,7 +62,7 @@ public class BidirectionalTest {
 	@After
 	public void tearDown() {
 		Person p = manager.find(Person.class, person.getId());
-		Department d = manager.find(Department.class, department.getId());
+		Betreuer d = manager.find(Betreuer.class, betreuer.getId());
 
 		transaction.begin();
 		manager.remove(p);
@@ -75,18 +75,18 @@ public class BidirectionalTest {
 		assertEquals(address, person.getAddress());
 		assertEquals(person, address.getPerson());
 
-		assertEquals(department, person.getDepartment());
-		assertTrue(department.getPersons().contains(person));
+		assertEquals(betreuer, person.getBetreuer());
+		assertTrue(betreuer.getPersons().contains(person));
 	}
 
 	@Test
 	public void testPersistedBidirectionals() {
 		Person p = manager.find(Person.class, person.getId());
-		Department d = manager.find(Department.class, department.getId());
+		Betreuer d = manager.find(Betreuer.class, betreuer.getId());
 		Address a = p.getAddress();
 
 		assertEquals(p, a.getPerson());
-		assertEquals(d, p.getDepartment());
+		assertEquals(d, p.getBetreuer());
 		assertTrue(d.getPersons().contains(p));
 	}
 }

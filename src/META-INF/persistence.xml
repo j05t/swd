@@ -3,7 +3,7 @@
 	<persistence-unit name="swd" transaction-type="RESOURCE_LOCAL">
 		<class>swd.eht2018.data.User</class>
 		<class>swd.eht2018.data.Address</class>
-		<class>swd.eht2018.data.Department</class>
+		<class>swd.eht2018.data.Betreuer</class>
 		<class>swd.eht2018.data.Project</class>
 		<class>swd.eht2018.data.Person</class>
 		<properties>

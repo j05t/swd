@@ -37,7 +37,7 @@ body {
 }
 
 #logout {
-	background:none;
+	background: none;
 	float: right;
 	color: #f2f2f2;
 	text-align: center;
@@ -45,16 +45,13 @@ body {
 	text-decoration: none;
 	font-size: 17px;
 }
-
 </style>
 </head>
 <body>
 
 	<div class="topnav">
-		<a class="active" href="#home">Home</a> 
-		<a href="#news">News</a> 
-		<a href="#contact">Contact</a> 
-		<a href="#about">About</a>
+		<a class="active" href="#home">Home</a> <a href="#patienten">Patienten</a>
+		<a href="#termine">Termine</a> <a href="#personal">Personal</a>
 		<form id="logout" action="LogoutController" method="post">
 			<input class="w3-button w3-red" type="submit" value="Logout">
 		</form>

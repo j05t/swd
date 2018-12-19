@@ -18,7 +18,7 @@ import org.junit.Test;
 import org.junit.runners.MethodSorters;
 
 import swd.eht2018.data.Address;
-import swd.eht2018.data.Department;
+import swd.eht2018.data.Betreuer;
 import swd.eht2018.data.Person;
 
 @FixMethodOrder(MethodSorters.NAME_ASCENDING)
@@ -32,7 +32,7 @@ public class PersonTest {
 	private static Person person2;
 	private static Address address;
 	private static Address address2;
-	private static Department department;
+	private static Betreuer betreuer;
 
 	@BeforeClass
 	public static void init() {
@@ -53,12 +53,12 @@ public class PersonTest {
 		person2 = new Person(2, "Frank", "Tuttle");
 		address = new Address("Kasernstrasse 12", "Graz", "8010");
 		address2 = new Address("Lendgasse 1", "Graz", "8020");
-		department = new Department(1, "Marketing");
+		betreuer = new Betreuer(1, "Marketing");
 
 		person.setAddress(address);
 		person2.setAddress(address2);
-		person.setDepartment(department);
-		person2.setDepartment(department);
+		person.setBetreuer(betreuer);
+		person2.setBetreuer(betreuer);
 	}
 
 	@Test
@@ -67,10 +67,10 @@ public class PersonTest {
 		assertNotNull(address);
 		assertNotNull(person2);
 		assertNotNull(address2);
-		assertNotNull(department);
+		assertNotNull(betreuer);
 
 		transaction.begin();
-		manager.persist(department);
+		manager.persist(betreuer);
 
 		manager.persist(person);
 		manager.persist(person2);
@@ -85,11 +85,11 @@ public class PersonTest {
 		assertNotNull(p1.getAddress());
 		assertNotNull(p2.getAddress());
 
-		assertNotNull(p1.getDepartment());
-		assertNotNull(p2.getDepartment());
+		assertNotNull(p1.getBetreuer());
+		assertNotNull(p2.getBetreuer());
 
-		assertEquals(p1.getDepartment().getName(), "Marketing");
-		assertEquals(p2.getDepartment().getName(), "Marketing");
+		assertEquals(p1.getBetreuer().getName(), "Marketing");
+		assertEquals(p2.getBetreuer().getName(), "Marketing");
 	}
 
 	@Test
@@ -123,7 +123,7 @@ public class PersonTest {
 	public void remove() {
 		Person p = manager.find(Person.class, person.getId());
 		Person p2 = manager.find(Person.class, person2.getId());
-		Department d = manager.find(Department.class, department.getId());
+		Betreuer d = manager.find(Betreuer.class, betreuer.getId());
 
 		transaction.begin();
 
@@ -142,7 +142,7 @@ public class PersonTest {
 		assertNull(manager.find(Address.class, person.getId()));
 		assertNull(manager.find(Address.class, person2.getId()));
 
-		assertNull(manager.find(Department.class, department.getId()));
+		assertNull(manager.find(Betreuer.class, betreuer.getId()));
 	}
 
 }

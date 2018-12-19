@@ -18,7 +18,7 @@ import org.junit.Test;
 import org.junit.runners.MethodSorters;
 
 import swd.eht2018.data.Address;
-import swd.eht2018.data.Department;
+import swd.eht2018.data.Betreuer;
 import swd.eht2018.data.Person;
 import swd.eht2018.data.Project;
 
@@ -33,7 +33,7 @@ public class ProjectTest {
 	private static Person person2;
 	private static Address address;
 	private static Address address2;
-	private static Department department;
+	private static Betreuer betreuer;
 	private static Project project;
 	private static Project project2;
 
@@ -56,14 +56,14 @@ public class ProjectTest {
 		person2 = new Person(2, "Frank", "Tuttle");
 		address = new Address("Kasernstrasse 12", "Graz", "8010");
 		address2 = new Address("Lendgasse 1", "Graz", "8020");
-		department = new Department(1, "Marketing");
+		betreuer = new Betreuer(1, "Marketing");
 		project = new Project(1, "Project 1");
 		project2 = new Project(2, "Project 2");
 
 		person.setAddress(address);
 		person2.setAddress(address2);
-		person.setDepartment(department);
-		person2.setDepartment(department);
+		person.setBetreuer(betreuer);
+		person2.setBetreuer(betreuer);
 
 		person.add(project);
 		person.add(project2);
@@ -77,10 +77,10 @@ public class ProjectTest {
 		assertNotNull(address);
 		assertNotNull(person2);
 		assertNotNull(address2);
-		assertNotNull(department);
+		assertNotNull(betreuer);
 
 		transaction.begin();
-		manager.persist(department);
+		manager.persist(betreuer);
 		manager.persist(project);
 		manager.persist(project2);
 
@@ -97,11 +97,11 @@ public class ProjectTest {
 		assertNotNull(p1.getAddress());
 		assertNotNull(p2.getAddress());
 
-		assertNotNull(p1.getDepartment());
-		assertNotNull(p2.getDepartment());
+		assertNotNull(p1.getBetreuer());
+		assertNotNull(p2.getBetreuer());
 
-		assertEquals("Marketing", p1.getDepartment().getName());
-		assertEquals("Marketing", p2.getDepartment().getName());
+		assertEquals("Marketing", p1.getBetreuer().getName());
+		assertEquals("Marketing", p2.getBetreuer().getName());
 
 		assertTrue(p1.getProjects().contains(project));
 		assertTrue(p1.getProjects().contains(project2));
@@ -112,7 +112,7 @@ public class ProjectTest {
 	public void remove() {
 		Person p = manager.find(Person.class, person.getId());
 		Person p2 = manager.find(Person.class, person2.getId());
-		Department d = manager.find(Department.class, department.getId());
+		Betreuer d = manager.find(Betreuer.class, betreuer.getId());
 		Project pr = manager.find(Project.class, project.getId());
 		Project pr2 = manager.find(Project.class, project2.getId());
 
@@ -136,7 +136,7 @@ public class ProjectTest {
 		assertNull(manager.find(Address.class, person.getId()));
 		assertNull(manager.find(Address.class, person2.getId()));
 
-		assertNull(manager.find(Department.class, department.getId()));
+		assertNull(manager.find(Betreuer.class, betreuer.getId()));
 
 		assertNull(manager.find(Project.class, project.getId()));
 		assertNull(manager.find(Project.class, project2.getId()));

@@ -9,14 +9,11 @@ import javax.persistence.Id;
 import javax.persistence.OneToMany;
 
 @Entity
-public class Department implements Serializable{
+public class Betreuer implements Serializable{
 
-	/**
-	 * 
-	 */
 	private static final long serialVersionUID = 1L;
 
-	@OneToMany(mappedBy = "department")
+	@OneToMany(mappedBy = "betreuer")
 	private Collection<Person> persons = new ArrayList<Person>();
 
 	public Collection<Person> getPersons() {
@@ -40,10 +37,10 @@ public class Department implements Serializable{
 		this.name = name;
 	}
 
-	protected Department() {
+	protected Betreuer() {
 	};
 
-	public Department(int id, String name) {
+	public Betreuer(int id, String name) {
 		setId(id);
 		setName(name);
 	}

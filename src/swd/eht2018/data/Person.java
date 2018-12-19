@@ -16,9 +16,7 @@ import javax.persistence.OneToOne;
 
 @Entity
 public class Person implements Serializable{
-	/**
-	 * 
-	 */
+
 	private static final long serialVersionUID = 1L;
 
 	protected Person() {
@@ -43,7 +41,7 @@ public class Person implements Serializable{
 	private Address address;
 
 	@ManyToOne
-	private Department department;
+	private Betreuer betreuer;
 
 	@ManyToMany
 	@JoinTable(joinColumns = @JoinColumn(name = "PERSON_ID"), inverseJoinColumns = @JoinColumn(name = "PROJECT_ID"))
@@ -58,13 +56,13 @@ public class Person implements Serializable{
 		project.add(this);
 	}
 
-	public Department getDepartment() {
-		return department;
+	public Betreuer getBetreuer() {
+		return betreuer;
 	}
 
-	public void setDepartment(Department department) {
-		this.department = department;
-		department.addPerson(this);
+	public void setBetreuer(Betreuer betreuer) {
+		this.betreuer = betreuer;
+		betreuer.addPerson(this);
 	}
 
 	public int getId() {
