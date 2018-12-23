@@ -5,36 +5,45 @@
 	xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/persistence http://xmlns.jcp.org/xml/ns/persistence/persistence_2_1.xsd">
 	<persistence-unit name="swd"
 		transaction-type="RESOURCE_LOCAL">
-		<class>swd.eht2018.data.User</class>
-		<class>swd.eht2018.data.Address</class>
-		<class>swd.eht2018.data.Betreuer</class>
-		<class>swd.eht2018.data.Termin</class>
-		<class>swd.eht2018.data.Person</class>
+		<class>main.java.data.User</class>
+		<class>main.java.data.Address</class>
+		<class>main.java.data.Betreuer</class>
+		<class>main.java.data.Termin</class>
+		<class>main.java.data.Person</class>
 		<properties>
-			<!-- Configuring JDBC properties -->
-			<property name="javax.persistence.jdbc.url"
-				value="jdbc:h2:mem:test" />
-			<property name="javax.persistence.jdbc.driver"
-				value="org.h2.Driver" />
+			
+			<!--  AZURE 
+			<property name="javax.persistence.jdbc.url" value="jdbc:sqlserver://eht2018swd.database.windows.net:1433;database=swd;encrypt=true;trustServerCertificate=false;hostNameInCertificate=*.database.windows.net;loginTimeout=30;" />
 
-			<!-- Hibernate properties -->
-			<property name="hibernate.dialect"
-				value="org.hibernate.dialect.H2Dialect" />
-			<property name="hibernate.hbm2ddl.auto" value="validate" />
-			<property name="hibernate.format_sql" value="create" />
+       		<property name="javax.persistence.jdbc.user" value="username"/>
+            <property name="javax.persistence.jdbc.password" value="password"/>			
+
+			<property name="javax.persistence.jdbc.driver" value="com.microsoft.sqlserver.jdbc.SQLServerDriver" />
+			<property name="hibernate.dialect" value="org.hibernate.dialect.SQLServerDialect" />
 			<property name="hibernate.show_sql" value="true" />
+			
+			-->
 
-			<property name="eclipselink.logging.level" value="CONFIG" />
-			<property name="eclipselink.logging.level.sql" value="FINE" />
-
-			<property
-				name="javax.persistence.schema-generation.database.action"
-				value="drop-and-create" />
-			<property
-				name="javax.persistence.schema-generation.create-source"
-				value="metadata-then-script" />
-			<property name="javax.persistence.sql-load-script-source"
-				value="META-INF/create.sql" />
+			 <!-- in-memory database for testing on local machine only -->
+            <property name="javax.persistence.jdbc.url" value="jdbc:h2:mem:test"/>
+            <property name="javax.persistence.jdbc.driver" value="org.h2.Driver"/>
+            
+            <property name="hibernate.dialect" value="org.hibernate.dialect.H2Dialect"/>
+            <property name="hibernate.hbm2ddl.auto" value="validate"/>
+            <property name="hibernate.format_sql" value="create"/>
+            <property name="hibernate.show_sql" value="true"/>
+            
+            <property name="eclipselink.logging.level" value="CONFIG"/>
+            <property name="eclipselink.logging.level.sql" value="FINE"/>
+	
+	
+			
+			
+			
+			
+			<property name="javax.persistence.schema-generation.database.action" value="drop-and-create"/>
+			<property name="javax.persistence.schema-generation.create-source" value="metadata-then-script"/>
+        	<property name="javax.persistence.schema-generation.create-script-source" value="META-INF/create.sql"/>
 
 		</properties>
 	</persistence-unit>
