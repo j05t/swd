@@ -77,10 +77,6 @@ body {
 	<%
 		if (session != null) {
 			if (session.getAttribute("role") != null) {
-				response.setHeader("Cache-Control", "no-cache, no-store, must-revalidate"); // HTTP 1.1.
-				response.setHeader("Pragma", "no-cache"); // HTTP 1.0.
-				response.setDateHeader("Expires", 0);
-
 				String role = (String) session.getAttribute("role");
 				out.print("<h2>Hello, " + role + "  Welcome to your Dashboard</h2>");
 				out.print("  <p>Some content..</p>");

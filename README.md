@@ -2,10 +2,10 @@
 
 ### Import Project
 
-File - Import - General/Projects - From Folder or Archive
+File - Import - Maven - Existing Maven Projects
   
 ### Setup libraries
 
 Project - Properties - Java Build Path - Libraries - Add JARs:
 
-  * all jars in /lib
+  * all jars in /WebContent/WEB-INF/lib
