@@ -4,8 +4,10 @@
 
 File - Import - Maven - Existing Maven Projects
   
-### Setup libraries
+### Run
 
-Project - Properties - Java Build Path - Libraries - Add JARs:
+Run on local tomcat instance or at
 
-  * all jars in /WebContent/WEB-INF/lib
+https://webapp-swd.azurewebsites.net/
+
+* Login as admin / god
