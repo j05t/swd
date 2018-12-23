@@ -49,27 +49,25 @@ body {
 </head>
 <body>
 
-<script>
-function loadDoc(which) {
-	  var xhttp = new XMLHttpRequest();
-	  xhttp.onreadystatechange = function() {
-	    if (this.readyState == 4 && this.status == 200) {
-	     document.getElementById("content").innerHTML = this.responseText;
-	    }
-	  };
-	  
-	  if(which == "Patienten" || which == "Termine" || which == "Personal") {
-	  	xhttp.open("GET", which, true);
-	  	xhttp.send();
-	  }
-	}
-</script>
+	<script>
+		function loadDoc(which) {
+			var xhttp = new XMLHttpRequest();
+			xhttp.onreadystatechange = function() {
+				if (this.readyState == 4 && this.status == 200) {
+					document.getElementById("content").innerHTML = this.responseText;
+				}
+			};
+
+			xhttp.open("GET", which, true);
+			xhttp.send();
+		}
+	</script>
 
 	<div class="topnav">
-		<a class="active" href="#">Home</a> 
-		<a href="#" onclick="loadDoc('Patienten')">Patienten</a>
-		<a href="#" onclick="loadDoc('Termine')">Termine</a> 
-		<a href="#" onclick="loadDoc('Personal')">Personal</a>
+		<a class="active" href="#">Home</a> <a href="#"
+			onclick="loadDoc('Patienten')">Patienten</a> <a href="#"
+			onclick="loadDoc('Termine')">Termine</a> <a href="#"
+			onclick="loadDoc('Personal')">Personal</a>
 		<form id="logout" action="LogoutController" method="post">
 			<input class="w3-button w3-red" type="submit" value="Logout">
 		</form>

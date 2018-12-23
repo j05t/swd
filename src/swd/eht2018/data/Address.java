@@ -26,7 +26,7 @@ public class Address implements Serializable{
 	}
 
 	@Id
-	@Column(name = "PERSON_ID")
+	//@Column(name = "PERSON_ID")
 	private int personId;
 
 	private String street;

@@ -55,9 +55,10 @@ public class LoginController extends HttpServlet {
 		String password = request.getParameter("password");
 
 		User user = userService.find(username, password);
-
+		System.out.println("Found " + user);
+		
 		if (user != null) {
-			out.print("Welcome, " + username);
+			out.print("Welcome, " + username); // place XSS here..
 			HttpSession session = request.getSession(true); // reuse existing
 															// session if exist
 															// or create one
@@ -65,7 +66,7 @@ public class LoginController extends HttpServlet {
 			session.setMaxInactiveInterval(300); // 5 minutes
 			response.sendRedirect("app/home.jsp");
 		} else {
-			javax.servlet.RequestDispatcher rd = request.getRequestDispatcher("/login.html");
+			javax.servlet.RequestDispatcher rd = request.getRequestDispatcher("/index.html");
 			out.println("<font color=red>Either user name or password is wrong.</font>");
 			rd.include(request, response);
 		}

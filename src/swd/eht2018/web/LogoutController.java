@@ -21,10 +21,11 @@ public class LogoutController extends HttpServlet {
 
 		response.setContentType("text/html");
 		PrintWriter out = response.getWriter();
-		out.println("Session destroyed.");
+		out.println("Session destroyed. Display a nice logout message here.");
 		HttpSession session = request.getSession(false);
 		
 		if (session != null)
 			session.invalidate();
+
 	}
 }
