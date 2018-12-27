@@ -45,6 +45,7 @@ public class PersonDetail extends HttpServlet {
 				"  </tr>");
 		
 		Person p = (new PersonService()).findById(Integer.parseInt(id));
+		System.out.println(p.toString());
 
 		for (Vitalparameter v: p.getVitalParameter()) {
 			response.getWriter().append(

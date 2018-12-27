@@ -75,7 +75,7 @@
 		</dependency>
 -->
 
-		<!-- for local testing only - comment this out before deploying to azure -->
+		<!-- for local testing only - comment this out before deploying to azure-->
 		<dependency>
 			<groupId>org.eclipse.persistence</groupId>
 			<artifactId>org.eclipse.persistence.jpa</artifactId>

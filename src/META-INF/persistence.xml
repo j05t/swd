@@ -22,10 +22,9 @@
 
 			<property name="javax.persistence.jdbc.driver" value="com.microsoft.sqlserver.jdbc.SQLServerDriver" />
 			<property name="hibernate.dialect" value="org.hibernate.dialect.SQLServerDialect" />
-			<property name="hibernate.hbm2ddl.auto" value="update"/>
 			<property name="hibernate.show_sql" value="true" />
+-->
 			
-			-->
 
 			 <!-- in-memory database for testing on local machine only -->
             <property name="javax.persistence.jdbc.url" value="jdbc:h2:mem:test"/>

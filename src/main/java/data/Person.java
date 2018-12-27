@@ -8,6 +8,7 @@ import java.util.List;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
@@ -52,11 +53,15 @@ public class Person implements Serializable{
     
     private String ssn;
 
-    @OneToMany
+    @OneToMany(fetch = FetchType.EAGER)
     private List<Vitalparameter> vitalParameter;
     
     public List<Vitalparameter> getVitalParameter() {
     	return vitalParameter;
+    }
+    
+    public String toString() {
+    	return getId() + " " + getFirstName() + " " + getLastName() + " Vitalparameter: " + getVitalParameter().toString() ;
     }
 
 	@OneToOne(mappedBy = "person", cascade = CascadeType.ALL)
