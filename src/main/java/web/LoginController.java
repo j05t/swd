@@ -64,7 +64,7 @@ public class LoginController extends HttpServlet {
 															// or create one
 			session.setAttribute("role", user.getRole());
 			session.setMaxInactiveInterval(300); // 5 minutes
-			response.sendRedirect("app/home.jsp");
+			response.sendRedirect("app/Dashboard.jsp");
 		} else {
 			javax.servlet.RequestDispatcher rd = request.getRequestDispatcher("/index.html");
 			out.println("<font color=red>Either user name or password is wrong.</font>");

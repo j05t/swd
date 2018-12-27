@@ -23,7 +23,7 @@ import main.java.data.Person;
 import main.java.data.Termin;
 
 @FixMethodOrder(MethodSorters.NAME_ASCENDING)
-public class ProjectTest {
+public class BetreuerTest {
 
 	private static EntityManagerFactory factory;
 	private static EntityManager manager;

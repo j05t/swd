@@ -45,6 +45,29 @@ body {
 	text-decoration: none;
 	font-size: 17px;
 }
+
+
+table {
+  font-family: arial, sans-serif;
+  border-collapse: collapse;
+  width: 100%;
+}
+
+td, th {
+  border: 1px solid #dddddd;
+  text-align: left;
+  padding: 8px;
+}
+
+tr:nth-child(even) {
+  background-color: #dddddd;
+}
+
+#content {
+padding: 32px;
+
+}
+
 </style>
 </head>
 <body>
@@ -60,14 +83,23 @@ body {
 
 			xhttp.open("GET", which, true);
 			xhttp.send();
+			
+			var x = document.getElementsByClassName("active");
+			var i;
+			for (i = 0; i < x.length; i++) {
+			  x[i].classList.remove("active");
+			}
+			
+			document.getElementById(which).classList.add("active");	
 		}
 	</script>
 
 	<div class="topnav">
-		<a class="active" href="#">Home</a> <a href="#"
-			onclick="loadDoc('Patienten')">Patienten</a> <a href="#"
-			onclick="loadDoc('Termine')">Termine</a> <a href="#"
-			onclick="loadDoc('Personal')">Personal</a>
+		<a href="#" id="Home" onclick="loadDoc('Home')">Home</a> 
+		<a href="#" id="Patienten" onclick="loadDoc('Patienten')">Patienten</a> 
+		<a href="#" id="Termine" onclick="loadDoc('Termine')">Termine</a> 
+		<a href="#" id="Personal" onclick="loadDoc('Personal')">Personal</a>
+		
 		<form id="logout" action="LogoutController" method="post">
 			<input class="w3-button w3-red" type="submit" value="Logout">
 		</form>
@@ -78,15 +110,16 @@ body {
 		if (session != null) {
 			if (session.getAttribute("role") != null) {
 				String role = (String) session.getAttribute("role");
-				out.print("<h2>Hello, " + role + "  Welcome to your Dashboard</h2>");
-				out.print("  <p>Some content..</p>");
+				
+				out.print("<script>loadDoc('Home')</script>");
+
 			} else {
 				response.sendRedirect("/index.html");
 			}
 		}
 	%>
 
-	<div id="content" style="padding-left: 16px"></div>
+	<div id="content"></div>
 
 
 </body>

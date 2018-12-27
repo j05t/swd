@@ -7,20 +7,17 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import main.java.data.Person;
-import main.java.data.PersonService;
-
 /**
- * Servlet implementation class Patienten
+ * Servlet implementation class Home
  */
-@WebServlet("/app/Patienten")
-public class Patienten extends HttpServlet {
+@WebServlet("/app/Home")
+public class Home extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public Patienten() {
+    public Home() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -29,23 +26,8 @@ public class Patienten extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		response.getWriter().append("<table>\n" + 
-				"  <tr>\n" + 
-				"    <th>Id</th>\n" + 
-				"    <th>Vorname</th>\n" + 
-				"    <th>Nachname</th>\n" + 
-				"  </tr>");
-		
-		for(Person p: PersonService.getInstance().findAll()) {
-			response.getWriter().append(
-			"  <tr>\n" + 
-			"    <td>" + p.getId() + "</td>\n" + 
-			"    <td>" + p.getFirstName() + "</td>\n" + 
-			"    <td>" + p.getLastName() + "</td>\n" + 
-			"  </tr>");
-		}
-		
-		response.getWriter().append("</table>");
+		// TODO Auto-generated method stub
+		response.getWriter().append("Served Home");
 	}
 
 	/**

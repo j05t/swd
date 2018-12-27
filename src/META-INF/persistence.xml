@@ -10,6 +10,7 @@
 		<class>main.java.data.Betreuer</class>
 		<class>main.java.data.Termin</class>
 		<class>main.java.data.Person</class>
+		<class>main.java.data.Role</class>
 		<properties>
 			
 			<!--  AZURE 

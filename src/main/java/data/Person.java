@@ -51,9 +51,9 @@ public class Person implements Serializable{
 		return termine;
 	}
 
-	public void add(Termin project) {
-		termine.add(project);
-		project.add(this);
+	public void add(Termin termin) {
+		termine.add(termin);
+		termin.add(this);
 	}
 
 	public Betreuer getBetreuer() {
