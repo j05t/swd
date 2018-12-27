@@ -63,21 +63,30 @@ tr:nth-child(even) {
   background-color: #dddddd;
 }
 
+tr{
+  cursor: pointer; 
+}
+
 #content {
 padding: 32px;
+}
 
+#personDetail {
+padding: 32px;
 }
 
 </style>
 </head>
 <body>
 
-	<script>
-		function loadDoc(which) {
+	<script type="text/javascript">
+		function loadDoc(which, where) {
+			where = where || "content";
+			
 			var xhttp = new XMLHttpRequest();
 			xhttp.onreadystatechange = function() {
 				if (this.readyState == 4 && this.status == 200) {
-					document.getElementById("content").innerHTML = this.responseText;
+					document.getElementById(where).innerHTML = this.responseText;
 				}
 			};
 
