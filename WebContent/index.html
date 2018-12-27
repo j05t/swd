@@ -119,8 +119,13 @@ body {
 	-webkit-font-smoothing: antialiased;
 	-moz-osx-font-smoothing: grayscale;
 }
+
+#badLogin {
+	color: red;
+}
 </style>
 </head>
+
 <body>
 
 	<div class="login-page">
@@ -131,8 +136,19 @@ body {
 				<button>login</button>
 				<p class="message">Not registered? <a href="/CreateAccount">Create an account</a></p>
 			</form>
+			<p>(Login as admin/god)</p>
+			<div id="badLogin"></div>
 		</div>
 	</div>
+	
+	<script>
+		var query = window.location.hash.substr(1);
+
+		if(query == "badLogin") {
+			document.getElementById("badLogin").innerHTML = "<p>Wrong username or password</p>";
+		}	
+	</script>
 
 </body>
+
 </html>

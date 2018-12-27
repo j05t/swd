@@ -105,7 +105,6 @@ padding: 32px;
 		</form>
 	</div>
 
-
 	<%
 		if (session != null) {
 			if (session.getAttribute("role") != null) {
@@ -120,7 +119,6 @@ padding: 32px;
 	%>
 
 	<div id="content"></div>
-
 
 </body>
 </html>
