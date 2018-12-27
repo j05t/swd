@@ -1,6 +1,7 @@
 package main.java.data;
 
 import java.io.Serializable;
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -37,6 +38,16 @@ public class Person implements Serializable{
 	@Column(name = "LAST_NAME")
 	private String lastName;
 
+	@Column(name = "AGE")
+	private int age;
+
+	@Column(name = "COMMENT")
+	private String comment;
+
+	@Column(name= "ADMISSION_DATE")
+    private LocalDate admissionDate;
+
+	
 	@OneToOne(mappedBy = "person", cascade = CascadeType.ALL)
 	private Address address;
 
@@ -96,6 +107,30 @@ public class Person implements Serializable{
 	public void setAddress(Address address) {
 		this.address = address;
 		address.setPerson(this);
+	}
+
+	public int getAge() {
+		return age;
+	}
+
+	public void setAge(int age) {
+		this.age = age;
+	}
+
+	public String getComment() {
+		return comment != null ? comment: "";
+	}
+
+	public void setComment(String comment) {
+		this.comment = comment;
+	}
+
+	public LocalDate getAdmissionDate() {
+		return admissionDate;
+	}
+
+	public void setAdmissionDate(LocalDate admissionDate) {
+		this.admissionDate = admissionDate;
 	}
 
 }

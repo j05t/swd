@@ -31,17 +31,21 @@ public class Patienten extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		response.getWriter().append("<table>\n" + 
 				"  <tr>\n" + 
-				"    <th>Id</th>\n" + 
 				"    <th>Vorname</th>\n" + 
 				"    <th>Nachname</th>\n" + 
+				"    <th>Alter</th>\n" + 
+				"    <th>Aufnahmedatum</th>\n" + 
+				"    <th>Kommentar</th>\n" + 
 				"  </tr>");
 		
 		for(Person p: PersonService.getInstance().findAll()) {
 			response.getWriter().append(
 			"  <tr onclick=\"loadDoc('PersonDetail?id=" + p.getId() + "', 'personDetail')\">\n" + 
-			"    <td>" + p.getId() + "</td>\n" + 
 			"    <td>" + p.getFirstName() + "</td>\n" + 
 			"    <td>" + p.getLastName() + "</td>\n" + 
+			"    <td>" + p.getAge() + "</td>\n" + 
+			"    <td>" + p.getAdmissionDate() + "</td>\n" + 
+			"    <td>" + p.getComment() + "</td>\n" + 
 			"  </tr>");
 		}
 		
