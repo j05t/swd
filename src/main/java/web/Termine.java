@@ -10,9 +10,9 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import main.java.data.Person;
-import main.java.data.PersonService;
 import main.java.data.Termin;
-import main.java.data.TerminService;
+import main.service.PersonService;
+import main.service.TerminService;
 
 /**
  * Servlet implementation class Termine
@@ -40,7 +40,7 @@ public class Termine extends HttpServlet {
 				"    <th>Patienten</th>\n" + 
 				"  </tr>");
 		
-		for(Termin t: TerminService.getInstance().findAll()) {
+		for(Termin t: (new TerminService()).findAll()) {
 			
 			StringBuilder sb = new StringBuilder();
 			sb.append("<ul>");

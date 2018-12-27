@@ -2,7 +2,6 @@ package main.java.data;
 
 import java.io.Serializable;
 
-import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.MapsId;
@@ -26,7 +25,6 @@ public class Address implements Serializable{
 	}
 
 	@Id
-	//@Column(name = "PERSON_ID")
 	private int personId;
 
 	private String street;
@@ -67,5 +65,9 @@ public class Address implements Serializable{
 
 	public void setZip(String zip) {
 		this.zip = zip;
+	}
+	
+	public String toString() {
+		return getStreet() + ", " + getZip() + " " + getCity();
 	}
 }

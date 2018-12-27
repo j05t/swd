@@ -11,7 +11,8 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import main.java.data.User;
-import main.java.data.UserService;
+import main.service.JPAService;
+import main.service.UserService;
 
 
 /**
@@ -27,7 +28,7 @@ public class LoginController extends HttpServlet {
 	 */
 	public LoginController() {
 		super();
-		userService = UserService.getInstance();
+		userService = new UserService();
 	}
 
 	/**

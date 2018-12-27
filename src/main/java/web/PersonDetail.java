@@ -7,6 +7,10 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import main.java.data.Person;
+import main.java.data.Vitalparameter;
+import main.service.PersonService;
+
 /**
  * Servlet implementation class PersonDetail
  */
@@ -28,7 +32,35 @@ public class PersonDetail extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         String id = request.getParameter("id");
 
-		response.getWriter().append("Served detail for Person" + id);
+		response.getWriter().append("<table>\n" + 
+				"  <tr>\n" + 
+				"    <th>Datum</th>\n" + 
+				"    <th>BD Diastolisch</th>\n" + 
+				"    <th>BD Systolisch</th>\n" + 
+				"    <th>Puls</th>\n" + 
+				"    <th>Temperatur</th>\n" + 
+				"    <th>NRS Belastungsschmerz</th>\n" + 
+				"    <th>NRS Maximalschmerz</th>\n" + 
+				"    <th>NRS Ruheschmerz</th>\n" + 
+				"  </tr>");
+		
+		Person p = (new PersonService()).findById(Integer.parseInt(id));
+
+		for (Vitalparameter v: p.getVitalParameter()) {
+			response.getWriter().append(
+			"  <tr>\n" + 
+			"    <td>" + v.getDiagnosisDate() + "</td>\n" + 
+			"    <td>" + v.getBlutdruckDiastolisch() + "</td>\n" + 
+			"    <td>" + v.getBlutdruckSystolisch() + "</td>\n" + 
+			"    <td>" + v.getPuls() + "</td>\n" + 
+			"    <td>" + v.getTemperatur() + "</td>\n" + 
+			"    <td>" + v.getBelastungsSchmerz() + "</td>\n" + 
+			"    <td>" + v.getMaximalSchmerz() + "</td>\n" + 
+			"    <td>" + v.getRuheSchmerz() + "</td>\n" + 
+			"  </tr>");
+		}
+		
+		response.getWriter().append("</table>");
 	}
 
 	/**

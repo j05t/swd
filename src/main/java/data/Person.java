@@ -13,6 +13,7 @@ import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 
 @Entity
@@ -47,7 +48,17 @@ public class Person implements Serializable{
 	@Column(name= "ADMISSION_DATE")
     private LocalDate admissionDate;
 
-	
+    private LocalDate birthDate;
+    
+    private String ssn;
+
+    @OneToMany
+    private List<Vitalparameter> vitalParameter;
+    
+    public List<Vitalparameter> getVitalParameter() {
+    	return vitalParameter;
+    }
+
 	@OneToOne(mappedBy = "person", cascade = CascadeType.ALL)
 	private Address address;
 
@@ -131,6 +142,22 @@ public class Person implements Serializable{
 
 	public void setAdmissionDate(LocalDate admissionDate) {
 		this.admissionDate = admissionDate;
+	}
+
+	public String getSsn() {
+		return ssn;
+	}
+
+	public void setSsn(String ssn) {
+		this.ssn = ssn;
+	}
+
+	public LocalDate getBirthDate() {
+		return birthDate;
+	}
+
+	public void setBirthDate(LocalDate birthDate) {
+		this.birthDate = birthDate;
 	}
 
 }

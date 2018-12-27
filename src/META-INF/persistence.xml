@@ -11,6 +11,7 @@
 		<class>main.java.data.Termin</class>
 		<class>main.java.data.Person</class>
 		<class>main.java.data.Role</class>
+		<class>main.java.data.Vitalparameter</class>
 		<properties>
 			
 			<!--  AZURE 

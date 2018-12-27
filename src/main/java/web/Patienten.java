@@ -8,7 +8,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import main.java.data.Person;
-import main.java.data.PersonService;
+import main.service.PersonService;
 
 /**
  * Servlet implementation class Patienten
@@ -35,12 +35,12 @@ public class Patienten extends HttpServlet {
 				"    <th>Nachname</th>\n" + 
 				"    <th>Alter</th>\n" + 
 				"    <th>Aufnahmedatum</th>\n" + 
-				"    <th>Kommentar</th>\n" + 
+				"    <th>Warnhinweise</th>\n" + 
 				"  </tr>");
 		
-		for(Person p: PersonService.getInstance().findAll()) {
+		for(Person p: (new PersonService()).findAll()) {
 			response.getWriter().append(
-			"  <tr onclick=\"loadDoc('PersonDetail?id=" + p.getId() + "', 'personDetail')\">\n" + 
+			"  <tr title=\"" + p.getAddress().toString() + "\" onclick=\"loadDoc('PersonDetail?id=" + p.getId() + "', 'personDetail')\">\n" + 
 			"    <td>" + p.getFirstName() + "</td>\n" + 
 			"    <td>" + p.getLastName() + "</td>\n" + 
 			"    <td>" + p.getAge() + "</td>\n" + 

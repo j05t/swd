@@ -1,4 +1,4 @@
-package main.java.data;
+package main.service;
 
 import java.io.FileInputStream;
 import java.io.IOException;
@@ -7,19 +7,16 @@ import java.util.Properties;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.EntityTransaction;
-import javax.persistence.NoResultException;
 import javax.persistence.Persistence;
-import javax.persistence.Query;
 
-public class UserService {
+public class JPAService {
 	private static EntityManagerFactory factory;
 	private static EntityManager manager;
 	private static EntityTransaction transaction;
-
-	private static UserService instance;
-
-	private UserService() {
-		
+	
+	private static JPAService instance;
+	
+	private JPAService() {
 		Properties props = new Properties();
 		try {
 			props.load(new FileInputStream("persistence.properties"));
@@ -31,29 +28,21 @@ public class UserService {
 		
 		manager = factory.createEntityManager();
 		transaction = manager.getTransaction();
-	};
-
-	public User find(String username, String password) {
-		Query query = manager.createQuery("Select u from User u WHERE u.userName LIKE :username");
-		query.setParameter("username", username);
-		
-		try {
-			User u = (User) query.getSingleResult();
-			return u;
-		} catch (NoResultException e) {
-			System.out.println("no result");
-			// not found
-		} 
-
-		return null;
 	}
 
-	public static UserService getInstance() {
-		// TODO Auto-generated method stub
-		if (instance == null)
-			instance = new UserService();
-
+	public static EntityManager getEntityManager() {
+		return manager;
+	};
+	
+	public static EntityTransaction getEntityTransaction() {
+		return transaction;
+	};
+	
+	
+	public static JPAService getInstance() {
+		if(instance ==  null) 
+			instance = new JPAService();
+		
 		return instance;
 	}
-
 }
