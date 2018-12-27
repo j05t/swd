@@ -20,6 +20,7 @@
 
 			<property name="javax.persistence.jdbc.driver" value="com.microsoft.sqlserver.jdbc.SQLServerDriver" />
 			<property name="hibernate.dialect" value="org.hibernate.dialect.SQLServerDialect" />
+			<property name="hibernate.hbm2ddl.auto" value="update"/>
 			<property name="hibernate.show_sql" value="true" />
 			
 			-->
@@ -29,21 +30,18 @@
             <property name="javax.persistence.jdbc.driver" value="org.h2.Driver"/>
             
             <property name="hibernate.dialect" value="org.hibernate.dialect.H2Dialect"/>
-            <property name="hibernate.hbm2ddl.auto" value="validate"/>
+            <property name="hibernate.hbm2ddl.auto" value="update"/>
             <property name="hibernate.format_sql" value="create"/>
             <property name="hibernate.show_sql" value="true"/>
             
             <property name="eclipselink.logging.level" value="CONFIG"/>
             <property name="eclipselink.logging.level.sql" value="FINE"/>
+
+
 	
-	
-			
-			
-			
-			
 			<property name="javax.persistence.schema-generation.database.action" value="drop-and-create"/>
 			<property name="javax.persistence.schema-generation.create-source" value="metadata-then-script"/>
-        	<property name="javax.persistence.schema-generation.create-script-source" value="META-INF/create.sql"/>
+        	<property name="javax.persistence.schema-generation.create-script-source" value="META-INF/insert.sql"/>
 
 		</properties>
 	</persistence-unit>
