@@ -93,13 +93,14 @@ padding: 32px;
 			xhttp.open("GET", which, true);
 			xhttp.send();
 			
-			var x = document.getElementsByClassName("active");
-			var i;
-			for (i = 0; i < x.length; i++) {
-			  x[i].classList.remove("active");
+			if (where == "content") {
+				var x = document.getElementsByClassName("active");
+				for (var i = 0; i < x.length; i++) {
+				  x[i].classList.remove("active");
+				}
+				
+				document.getElementById(which).classList.add("active");	
 			}
-			
-			document.getElementById(which).classList.add("active");	
 		}
 	</script>
 

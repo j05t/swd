@@ -58,7 +58,6 @@ public class LoginController extends HttpServlet {
 		System.out.println("Found " + user);
 		
 		if (user != null) {
-			out.print("Welcome, " + username); // place XSS here..
 			HttpSession session = request.getSession(true); // reuse existing
 															// session if exist
 															// or create one

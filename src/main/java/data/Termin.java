@@ -9,6 +9,7 @@ import java.util.List;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.Id;
 import javax.persistence.ManyToMany;
 
@@ -20,32 +21,32 @@ public class Termin implements Serializable {
 	private int id;
 	private String name;
 
-	@ManyToMany(mappedBy = "termine")
+	@ManyToMany(mappedBy = "termine",  fetch=FetchType.EAGER)
 	private List<Person> persons = new ArrayList<Person>();
 
 	protected Termin() {
 	};
 	
 	@Column
-    private LocalDate date;
+    private LocalDate datum;
 	@Column
-    private LocalTime time;
+    private LocalTime zeit;
     
     
 	public LocalDate getDate() {
-		return date;
+		return datum;
 	}
 
 	public void setDate(LocalDate date) {
-		this.date = date;
+		this.datum = date;
 	}
 
 	public LocalTime getTime() {
-		return time;
+		return zeit;
 	}
 
 	public void setTime(LocalTime time) {
-		this.time = time;
+		this.zeit = time;
 	}
 
 	public Termin(int id, String name) {
