@@ -18,7 +18,7 @@ import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 
 @Entity
-public class Person implements Serializable{
+public class Person implements Serializable {
 
 	private static final long serialVersionUID = 1L;
 
@@ -46,23 +46,25 @@ public class Person implements Serializable{
 	@Column(name = "COMMENT")
 	private String comment;
 
-	@Column(name= "ADMISSION_DATE")
-    private LocalDate admissionDate;
+	@Column(name = "ADMISSION_DATE")
+	private LocalDate admissionDate;
 
-    private LocalDate birthDate;
-    
-    private String ssn;
+	private LocalDate birthDate;
 
-    @OneToMany(fetch = FetchType.EAGER)
-    private List<Vitalparameter> vitalParameter;
-    
-    public List<Vitalparameter> getVitalParameter() {
-    	return vitalParameter;
-    }
-    
-    public String toString() {
-    	return getId() + " " + getFirstName() + " " + getLastName() + " Vitalparameter: " + getVitalParameter().toString() ;
-    }
+	private String ssn;
+
+	@OneToMany(fetch = FetchType.EAGER)
+	private List<Vitalparameter> vitalParameter;
+
+	public List<Vitalparameter> getVitalParameter() {
+		return vitalParameter;
+	}
+
+	public String toString() {
+		return getId() + " " + getFirstName() + " " + getLastName() + " Age " + getAge() + " Admission date "
+				+ getAdmissionDate() + " Comment " + getComment() + " Vitalparameter: "
+				+ getVitalParameter().toString();
+	}
 
 	@OneToOne(mappedBy = "person", cascade = CascadeType.ALL)
 	private Address address;
@@ -134,7 +136,7 @@ public class Person implements Serializable{
 	}
 
 	public String getComment() {
-		return comment != null ? comment: "";
+		return comment != null ? comment : "";
 	}
 
 	public void setComment(String comment) {

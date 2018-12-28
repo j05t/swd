@@ -41,7 +41,7 @@ public class Personal extends HttpServlet {
 		
 		for(Betreuer p: (new PersonalService()).findAll()) {
 			response.getWriter().append(
-			"  <tr onclick=\"loadDoc('PersonalDetail?id=" + p.getId() + "', 'personDetail')\">\n" + 
+			"  <tr onclick=\"loadDoc('PersonalDetail?id=" + p.getId() + "', 'detail')\">\n" + 
 			"    <td>" + p.getRole() + "</td>\n" + 
 			"    <td>" + p.getName() + "</td>\n" + 
 			"    <td>" + p.getFachgebiet() + "</td>\n" + 
@@ -49,7 +49,7 @@ public class Personal extends HttpServlet {
 			"  </tr>");
 		}
 		
-		response.getWriter().append("</table><div id=\"personDetail\"></div>");
+		response.getWriter().append("</table>");
 	}
 
 	/**

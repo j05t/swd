@@ -36,20 +36,25 @@ public class Patienten extends HttpServlet {
 				"    <th>Alter</th>\n" + 
 				"    <th>Aufnahmedatum</th>\n" + 
 				"    <th>Warnhinweise</th>\n" + 
+				"    <th>Tools</th>\n" + 
 				"  </tr>");
 		
 		for(Person p: (new PatientService()).findAll()) {
+			String onClick = " onclick=\"loadDoc('PersonDetail?id=" + p.getId() + "', 'detail')\" ";
+			String onBtnClick = " onclick=\"loadDoc('EditPatient?id=" + p.getId() + "', 'editContent'); document.getElementById('myModal').style.display='block';\"";
 			response.getWriter().append(
-			"  <tr title=\"" + p.getAddress().toString() + "\" onclick=\"loadDoc('PersonDetail?id=" + p.getId() + "', 'personDetail')\">\n" + 
-			"    <td>" + p.getFirstName() + "</td>\n" + 
+			"  <tr title=\"" + p.getAddress().toString() + "\">\n" +
+			"    <td" + onClick + ">" + p.getFirstName() + "</td>\n" + 
 			"    <td>" + p.getLastName() + "</td>\n" + 
 			"    <td>" + p.getAge() + "</td>\n" + 
 			"    <td>" + p.getAdmissionDate() + "</td>\n" + 
 			"    <td>" + p.getComment() + "</td>\n" + 
+			"    <td><button" + onBtnClick + ">Edit</button>\n" + 
+			"</td>\n" + 
 			"  </tr>");
 		}
 		
-		response.getWriter().append("</table><div id=\"personDetail\"></div>");
+		response.getWriter().append("</table>");
 	}
 
 	/**

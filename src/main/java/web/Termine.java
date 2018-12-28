@@ -50,14 +50,14 @@ public class Termine extends HttpServlet {
 			sb.append("</ul>");
 				
 			response.getWriter().append(
-			"  <tr onclick=\"loadDoc('TerminDetail?id=" + t.getId() + "', 'personDetail')\">\n" + 
+			"  <tr onclick=\"loadDoc('TerminDetail?id=" + t.getId() + "', 'detail')\">\n" + 
 			"    <td>" + t.getDate() + "</td>\n" + 
 			"    <td>" + t.getTime() + "</td>\n" + 
 			"    <td>" + sb.toString() + "</td>\n" + 
 			"  </tr>");
 		}
 		
-		response.getWriter().append("</table><div id=\"personDetail\"></div>");
+		response.getWriter().append("</table>");
 	}
 
 	/**
