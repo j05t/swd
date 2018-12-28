@@ -1,4 +1,4 @@
-package main.service;
+package main.java.service;
 
 import java.io.FileInputStream;
 import java.io.IOException;

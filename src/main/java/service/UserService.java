@@ -1,4 +1,4 @@
-package main.service;
+package main.java.service;
 
 
 import javax.persistence.NoResultException;

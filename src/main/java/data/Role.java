@@ -12,6 +12,7 @@ import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 
 @Entity
@@ -23,4 +24,7 @@ public class Role implements Serializable{
 	@Column(name = "NAME")
 	private String name;
 
+	public String toString() {
+		return this.name;
+	}
 }

@@ -67,6 +67,10 @@ tr{
   cursor: pointer; 
 }
 
+tr:hover{
+  background-color: #caffee;
+}
+
 
 .tooltip {
   position: relative;

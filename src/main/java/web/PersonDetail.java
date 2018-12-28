@@ -9,7 +9,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import main.java.data.Person;
 import main.java.data.Vitalparameter;
-import main.service.PersonService;
+import main.java.service.PatientService;
 
 /**
  * Servlet implementation class PersonDetail
@@ -44,7 +44,7 @@ public class PersonDetail extends HttpServlet {
 				"    <th>NRS Ruheschmerz</th>\n" + 
 				"  </tr>");
 		
-		Person p = (new PersonService()).findById(Integer.parseInt(id));
+		Person p = (new PatientService()).findById(Integer.parseInt(id));
 		System.out.println(p.toString());
 
 		for (Vitalparameter v: p.getVitalParameter()) {

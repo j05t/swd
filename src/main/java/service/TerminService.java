@@ -1,4 +1,4 @@
-package main.service;
+package main.java.service;
 
 import java.util.List;
 import javax.persistence.NoResultException;
@@ -10,7 +10,7 @@ public class TerminService {
 	private static JPAService service = JPAService.getInstance();
 
 	public List<Termin> findAll() {
-		Query query = service.getEntityManager().createQuery("Select t from Termin t");
+		Query query = service.getEntityManager().createQuery("Select t from Termin t order by t.datum desc");
 
 		try {
 			return query.getResultList();

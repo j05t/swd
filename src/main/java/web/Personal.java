@@ -7,6 +7,11 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import main.java.data.Betreuer;
+import main.java.data.Person;
+import main.java.service.PatientService;
+import main.java.service.PersonalService;
+
 /**
  * Servlet implementation class Personal
  */
@@ -26,8 +31,25 @@ public class Personal extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// TODO Auto-generated method stub
-		response.getWriter().append("Served Personal");
+		response.getWriter().append("<table>\n" + 
+				"  <tr>\n" + 
+				"    <th>Funktion</th>\n" + 
+				"    <th>Name</th>\n" + 
+				"    <th>Fachgebiet</th>\n" + 
+				"    <th>Durchwahl</th>\n" + 
+				"  </tr>");
+		
+		for(Betreuer p: (new PersonalService()).findAll()) {
+			response.getWriter().append(
+			"  <tr onclick=\"loadDoc('PersonalDetail?id=" + p.getId() + "', 'personDetail')\">\n" + 
+			"    <td>" + p.getRole() + "</td>\n" + 
+			"    <td>" + p.getName() + "</td>\n" + 
+			"    <td>" + p.getFachgebiet() + "</td>\n" + 
+			"    <td>" + p.getDurchwahl() + "</td>\n" + 
+			"  </tr>");
+		}
+		
+		response.getWriter().append("</table><div id=\"personDetail\"></div>");
 	}
 
 	/**

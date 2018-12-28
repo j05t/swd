@@ -11,8 +11,8 @@ import javax.servlet.http.HttpServletResponse;
 
 import main.java.data.Person;
 import main.java.data.Termin;
-import main.service.PersonService;
-import main.service.TerminService;
+import main.java.service.PatientService;
+import main.java.service.TerminService;
 
 /**
  * Servlet implementation class Termine

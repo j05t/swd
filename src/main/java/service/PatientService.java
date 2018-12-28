@@ -1,4 +1,4 @@
-package main.service;
+package main.java.service;
 
 import java.util.List;
 import javax.persistence.NoResultException;
@@ -6,7 +6,7 @@ import javax.persistence.Query;
 
 import main.java.data.Person;
 
-public class PersonService {
+public class PatientService {
 	private static JPAService service = JPAService.getInstance();
 
 	public List<Person> find(String firstName, String lastName) {

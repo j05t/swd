@@ -11,8 +11,8 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import main.java.data.User;
-import main.service.JPAService;
-import main.service.UserService;
+import main.java.service.JPAService;
+import main.java.service.UserService;
 
 
 /**
@@ -63,7 +63,7 @@ public class LoginController extends HttpServlet {
 															// session if exist
 															// or create one
 			session.setAttribute("role", user.getRole());
-			session.setMaxInactiveInterval(300); // 5 minutes
+			session.setMaxInactiveInterval(600); // 10 minutes
 			response.sendRedirect("app/Dashboard.jsp");
 		} else {            
 			response.sendRedirect(request.getContextPath() + "/index.html#badLogin");

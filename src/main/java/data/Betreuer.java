@@ -5,7 +5,9 @@ import java.util.ArrayList;
 import java.util.Collection;
 
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.Id;
+import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 
 @Entity
@@ -28,6 +30,38 @@ public class Betreuer implements Serializable{
 	private int id;
 
 	private String name;
+	
+	@ManyToOne(fetch =FetchType.EAGER)
+	private Role role;
+	
+	public Role getRole() {
+		return role;
+	}
+
+	public void setRole(Role role) {
+		this.role = role;
+	}
+
+	public String getFachgebiet() {
+		return fachgebiet;
+	}
+
+	public void setFachgebiet(String fachgebiet) {
+		this.fachgebiet = fachgebiet;
+	}
+
+	public String getDurchwahl() {
+		return durchwahl;
+	}
+
+	public void setDurchwahl(String durchwahl) {
+		this.durchwahl = durchwahl;
+	}
+
+	private String fachgebiet;
+	
+	private String durchwahl;
+	
 
 	public String getName() {
 		return name;
