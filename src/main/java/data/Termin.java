@@ -22,7 +22,7 @@ public class Termin implements Serializable {
 	private String name;
 
 	@ManyToMany(mappedBy = "termine",  fetch=FetchType.EAGER)
-	private List<Person> persons = new ArrayList<Person>();
+	private List<Patient> persons = new ArrayList<Patient>();
 
 	protected Termin() {
 	};
@@ -54,7 +54,7 @@ public class Termin implements Serializable {
 		setName(name);
 	}
 
-	public void add(Person person) {
+	public void add(Patient person) {
 		persons.add(person);
 	}
 
@@ -74,11 +74,11 @@ public class Termin implements Serializable {
 		this.name = name;
 	}
 
-	public List<Person> getPersons() {
+	public List<Patient> getPersons() {
 		return persons;
 	}
 
-	public void setPersons(List<Person> persons) {
+	public void setPersons(List<Patient> persons) {
 		this.persons = persons;
 	}
 

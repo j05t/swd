@@ -5,13 +5,13 @@ import java.util.List;
 import javax.persistence.NoResultException;
 import javax.persistence.Query;
 
-import main.java.data.Betreuer;
+import main.java.data.Arzt;
 
 public class PersonalService {
 	private static JPAService service = JPAService.getInstance();
 
-	public List<Betreuer> find(String name) {
-		Query query = service.getEntityManager().createQuery("Select p from Betreuer p WHERE p.name LIKE :name");
+	public List<Arzt> find(String name) {
+		Query query = service.getEntityManager().createQuery("Select p from Arzt p WHERE p.name LIKE :name");
 		query.setParameter("name", name);
 
 		try {
@@ -24,8 +24,8 @@ public class PersonalService {
 		return null;
 	}
 	
-	public List<Betreuer> findAll() {
-		Query query = service.getEntityManager().createQuery("Select p from Betreuer p");
+	public List<Arzt> findAll() {
+		Query query = service.getEntityManager().createQuery("Select p from Arzt p");
 
 		try {
 			return query.getResultList();
@@ -37,12 +37,12 @@ public class PersonalService {
 		return null;
 	}
 
-	public Betreuer findById(int betreuerId) {
-		Query query = service.getEntityManager().createQuery("Select p from Betreuer p where p.id like :betreuerId");
-		query.setParameter("betreuerId", betreuerId);
+	public Arzt findById(int arztId) {
+		Query query = service.getEntityManager().createQuery("Select p from Arzt p where p.id like :arztId");
+		query.setParameter("arztId", arztId);
 
 		try {
-			return (Betreuer) query.getSingleResult();
+			return (Arzt) query.getSingleResult();
 		} catch (NoResultException e) {
 			System.out.println("no result");
 			// not found

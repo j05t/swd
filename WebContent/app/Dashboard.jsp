@@ -184,6 +184,31 @@ input[type=button], input[type=submit], input[type=reset] {
 	margin: 2px 2px;
 	cursor: pointer;
 }
+
+#newButton {
+  background-color: #4CAF50; /* Green */
+  border: none;
+  color: white;
+  margin: 8px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 24px;
+  border-radius: 50%;
+  height: 32px;
+  width: 32px;
+}
+
+#editSubmit {
+  background-color: #4CAF50; /* Green */
+  border: none;
+  color: white;
+  text-align: center;
+  text-decoration: none;
+  font-size: 16px;
+  margin-left: 32px;
+}
+
 </style>
 
 
@@ -193,9 +218,8 @@ input[type=button], input[type=submit], input[type=reset] {
 <body>
 
 	<div class="topnav">
-		<a href="#" id="Home" onclick="loadDoc('Home')">Home</a> <a href="#"
-			id="Patienten" onclick="loadDoc('Patienten')">Patienten</a> <a
-			href="#" id="Termine" onclick="loadDoc('Termine')">Termine</a> <a
+		<a href="#" id="Patienten" onclick="loadDoc('Patienten')">Patienten</a>
+		<a href="#" id="Termine" onclick="loadDoc('Termine')">Termine</a> <a
 			href="#" id="Personal" onclick="loadDoc('Personal')">Personal</a>
 
 		<form id="logout" action="LogoutController" method="post">
@@ -205,7 +229,6 @@ input[type=button], input[type=submit], input[type=reset] {
 
 
 	<div id="content"></div>
-	<div id="detail"></div>
 
 
 	<!-- The Modal -->
@@ -259,13 +282,14 @@ input[type=button], input[type=submit], input[type=reset] {
 					"application/x-www-form-urlencoded");
 
 			var id = document.getElementById('id').value;
+			var create = document.getElementById('create').value;
 			var first_name = document.getElementById('first_name').value;
 			var last_name = document.getElementById('last_name').value;
 			var age = document.getElementById('age').value;
 			var admission_date = document.getElementById('admission_date').value;
 			var comment = document.getElementById('comment').value;
 
-			xhttp.send("id=" + id + "&first_name=" + first_name + "&last_name="
+			xhttp.send("id=" + id + "&first_name=" + first_name + "&create=" + create + "&last_name="
 					+ last_name + "&age=" + age + "&admission_date="
 					+ admission_date + "&comment=" + comment);
 
@@ -294,7 +318,7 @@ input[type=button], input[type=submit], input[type=reset] {
 			if (session.getAttribute("role") != null) {
 				String role = (String) session.getAttribute("role");
 
-				out.print("<script>loadDoc('Home')</script>");
+				out.print("<script>loadDoc('Patienten')</script>");
 
 			} else {
 				response.sendRedirect("/index.html");

@@ -7,8 +7,8 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import main.java.data.Betreuer;
-import main.java.data.Person;
+import main.java.data.Arzt;
+import main.java.data.Patient;
 import main.java.service.PatientService;
 import main.java.service.PersonalService;
 
@@ -39,7 +39,7 @@ public class Personal extends HttpServlet {
 				"    <th>Durchwahl</th>\n" + 
 				"  </tr>");
 		
-		for(Betreuer p: (new PersonalService()).findAll()) {
+		for(Arzt p: (new PersonalService()).findAll()) {
 			response.getWriter().append(
 			"  <tr onclick=\"loadDoc('PersonalDetail?id=" + p.getId() + "', 'detail')\">\n" + 
 			"    <td>" + p.getRole() + "</td>\n" + 

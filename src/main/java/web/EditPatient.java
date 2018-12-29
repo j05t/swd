@@ -4,6 +4,7 @@ import java.io.IOException;
 import java.io.PrintWriter;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
+import java.util.Enumeration;
 
 import javax.persistence.EntityTransaction;
 import javax.servlet.ServletException;
@@ -12,7 +13,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import main.java.data.Person;
+import main.java.data.Patient;
 import main.java.service.JPAService;
 import main.java.service.PatientService;
 
@@ -37,12 +38,25 @@ public class EditPatient extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-		String id = request.getParameter("id");
-		Person p = (new PatientService()).findById(Integer.parseInt(id));
-
+		String createNew = request.getParameter("new");
+		
+		Patient p;
+		
+		if(createNew != null) {
+			p = new Patient();
+			p.setAdmissionDate(LocalDate.now());
+			p.setFirstName("");
+			p.setLastName("");
+			p.setComment("");
+		} else {
+			String id = request.getParameter("id");
+			p = (new PatientService()).findById(Integer.parseInt(id));
+		}
+		
 		response.getWriter().append(
 				"<span onclick=\"document.getElementById('myModal').style.display='none'\" class=\"close\">&times;</span>")
-				.append("<form>" + "<input type='hidden' id='id' value='" + p.getId() + "' type='text' /></p>"
+				.append("<form>" + "<input type='hidden' id='id' value='" + p.getId() + "' type='text' /><br />"
+						+ "<input type='hidden' id='create' value='" + ( (createNew) != null ? "true" : "false") + "' />"
 						+ "<label>Vorname:</label>  <input id='first_name' value='" + p.getFirstName() + "' type='text' /><br />"
 						+ "<label>Nachname:</label>  <input id='last_name' value='" + p.getLastName() + "' type='text' /><br />"
 						+ "<label>Alter:</label>  <input id='age' value='" + p.getAge() + "' type='text' /><br />"
@@ -59,26 +73,47 @@ public class EditPatient extends HttpServlet {
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 		String id = request.getParameter("id");
+		String createNew = request.getParameter("create");
 		String firstName = request.getParameter("first_name");
 		String lastName = request.getParameter("last_name");
 		String age = request.getParameter("age");
 		String admission_date = request.getParameter("admission_date");
 		String comment = request.getParameter("comment");
-
-		System.out.println(comment);
 		
 		DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
 		LocalDate dateTime = LocalDate.parse(admission_date, formatter);
 
+		Enumeration<String> params = request.getParameterNames(); 
+		while(params.hasMoreElements()){
+		 String paramName = params.nextElement();
+		 System.out.println("Parameter Name - "+paramName+", Value - "+request.getParameter(paramName));
+		}
+		
+		Patient p;
+		
 		EntityTransaction tx = JPAService.getEntityManager().getTransaction();
 		tx.begin();
-		Person p = (new PatientService()).findById(Integer.parseInt(id));
+		
+		if(createNew != null) {
+			p = new Patient();
+		} else {
+			p = (new PatientService()).findById(Integer.parseInt(id));
+		}
+		
 		p.setFirstName(firstName);
 		p.setLastName(lastName);
 		p.setAge(Integer.parseInt(age));
 		p.setAdmissionDate(dateTime);
 		p.setComment(comment);
-		JPAService.getEntityManager().merge(p);
+		
+		System.out.println(p);
+		
+		if(createNew != null) {
+			JPAService.getEntityManager().persist(p);
+		} else {
+			JPAService.getEntityManager().merge(p);
+		}
+		
 		JPAService.getEntityManager().flush();
 		JPAService.getEntityManager().refresh(p);
 		tx.commit();

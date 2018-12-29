@@ -11,19 +11,19 @@ import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 
 @Entity
-public class Betreuer implements Serializable{
+public class Arzt implements Serializable{
 
 	private static final long serialVersionUID = 1L;
 
-	@OneToMany(mappedBy = "betreuer")
-	private Collection<Person> persons = new ArrayList<Person>();
+	@OneToMany(mappedBy = "arzt")
+	private Collection<Patient> patienten = new ArrayList<Patient>();
 
-	public Collection<Person> getPersons() {
-		return persons;
+	public Collection<Patient> getPersons() {
+		return patienten;
 	}
 
-	public void addPerson(Person person) {
-		persons.add(person);
+	public void addPatient(Patient patient) {
+		patienten.add(patient);
 	}
 
 	@Id
@@ -71,10 +71,10 @@ public class Betreuer implements Serializable{
 		this.name = name;
 	}
 
-	protected Betreuer() {
+	protected Arzt() {
 	};
 
-	public Betreuer(int id, String name) {
+	public Arzt(int id, String name) {
 		setId(id);
 		setName(name);
 	}

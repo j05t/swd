@@ -6,10 +6,9 @@
 	<persistence-unit name="swd"
 		transaction-type="RESOURCE_LOCAL">
 		<class>main.java.data.User</class>
-		<class>main.java.data.Address</class>
-		<class>main.java.data.Betreuer</class>
+		<class>main.java.data.Arzt</class>
 		<class>main.java.data.Termin</class>
-		<class>main.java.data.Person</class>
+		<class>main.java.data.Patient</class>
 		<class>main.java.data.Role</class>
 		<class>main.java.data.Vitalparameter</class>
 		<properties>

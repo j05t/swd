@@ -9,7 +9,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import main.java.data.Person;
+import main.java.data.Patient;
 import main.java.data.Termin;
 import main.java.service.PatientService;
 import main.java.service.TerminService;
@@ -44,7 +44,7 @@ public class Termine extends HttpServlet {
 			
 			StringBuilder sb = new StringBuilder();
 			sb.append("<ul>");
-			for (Person p: t.getPersons()) {
+			for (Patient p: t.getPersons()) {
 				sb.append("<li>").append(p.getFirstName()).append(" ").append(p.getLastName()).append("</li>");
 			}
 			sb.append("</ul>");

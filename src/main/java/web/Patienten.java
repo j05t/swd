@@ -7,7 +7,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import main.java.data.Person;
+import main.java.data.Patient;
 import main.java.service.PatientService;
 
 /**
@@ -39,22 +39,28 @@ public class Patienten extends HttpServlet {
 				"    <th>Tools</th>\n" + 
 				"  </tr>");
 		
-		for(Person p: (new PatientService()).findAll()) {
+		for(Patient p: (new PatientService()).findAll()) {
 			String onClick = " onclick=\"loadDoc('PersonDetail?id=" + p.getId() + "', 'detail')\" ";
 			String onBtnClick = " onclick=\"loadDoc('EditPatient?id=" + p.getId() + "', 'editContent'); document.getElementById('myModal').style.display='block';\"";
+			String onDelBtnClick = " onclick=\"loadDoc('DeletePatient?id=" + p.getId() + "', 'editContent'); document.getElementById('myModal').style.display='block';\"";
 			response.getWriter().append(
-			"  <tr title=\"" + p.getAddress().toString() + "\">\n" +
-			"    <td" + onClick + ">" + p.getFirstName() + "</td>\n" + 
-			"    <td>" + p.getLastName() + "</td>\n" + 
-			"    <td>" + p.getAge() + "</td>\n" + 
-			"    <td>" + p.getAdmissionDate() + "</td>\n" + 
-			"    <td>" + p.getComment() + "</td>\n" + 
-			"    <td><button" + onBtnClick + ">Edit</button>\n" + 
+			"  <tr title=\"" + p.getAddress() + "\">\n" +
+			"    <td " + onClick + ">" + p.getFirstName() + "</td>\n" + 
+			"    <td " + onClick + ">" + p.getLastName() + "</td>\n" + 
+			"    <td " + onClick + ">" + p.getAge() + "</td>\n" + 
+			"    <td " + onClick + ">" + p.getAdmissionDate() + "</td>\n" + 
+			"    <td " + onClick + ">" + p.getComment() + "</td>\n" + 
+			"    <td><button" + onBtnClick + ">Edit</button> <button" + onDelBtnClick + ">Entfernen</button>\n" + 
 			"</td>\n" + 
 			"  </tr>");
 		}
 		
 		response.getWriter().append("</table>");
+		
+		String onNewBtnClick = " onclick=\"loadDoc('EditPatient?new=1', 'editContent'); document.getElementById('myModal').style.display='block';\"";
+		response.getWriter().append("<button id='newButton' " + onNewBtnClick + ">+</button>");
+		
+		response.getWriter().append("<div id=\"detail\"></div>\n");
 	}
 
 	/**

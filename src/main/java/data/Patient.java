@@ -5,33 +5,36 @@ import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
-import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
-import javax.persistence.OneToOne;
+import javax.persistence.SequenceGenerator;
 
 @Entity
-public class Person implements Serializable {
+@SequenceGenerator(name="patient_id_seq", initialValue=100, allocationSize=10)
+public class Patient implements Serializable {
 
 	private static final long serialVersionUID = 1L;
 
-	protected Person() {
+	public Patient() {
 	}
 
-	public Person(int id, String firstName, String lastName) {
+	public Patient(int id, String firstName, String lastName) {
 		this.id = id;
 		this.firstName = firstName;
 		this.lastName = lastName;
 	}
 
 	@Id
+    @GeneratedValue(strategy=GenerationType.SEQUENCE, generator="patient_id_seq")
 	private int id;
 
 	@Column(name = "FIRST_NAME")
@@ -53,6 +56,10 @@ public class Person implements Serializable {
 
 	private String ssn;
 
+	private String street;
+	private String city;
+	private String zip;
+	
 	@OneToMany(fetch = FetchType.EAGER)
 	private List<Vitalparameter> vitalParameter;
 
@@ -62,18 +69,14 @@ public class Person implements Serializable {
 
 	public String toString() {
 		return getId() + " " + getFirstName() + " " + getLastName() + " Age " + getAge() + " Admission date "
-				+ getAdmissionDate() + " Comment " + getComment() + " Vitalparameter: "
-				+ getVitalParameter().toString();
+				+ getAdmissionDate() + " Comment " + getComment() + getStreet() + ", " + getZip() + " " + getCity();
 	}
 
-	@OneToOne(mappedBy = "person", cascade = CascadeType.ALL)
-	private Address address;
-
 	@ManyToOne
-	private Betreuer betreuer;
+	private Arzt arzt;
 
 	@ManyToMany
-	@JoinTable(joinColumns = @JoinColumn(name = "PERSON_ID"), inverseJoinColumns = @JoinColumn(name = "TERMIN_ID"))
+	@JoinTable(joinColumns = @JoinColumn(name = "PATIENT_ID"), inverseJoinColumns = @JoinColumn(name = "TERMIN_ID"))
 	private List<Termin> termine = new ArrayList<Termin>();
 
 	public List<Termin> getTermine() {
@@ -85,13 +88,13 @@ public class Person implements Serializable {
 		termin.add(this);
 	}
 
-	public Betreuer getBetreuer() {
-		return betreuer;
+	public Arzt getBetreuer() {
+		return arzt;
 	}
 
-	public void setBetreuer(Betreuer betreuer) {
-		this.betreuer = betreuer;
-		betreuer.addPerson(this);
+	public void setArzt(Arzt betreuer) {
+		this.arzt = betreuer;
+		betreuer.addPatient(this);
 	}
 
 	public int getId() {
@@ -116,15 +119,6 @@ public class Person implements Serializable {
 
 	public void setLastName(String lastName) {
 		this.lastName = lastName;
-	}
-
-	public Address getAddress() {
-		return address;
-	}
-
-	public void setAddress(Address address) {
-		this.address = address;
-		address.setPerson(this);
 	}
 
 	public int getAge() {
@@ -165,6 +159,35 @@ public class Person implements Serializable {
 
 	public void setBirthDate(LocalDate birthDate) {
 		this.birthDate = birthDate;
+	}
+	
+
+	public String getStreet() {
+		return street;
+	}
+
+	public void setStreet(String street) {
+		this.street = street;
+	}
+
+	public String getCity() {
+		return city;
+	}
+
+	public void setCity(String city) {
+		this.city = city;
+	}
+
+	public String getZip() {
+		return zip;
+	}
+
+	public void setZip(String zip) {
+		this.zip = zip;
+	}
+
+	public String getAddress() {
+		return getStreet() + ", " + getZip() + " " + getCity();
 	}
 
 }
