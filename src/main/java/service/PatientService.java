@@ -38,7 +38,7 @@ public class PatientService {
 	}
 
 	public Patient findById(int patientId) {
-		Query query = service.getEntityManager().createQuery("Select p from Patient p where p.id like :patientId");
+		Query query = service.getEntityManager().createQuery("Select p from Patient p where p.id = :patientId");
 		query.setParameter("patientId", patientId);
 
 		try {

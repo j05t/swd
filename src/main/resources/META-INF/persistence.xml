@@ -13,24 +13,26 @@
 		<class>main.java.data.Vitalparameter</class>
 		<properties>
 			
-			<!--  AZURE 
-			<property name="javax.persistence.jdbc.url" value="jdbc:sqlserver://eht2018swd.database.windows.net:1433;database=swd;encrypt=true;trustServerCertificate=false;hostNameInCertificate=*.database.windows.net;loginTimeout=30;" />
-
-       		<property name="javax.persistence.jdbc.user" value="username"/>
-            <property name="javax.persistence.jdbc.password" value="password"/>			
-
-			<property name="javax.persistence.jdbc.driver" value="com.microsoft.sqlserver.jdbc.SQLServerDriver" />
-			<property name="hibernate.dialect" value="org.hibernate.dialect.SQLServerDialect" />
--->
+			<!--  heroku postgres -->	
+			<property name="hibernate.archive.autodetection" value="class" />
+			<property name="hibernate.dialect" value="org.hibernate.dialect.PostgreSQL95Dialect" />
+			<property name="hibernate.connection.driver_class" value="org.postgresql.Driver" />
 			
+			<property name="hibernate.connection.url"  value="REMOVED" />
+      		<property name="hibernate.connection.username" value="REMOVED" />
+			<property name="hibernate.connection.password" value="REMOVED" />
+			
+			
+			<property name="hibernate.hbm2ddl.auto" value="update" />
 
-			 <!-- in-memory database for testing on local machine only -->
+
+			 <!-- in-memory database for testing on local machine only 
             <property name="javax.persistence.jdbc.url" value="jdbc:h2:mem:test"/>
             <property name="javax.persistence.jdbc.driver" value="org.h2.Driver"/>
             <property name="hibernate.dialect" value="org.hibernate.dialect.H2Dialect"/>
             <property name="hibernate.hbm2ddl.auto" value="update"/>
             <property name="hibernate.format_sql" value="create"/>
-            
+            -->
    
 	
 			<property name="javax.persistence.schema-generation.database.action" value="drop-and-create"/>

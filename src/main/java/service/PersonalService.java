@@ -38,7 +38,7 @@ public class PersonalService {
 	}
 
 	public Arzt findById(int arztId) {
-		Query query = service.getEntityManager().createQuery("Select p from Arzt p where p.id like :arztId");
+		Query query = service.getEntityManager().createQuery("Select p from Arzt p where p.id = :arztId");
 		query.setParameter("arztId", arztId);
 
 		try {
