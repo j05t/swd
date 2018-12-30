@@ -283,7 +283,7 @@ input[type=button], input[type=submit], input[type=reset] {
 
 					document.getElementById('status').innerHTML = this.responseText;
 					modal.style.display = "none";
-					loadDoc('Patienten?id=' + id);
+					loadDoc('Patienten');
 				}
 			};
 			xhttp.open("POST", 'EditPatient', true);
