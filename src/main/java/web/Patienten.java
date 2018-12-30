@@ -1,6 +1,8 @@
 package main.java.web;
 
 import java.io.IOException;
+import java.util.List;
+
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -39,8 +41,17 @@ public class Patienten extends HttpServlet {
 				"    <th>Tools</th>\n" + 
 				"  </tr>");
 		
-		for(Patient p: (new PatientService()).findAll()) {
-			String onClick = " onclick=\"loadDoc('PersonDetail?id=" + p.getId() + "', 'detail')\" ";
+		List<Patient> patients;
+		
+		String id = request.getParameter("id");
+		
+		if(id != null)
+			patients = (List<Patient>) (new PatientService()).findById(Integer.parseInt(id));
+		else
+			patients = (new PatientService()).findAll();
+		
+		for(Patient p: patients) {
+			String onClick = " onclick=\"loadDoc('PatientDetail?id=" + p.getId() + "', 'detail')\" ";
 			String onBtnClick = " onclick=\"loadDoc('EditPatient?id=" + p.getId() + "', 'editContent'); document.getElementById('myModal').style.display='block';\"";
 			String onDelBtnClick = " onclick=\"loadDoc('DeletePatient?id=" + p.getId() + "', 'editContent'); document.getElementById('myModal').style.display='block';\"";
 			response.getWriter().append(

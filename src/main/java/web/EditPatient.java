@@ -41,28 +41,31 @@ public class EditPatient extends HttpServlet {
 		String createNew = request.getParameter("new");
 		
 		Patient p;
-		
+		String title;
+
 		if(createNew != null) {
+			title = "Patient Anlegen";
 			p = new Patient();
 			p.setAdmissionDate(LocalDate.now());
 			p.setFirstName("");
 			p.setLastName("");
 			p.setComment("");
 		} else {
+			title = "Patient bearbeiten";
 			String id = request.getParameter("id");
 			p = (new PatientService()).findById(Integer.parseInt(id));
 		}
 		
 		response.getWriter().append(
 				"<span onclick=\"document.getElementById('myModal').style.display='none'\" class=\"close\">&times;</span>")
-				.append("<form>" + "<input type='hidden' id='id' value='" + p.getId() + "' type='text' /><br />"
+				.append("<h3>" + title + "</h3><form><input type='hidden' id='id' value='" + p.getId() + "' type='text' /><br />"
 						+ "<input type='hidden' id='create' value='" + ( (createNew) != null ? "true" : "false") + "' />"
 						+ "<label>Vorname:</label>  <input id='first_name' value='" + p.getFirstName() + "' type='text' /><br />"
 						+ "<label>Nachname:</label>  <input id='last_name' value='" + p.getLastName() + "' type='text' /><br />"
 						+ "<label>Alter:</label>  <input id='age' value='" + p.getAge() + "' type='text' /><br />"
 						+ "<label>Aufnahmedatum:</label>  <input id='admission_date' value='" + p.getAdmissionDate()
 						+ "' type='text' /><br />" + "<label>Warnhinweis:</label> <input id='comment' value='" + p.getComment()
-						+ "' type='text' /><br />" + "<button id='editSubmit' onclick='sendPatientForm()'>Absenden</button>" + "</form>");
+						+ "' type='text' /><br />" + "<button id='editSubmit' onclick='sendPatientForm()'>Absenden</button></form>");
 
 	}
 

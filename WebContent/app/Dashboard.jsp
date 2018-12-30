@@ -186,29 +186,30 @@ input[type=button], input[type=submit], input[type=reset] {
 }
 
 #newButton {
-  background-color: #4CAF50; /* Green */
-  border: none;
-  color: white;
-  margin: 8px;
-  text-align: center;
-  text-decoration: none;
-  display: inline-block;
-  font-size: 24px;
-  border-radius: 50%;
-  height: 32px;
-  width: 32px;
+	cursor: pointer;
+	background-color: #4CAF50; /* Green */
+	border: none;
+	color: white;
+	margin: 8px;
+	text-align: center;
+	text-decoration: none;
+	display: inline-block;
+	font-size: 24px;
+	border-radius: 50%;
+	height: 32px;
+	width: 32px;
 }
 
 #editSubmit {
-  background-color: #4CAF50; /* Green */
-  border: none;
-  color: white;
-  text-align: center;
-  text-decoration: none;
-  font-size: 16px;
-  margin-left: 32px;
+	cursor: pointer;
+	background-color: #4CAF50; /* Green */
+	border: none;
+	color: white;
+	text-align: center;
+	text-decoration: none;
+	font-size: 16px;
+	margin-left: 32px;
 }
-
 </style>
 
 
@@ -267,20 +268,7 @@ input[type=button], input[type=submit], input[type=reset] {
 
 		function sendPatientForm() {
 			var modal = document.getElementById('myModal');
-
-			var xhttp = new XMLHttpRequest();
-			xhttp.onreadystatechange = function() {
-				if (this.readyState == 4 && this.status == 200) {
-
-					document.getElementById('status').innerHTML = this.responseText;
-					modal.style.display = "none";
-					loadDoc('Patienten');
-				}
-			};
-			xhttp.open("POST", 'EditPatient', true);
-			xhttp.setRequestHeader("Content-type",
-					"application/x-www-form-urlencoded");
-
+			
 			var id = document.getElementById('id').value;
 			var create = document.getElementById('create').value;
 			var first_name = document.getElementById('first_name').value;
@@ -289,9 +277,24 @@ input[type=button], input[type=submit], input[type=reset] {
 			var admission_date = document.getElementById('admission_date').value;
 			var comment = document.getElementById('comment').value;
 
-			xhttp.send("id=" + id + "&first_name=" + first_name + "&create=" + create + "&last_name="
-					+ last_name + "&age=" + age + "&admission_date="
-					+ admission_date + "&comment=" + comment);
+			var xhttp = new XMLHttpRequest();
+			xhttp.onreadystatechange = function() {
+				if (this.readyState == 4 && this.status == 200) {
+
+					document.getElementById('status').innerHTML = this.responseText;
+					modal.style.display = "none";
+					loadDoc('Patienten?id=' + id);
+				}
+			};
+			xhttp.open("POST", 'EditPatient', true);
+			xhttp.setRequestHeader("Content-type",
+					"application/x-www-form-urlencoded");
+
+
+			xhttp.send("id=" + id + "&first_name=" + first_name + "&create="
+					+ create + "&last_name=" + last_name + "&age=" + age
+					+ "&admission_date=" + admission_date + "&comment="
+					+ comment);
 
 			console.log("sent form via post");
 		}

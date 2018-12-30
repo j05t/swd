@@ -14,14 +14,14 @@ import main.java.service.PatientService;
 /**
  * Servlet implementation class PersonDetail
  */
-@WebServlet("/app/PersonDetail")
-public class PersonDetail extends HttpServlet {
+@WebServlet("/app/PatientDetail")
+public class PatientDetail extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public PersonDetail() {
+    public PatientDetail() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -31,7 +31,11 @@ public class PersonDetail extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         String id = request.getParameter("id");
-
+        
+		Patient p = (new PatientService()).findById(Integer.parseInt(id));
+		
+		response.getWriter().append("<h3>Vitalparameter fuer " + p.getFirstName() + " " + p.getLastName() + "</h3>");
+		
 		response.getWriter().append("<table>\n" + 
 				"  <tr>\n" + 
 				"    <th>Datum</th>\n" + 
@@ -44,8 +48,6 @@ public class PersonDetail extends HttpServlet {
 				"    <th>NRS Ruheschmerz</th>\n" + 
 				"  </tr>");
 		
-		Patient p = (new PatientService()).findById(Integer.parseInt(id));
-		System.out.println(p.toString());
 
 		for (Vitalparameter v: p.getVitalParameter()) {
 			response.getWriter().append(
