@@ -6,6 +6,7 @@ import javax.persistence.NoResultException;
 import javax.persistence.Query;
 
 import main.java.data.Arzt;
+import main.java.data.Vitalparameter;
 
 public class PersonalService {
 	private static JPAService service = JPAService.getInstance();

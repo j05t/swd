@@ -41,16 +41,7 @@ public class Patienten extends HttpServlet {
 				"    <th>Tools</th>\n" + 
 				"  </tr>");
 		
-		List<Patient> patients;
-		
-		String id = request.getParameter("id");
-		
-		if(id != null)
-			patients = (List<Patient>) (new PatientService()).findById(Integer.parseInt(id));
-		else
-			patients = (new PatientService()).findAll();
-		
-		for(Patient p: patients) {
+		for(Patient p: (new PatientService()).findAll()) {
 			String onClick = " onclick=\"loadDoc('PatientDetail?id=" + p.getId() + "', 'detail')\" ";
 			String onBtnClick = " onclick=\"loadDoc('EditPatient?id=" + p.getId() + "', 'editContent'); document.getElementById('myModal').style.display='block';\"";
 			String onDelBtnClick = " onclick=\"loadDoc('DeletePatient?id=" + p.getId() + "', 'editContent'); document.getElementById('myModal').style.display='block';\"";

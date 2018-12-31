@@ -73,28 +73,21 @@
 
 
 	<dependencies>
-		<!-- AZURE only 
-		<dependency>
-			<groupId>com.microsoft.sqlserver</groupId>
-			<artifactId>mssql-jdbc</artifactId>
-			<version>6.1.0.jre7</version>
-		</dependency>
-		-->
-		
+	<!--
 		<dependency>
 			<groupId>org.hibernate</groupId>
 			<artifactId>hibernate-core</artifactId>
 			<version>5.4.0.Final</version>
 		</dependency>
 
-		<!-- https://mvnrepository.com/artifact/postgresql/postgresql -->
+		 https://mvnrepository.com/artifact/postgresql/postgresql 
 		<dependency>
 		    <groupId>postgresql</groupId>
 		    <artifactId>postgresql</artifactId>
 		    <version>9.1-901-1.jdbc4</version>
 		</dependency>
-
-		<!-- for local testing only - comment this out before deploying
+-->
+		<!-- for local testing only - comment this out before deploying -->
 		<dependency>
 			<groupId>org.eclipse.persistence</groupId>
 			<artifactId>org.eclipse.persistence.jpa</artifactId>
@@ -105,7 +98,7 @@
 			<artifactId>h2</artifactId>
 			<version>1.4.197</version>
 		</dependency>
--->
+
 
 		<dependency>
 			<groupId>javax</groupId>

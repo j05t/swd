@@ -5,6 +5,7 @@ import javax.persistence.NoResultException;
 import javax.persistence.Query;
 
 import main.java.data.Patient;
+import main.java.data.Vitalparameter;
 
 public class PatientService {
 	private static JPAService service = JPAService.getInstance();
@@ -43,6 +44,20 @@ public class PatientService {
 
 		try {
 			return (Patient) query.getSingleResult();
+		} catch (NoResultException e) {
+			System.out.println("no result");
+			// not found
+		} 
+
+		return null;
+	}
+	
+	public Vitalparameter findVitalparameterById(int vid) {
+		Query query = service.getEntityManager().createQuery("Select p from Vitalparameter p where p.id = :vid");
+		query.setParameter("vid", vid);
+
+		try {
+			return (Vitalparameter) query.getSingleResult();
 		} catch (NoResultException e) {
 			System.out.println("no result");
 			// not found

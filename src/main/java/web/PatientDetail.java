@@ -46,10 +46,14 @@ public class PatientDetail extends HttpServlet {
 				"    <th>NRS Belastungsschmerz</th>\n" + 
 				"    <th>NRS Maximalschmerz</th>\n" + 
 				"    <th>NRS Ruheschmerz</th>\n" + 
+				"    <th>Tools</th>\n" + 
 				"  </tr>");
 		
 
 		for (Vitalparameter v: p.getVitalParameter()) {
+			String onEditBtnClick = " onclick=\"loadDoc('EditVitalparameter?id=" + p.getId() + "&vid=" + v.getId() + "', 'editContent'); document.getElementById('myModal').style.display='block';\"";
+			String onDelBtnClick = " onclick=\"loadDoc('DeleteVitalparameter?id=" + p.getId()  + "&vid=" + v.getId() + "', 'editContent'); document.getElementById('myModal').style.display='block';\"";
+		
 			response.getWriter().append(
 			"  <tr>\n" + 
 			"    <td>" + v.getDiagnosisDate() + "</td>\n" + 
@@ -60,10 +64,15 @@ public class PatientDetail extends HttpServlet {
 			"    <td>" + v.getBelastungsSchmerz() + "</td>\n" + 
 			"    <td>" + v.getMaximalSchmerz() + "</td>\n" + 
 			"    <td>" + v.getRuheSchmerz() + "</td>\n" + 
+			"    <td><button" + onEditBtnClick + ">Edit</button> <button" + onDelBtnClick + ">Entfernen</button>\n" + 
 			"  </tr>");
 		}
 		
 		response.getWriter().append("</table>");
+		
+		String onNewBtnClick = " onclick=\"loadDoc('EditVitalparameter?new=1', 'editContent'); document.getElementById('myModal').style.display='block';\"";
+		response.getWriter().append("<button id='newButton' " + onNewBtnClick + ">+</button>");
+		
 	}
 
 	/**
