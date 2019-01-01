@@ -6,6 +6,7 @@
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
 <title>Dashboard</title>
 <meta name="viewport" content="width=device-width, initial-scale=1">
+
 <style>
 body {
 	margin: 0;
@@ -61,6 +62,14 @@ tr:nth-child(even) {
 
 tr {
 	cursor: pointer;
+}
+
+#editButton {
+	background-color: #008CBA;
+}
+
+#deleteButton {
+	background-color: #f44336;
 }
 
 tr:hover {
@@ -321,7 +330,8 @@ input[type=button], input[type=submit], input[type=reset] {
 
 					document.getElementById('status').innerHTML = this.responseText;
 					modal.style.display = "none";
-					loadDoc('PatientDetail?id=' + id, "detail");
+					console.log('ajax done, loading PatientDetail?id=' + id);
+					loadDoc(' PatientDetail?id=' + id, "detail");
 				}
 			};
 			xhttp.open("POST", 'EditVitalparameter', true);
@@ -355,7 +365,6 @@ input[type=button], input[type=submit], input[type=reset] {
 		if (session != null) {
 			if (session.getAttribute("role") != null) {
 				String role = (String) session.getAttribute("role");
-
 				out.print("<script>if (document.getElementsByClassName('active').length == 0) loadDoc('Patienten')</script>");
 
 			} else {

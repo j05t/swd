@@ -52,7 +52,7 @@ public class Patienten extends HttpServlet {
 			"    <td " + onClick + ">" + p.getAge() + "</td>\n" + 
 			"    <td " + onClick + ">" + p.getAdmissionDate() + "</td>\n" + 
 			"    <td " + onClick + ">" + p.getComment() + "</td>\n" + 
-			"    <td><button" + onBtnClick + ">Edit</button> <button" + onDelBtnClick + ">Entfernen</button>\n" + 
+			"    <td><button id='editButton'" + onBtnClick + ">Edit</button> <button id='deleteButton'" + onDelBtnClick + ">X</button>\n" + 
 			"</td>\n" + 
 			"  </tr>");
 		}

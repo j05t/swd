@@ -64,7 +64,7 @@ public class PatientDetail extends HttpServlet {
 			"    <td>" + v.getBelastungsSchmerz() + "</td>\n" + 
 			"    <td>" + v.getMaximalSchmerz() + "</td>\n" + 
 			"    <td>" + v.getRuheSchmerz() + "</td>\n" + 
-			"    <td><button" + onEditBtnClick + ">Edit</button> <button" + onDelBtnClick + ">Entfernen</button>\n" + 
+			"    <td><button id='editButton'" + onEditBtnClick + ">Edit</button> <button id='deleteButton'" + onDelBtnClick + ">X</button>\n" + 
 			"  </tr>");
 		}
 		
