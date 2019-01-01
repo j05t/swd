@@ -321,7 +321,6 @@ input[type=button], input[type=submit], input[type=reset] {
 
 					document.getElementById('status').innerHTML = this.responseText;
 					modal.style.display = "none";
-					//loadDoc('Patienten');
 					loadDoc('PatientDetail?id=' + id, "detail");
 				}
 			};
@@ -348,8 +347,6 @@ input[type=button], input[type=submit], input[type=reset] {
 		window.onclick = function(event) {
 			if (event.target == modal) {
 				modal.style.display = "none";
-
-				//sendPatientForm();
 			}
 		}
 	</script>
@@ -359,7 +356,7 @@ input[type=button], input[type=submit], input[type=reset] {
 			if (session.getAttribute("role") != null) {
 				String role = (String) session.getAttribute("role");
 
-				out.print("<script>loadDoc('Patienten')</script>");
+				out.print("<script>if (document.getElementsByClassName('active').length == 0) loadDoc('Patienten')</script>");
 
 			} else {
 				response.sendRedirect("/index.html");
