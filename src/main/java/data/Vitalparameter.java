@@ -3,16 +3,20 @@ package main.java.data;
 import java.io.Serializable;
 import java.time.LocalDate;
 
-import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.SequenceGenerator;
 
 @Entity
+@SequenceGenerator(name="vitalparameter_id_seq", initialValue=100, allocationSize=10)
 public class Vitalparameter implements Serializable{
 
 	private static final long serialVersionUID = 1L;
 
 	@Id
+    @GeneratedValue(strategy=GenerationType.SEQUENCE, generator="vitalparameter_id_seq")
 	private int id;
 	
 	private String blutdruckDiastolisch;
@@ -101,4 +105,7 @@ public class Vitalparameter implements Serializable{
 
     private LocalDate diagnoseDatum;
 
+    public String toString() {
+    	return String.format(" %s %s %s" , id, belastungsSchmerz, puls);
+    }
 }

@@ -14,6 +14,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import main.java.data.Patient;
+import main.java.data.Vitalparameter;
 import main.java.service.JPAService;
 import main.java.service.PatientService;
 
@@ -39,33 +40,44 @@ public class EditVitalparameter extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 		String createNew = request.getParameter("new");
-		
-		Patient p;
-		String title;
+		String id = request.getParameter("id");
+		String vid = request.getParameter("vid");
 
+		Vitalparameter v;
+		
+		String title;
+		
 		if(createNew != null) {
-			title = "TODO: Vitalparameter Anlegen";
-			p = new Patient();
-			p.setAdmissionDate(LocalDate.now());
-			p.setFirstName("");
-			p.setLastName("");
-			p.setComment("");
+			title = "Vitalparameter anlegen";
+			v = new Vitalparameter();
+			v.setBelastungsSchmerz("");
+			v.setBlutdruckDiastolisch("");
+			v.setBlutdruckSystolisch("");
+			v.setDiagnosisDate(LocalDate.now());
+			v.setMaximalSchmerz("");
+			v.setPuls("");
+			v.setRuheSchmerz("");
+			v.setTemperatur("");
 		} else {
-			title = "TODO: Vitalparameter bearbeiten";
-			String id = request.getParameter("id");
-			p = (new PatientService()).findById(Integer.parseInt(id));
+			title = "Vitalparameter bearbeiten";
+			vid = request.getParameter("vid");
+			v = (new PatientService()).findVitalparameterById(Integer.parseInt(vid));
 		}
 		
 		response.getWriter().append(
 				"<span onclick=\"document.getElementById('myModal').style.display='none'\" class=\"close\">&times;</span>")
-				.append("<h3>" + title + "</h3><form><input type='hidden' id='id' value='" + p.getId() + "' type='text' /><br />"
+				.append("<h3>" + title + "</h3><form><input type='hidden' id='pid' value='" + id + "' type='text' /><br />"
+						+ "<input type='hidden' id='vid' value='" + v.getId() + "' type='text' /><br />"
 						+ "<input type='hidden' id='create' value='" + ( (createNew) != null ? "true" : "false") + "' />"
-						+ "<label>Vorname:</label>  <input id='first_name' value='" + p.getFirstName() + "' type='text' /><br />"
-						+ "<label>Nachname:</label>  <input id='last_name' value='" + p.getLastName() + "' type='text' /><br />"
-						+ "<label>Alter:</label>  <input id='age' value='" + p.getAge() + "' type='text' /><br />"
-						+ "<label>Aufnahmedatum:</label>  <input id='admission_date' value='" + p.getAdmissionDate()
-						+ "' type='text' /><br />" + "<label>Warnhinweis:</label> <input id='comment' value='" + p.getComment()
-						+ "' type='text' /><br />" + "<button id='editSubmit' onclick='sendPatientForm()'>Absenden</button></form>");
+						+ "<label>Datum:</label>  <input id='DiagnosisDate' value='" + v.getDiagnosisDate() + "' type='text' /><br />"
+						+ "<label>BD Diastolisch:</label>  <input id='BlutdruckDiastolisch' value='" + v.getBlutdruckDiastolisch() + "' type='text' /><br />"
+						+ "<label>BD Systolisch:</label>  <input id='BlutdruckSystolisch' value='" + v.getBlutdruckSystolisch() + "' type='text' /><br />"
+						+ "<label>Puls:</label>  <input id='Puls' value='" + v.getPuls() +"' type='text' /><br />" 
+						+ "<label>Temperatur:</label> <input id='Temperatur' value='" + v.getTemperatur() + "' type='text' /><br />" 
+						+ "<label>Belastungsschmerz:</label> <input id='BelastungsSchmerz' value='" + v.getBelastungsSchmerz() + "' type='text' /><br />" 
+						+ "<label>Maximalschmerz:</label> <input id='MaximalSchmerz' value='" + v.getMaximalSchmerz() + "' type='text' /><br />" 
+						+ "<label>Ruheschmerz:</label> <input id='RuheSchmerz' value='" + v.getRuheSchmerz() + "' type='text' /><br />" 
+						+ "<button id='editSubmit' onclick='sendVitalparameterForm()'>Absenden</button></form>");
 
 	}
 
@@ -76,15 +88,10 @@ public class EditVitalparameter extends HttpServlet {
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 		String id = request.getParameter("id");
+		String vid = request.getParameter("vid");
 		String createNew = request.getParameter("create");
-		String firstName = request.getParameter("first_name");
-		String lastName = request.getParameter("last_name");
-		String age = request.getParameter("age");
-		String admission_date = request.getParameter("admission_date");
-		String comment = request.getParameter("comment");
 		
-		DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
-		LocalDate dateTime = LocalDate.parse(admission_date, formatter);
+		Vitalparameter v;
 
 		Enumeration<String> params = request.getParameterNames(); 
 		while(params.hasMoreElements()){
@@ -92,43 +99,53 @@ public class EditVitalparameter extends HttpServlet {
 		 System.out.println("Parameter Name - "+paramName+", Value - "+request.getParameter(paramName));
 		}
 		
-		Patient p;
+		Patient p = (new PatientService()).findById(Integer.parseInt(id));
+		
+		System.out.println(p);
 		
 		EntityTransaction tx = JPAService.getEntityManager().getTransaction();
 		tx.begin();
 		
-		if(createNew != null) {
-			p = new Patient();
+		if(createNew != null && createNew.equals("true")) {
+			v = new Vitalparameter();
+			p.getVitalParameter().add(v);
 		} else {
-			p = (new PatientService()).findById(Integer.parseInt(id));
+			v = (new PatientService()).findVitalparameterById(Integer.parseInt(vid));
 		}
 		
-		p.setFirstName(firstName);
-		p.setLastName(lastName);
-		p.setAge(Integer.parseInt(age));
-		p.setAdmissionDate(dateTime);
-		p.setComment(comment);
+		DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+
+		v.setBelastungsSchmerz(request.getParameter("BelastungsSchmerz"));
+		v.setBlutdruckDiastolisch(request.getParameter("BlutdruckDiastolisch"));
+		v.setBlutdruckSystolisch(request.getParameter("BlutdruckSystolisch"));
+		v.setDiagnosisDate(LocalDate.parse(request.getParameter("DiagnosisDate"), formatter) );
+		v.setMaximalSchmerz(request.getParameter("MaximalSchmerz"));
+		v.setPuls(request.getParameter("Puls"));
+		v.setRuheSchmerz(request.getParameter("RuheSchmerz"));
+		v.setTemperatur(request.getParameter("Temperatur"));
 		
-		System.out.println(p);
+		JPAService.getEntityManager().merge(p);
 		
-		if(createNew != null) {
-			JPAService.getEntityManager().persist(p);
+		if(createNew == null) {
+			System.out.println("merging vitalparameter " + v);
+			JPAService.getEntityManager().merge(v);
 		} else {
-			JPAService.getEntityManager().merge(p);
+			System.out.println("persisting new vitalparameter " + v);
+			JPAService.getEntityManager().persist(v);
 		}
-		
+				
 		JPAService.getEntityManager().flush();
 		JPAService.getEntityManager().refresh(p);
-		tx.commit();
 
-		System.out.println("merged entity " + p);
+		tx.commit();
 
 		response.setContentType("text/html");
 		PrintWriter out = response.getWriter();
 		out.append("comitted changes on person #" + id + " to database..");
 
-		//reload table
-		out.append("<script>loadDoc('Patienten')</script>");
+		//reload tables
+		//String loadDoc = " loadDoc('PatientDetail?id=" + p.getId() + "', 'detail')";
+		//out.append("<script>loadDoc('Patienten');" + loadDoc + "</script>");
 	}
 
 }

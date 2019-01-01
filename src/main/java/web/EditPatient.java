@@ -97,7 +97,7 @@ public class EditPatient extends HttpServlet {
 		EntityTransaction tx = JPAService.getEntityManager().getTransaction();
 		tx.begin();
 		
-		if(createNew != null) {
+		if(createNew.equals("true")) {
 			p = new Patient();
 		} else {
 			p = (new PatientService()).findById(Integer.parseInt(id));

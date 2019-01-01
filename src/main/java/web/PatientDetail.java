@@ -70,7 +70,7 @@ public class PatientDetail extends HttpServlet {
 		
 		response.getWriter().append("</table>");
 		
-		String onNewBtnClick = " onclick=\"loadDoc('EditVitalparameter?new=1', 'editContent'); document.getElementById('myModal').style.display='block';\"";
+		String onNewBtnClick = " onclick=\"loadDoc('EditVitalparameter?new=1&id=" + p.getId() + " ', 'editContent'); document.getElementById('myModal').style.display='block';\"";
 		response.getWriter().append("<button id='newButton' " + onNewBtnClick + ">+</button>");
 		
 	}

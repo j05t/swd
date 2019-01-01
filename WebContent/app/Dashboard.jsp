@@ -298,6 +298,44 @@ input[type=button], input[type=submit], input[type=reset] {
 
 			console.log("sent form via post");
 		}
+		
+		function sendVitalparameterForm() {
+			var modal = document.getElementById('myModal');
+			
+			var id = document.getElementById('pid').value;
+			var vid = document.getElementById('vid').value;
+			var create = document.getElementById('create').value;
+			
+			var BelastungsSchmerz = document.getElementById('BelastungsSchmerz').value;
+			var BlutdruckDiastolisch = document.getElementById('BlutdruckDiastolisch').value;
+			var BlutdruckSystolisch = document.getElementById('BlutdruckSystolisch').value;
+			var DiagnosisDate = document.getElementById('DiagnosisDate').value;
+			var MaximalSchmerz = document.getElementById('MaximalSchmerz').value;
+			var Puls = document.getElementById('Puls').value;
+			var RuheSchmerz = document.getElementById('RuheSchmerz').value;
+			var Temperatur = document.getElementById('Temperatur').value;
+
+			var xhttp = new XMLHttpRequest();
+			xhttp.onreadystatechange = function() {
+				if (this.readyState == 4 && this.status == 200) {
+
+					document.getElementById('status').innerHTML = this.responseText;
+					modal.style.display = "none";
+					//loadDoc('Patienten');
+					loadDoc('PatientDetail?id=' + id, "detail");
+				}
+			};
+			xhttp.open("POST", 'EditVitalparameter', true);
+			xhttp.setRequestHeader("Content-type",
+					"application/x-www-form-urlencoded");
+
+
+			xhttp.send("id=" + id + "&BelastungsSchmerz=" + BelastungsSchmerz + "&vid=" + vid + "&BlutdruckDiastolisch=" + BlutdruckDiastolisch + "&create="
+					+ create + "&BlutdruckSystolisch=" + BlutdruckSystolisch + "&DiagnosisDate=" + DiagnosisDate
+					+ "&MaximalSchmerz=" + MaximalSchmerz + "&Puls=" + Puls + "&RuheSchmerz=" + RuheSchmerz + "&Temperatur=" + Temperatur);
+
+			console.log("sent form via post");
+		}
 
 		// Get the modal
 		var modal = document.getElementById('edit');
