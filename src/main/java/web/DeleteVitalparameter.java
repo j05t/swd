@@ -53,7 +53,7 @@ public class DeleteVitalparameter extends HttpServlet {
 		String loadDoc = " loadDoc('PatientDetail?id=" + p.getId() + "', 'detail')";
 
 		response.getWriter().append("<span onclick=\"document.getElementById('myModal').style.display='none'; " + loadDoc + "\" class=\"close\">&times;</span>")
-				.append("Vitalparameter entfernt");
+				.append("<h3>Vitalparameter entfernt</h3>");
 	}
 
 	/**

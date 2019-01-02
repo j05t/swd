@@ -1,7 +1,6 @@
 package main.java.web;
 
 import java.io.IOException;
-import java.util.List;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -11,7 +10,6 @@ import javax.servlet.http.HttpServletResponse;
 
 import main.java.data.Patient;
 import main.java.data.Termin;
-import main.java.service.PatientService;
 import main.java.service.TerminService;
 
 /**

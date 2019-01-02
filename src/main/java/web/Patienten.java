@@ -42,7 +42,7 @@ public class Patienten extends HttpServlet {
 				"  </tr>");
 		
 		for(Patient p: (new PatientService()).findAll()) {
-			String onClick = " onclick=\"loadDoc('PatientDetail?id=" + p.getId() + "', 'detail')\" ";
+			String onClick = " onclick=\"loadDoc('PatientDetail?id=" + p.getId() + "', 'vitalparameter')\" ";
 			String onBtnClick = " onclick=\"loadDoc('EditPatient?id=" + p.getId() + "', 'editContent'); document.getElementById('myModal').style.display='block';\"";
 			String onDelBtnClick = " onclick=\"loadDoc('DeletePatient?id=" + p.getId() + "', 'editContent'); document.getElementById('myModal').style.display='block';\"";
 			response.getWriter().append(
@@ -52,7 +52,7 @@ public class Patienten extends HttpServlet {
 			"    <td " + onClick + ">" + p.getAge() + "</td>\n" + 
 			"    <td " + onClick + ">" + p.getAdmissionDate() + "</td>\n" + 
 			"    <td " + onClick + ">" + p.getComment() + "</td>\n" + 
-			"    <td><button id='editButton'" + onBtnClick + ">Edit</button> <button id='deleteButton'" + onDelBtnClick + ">X</button>\n" + 
+			"    <td><button class='editButton'" + onBtnClick + ">Edit</button> <button class='deleteButton'" + onDelBtnClick + ">X</button>\n" + 
 			"</td>\n" + 
 			"  </tr>");
 		}
@@ -60,9 +60,9 @@ public class Patienten extends HttpServlet {
 		response.getWriter().append("</table>");
 		
 		String onNewBtnClick = " onclick=\"loadDoc('EditPatient?new=1', 'editContent'); document.getElementById('myModal').style.display='block';\"";
-		response.getWriter().append("<button id='newButton' " + onNewBtnClick + ">+</button>");
+		response.getWriter().append("<button class='newButton' " + onNewBtnClick + ">+</button>");
 		
-		response.getWriter().append("<div id=\"detail\"></div>\n");
+		//response.getWriter().append("<div id=\"detail\"></div>\n");
 	}
 
 	/**

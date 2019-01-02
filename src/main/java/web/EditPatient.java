@@ -63,9 +63,13 @@ public class EditPatient extends HttpServlet {
 						+ "<label>Vorname:</label>  <input id='first_name' value='" + p.getFirstName() + "' type='text' /><br />"
 						+ "<label>Nachname:</label>  <input id='last_name' value='" + p.getLastName() + "' type='text' /><br />"
 						+ "<label>Alter:</label>  <input id='age' value='" + p.getAge() + "' type='text' /><br />"
-						+ "<label>Aufnahmedatum:</label>  <input id='admission_date' value='" + p.getAdmissionDate()
-						+ "' type='text' /><br />" + "<label>Warnhinweis:</label> <input id='comment' value='" + p.getComment()
-						+ "' type='text' /><br />" + "<button id='editSubmit' onclick='sendPatientForm()'>Absenden</button></form>");
+						+ "<label>Aufnahmedatum:</label>  <input id='admission_date' value='" + p.getAdmissionDate() + "' type='text' /><br />" 
+						+ "<label>Warnhinweis:</label> <input id='comment' value='" + p.getComment() + "' type='text' /><br />"
+						+ "<label>Adresse:</label> <input id='street' value='" + p.getStreet() + "' type='text' /><br />"
+						+ "<label>City:</label> <input id='city' value='" + p.getCity() + "' type='text' /><br />"
+						+ "<label>PLZ:</label> <input id='zip' value='" + p.getZip() + "' type='text' /><br />"
+						+ "<label>SV-Nummer:</label> <input id='ssn' value='" + p.getSsn() + "' type='text' /><br />"
+						+ "<button class='editSubmit' onclick='sendPatientForm()'>Absenden</button></form>");
 
 	}
 
@@ -82,7 +86,11 @@ public class EditPatient extends HttpServlet {
 		String age = request.getParameter("age");
 		String admission_date = request.getParameter("admission_date");
 		String comment = request.getParameter("comment");
-		
+		String street = request.getParameter("street");
+		String city = request.getParameter("city");
+		String zip = request.getParameter("zip");
+		String ssn = request.getParameter("ssn");
+
 		DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
 		LocalDate dateTime = LocalDate.parse(admission_date, formatter);
 
@@ -108,15 +116,15 @@ public class EditPatient extends HttpServlet {
 		p.setAge(Integer.parseInt(age));
 		p.setAdmissionDate(dateTime);
 		p.setComment(comment);
+		p.setCity(city);
+		p.setStreet(street);
+		p.setZip(zip);
+		p.setSsn(ssn);
 		
 		System.out.println(p);
 		
-		if(createNew != null) {
-			JPAService.getEntityManager().persist(p);
-		} else {
-			JPAService.getEntityManager().merge(p);
-		}
-		
+		JPAService.getEntityManager().persist(p);
+
 		JPAService.getEntityManager().flush();
 		JPAService.getEntityManager().refresh(p);
 		tx.commit();

@@ -64,14 +64,14 @@ public class PatientDetail extends HttpServlet {
 			"    <td>" + v.getBelastungsSchmerz() + "</td>\n" + 
 			"    <td>" + v.getMaximalSchmerz() + "</td>\n" + 
 			"    <td>" + v.getRuheSchmerz() + "</td>\n" + 
-			"    <td><button id='editButton'" + onEditBtnClick + ">Edit</button> <button id='deleteButton'" + onDelBtnClick + ">X</button>\n" + 
+			"    <td><button class='editButton'" + onEditBtnClick + ">Edit</button> <button class='deleteButton'" + onDelBtnClick + ">X</button>\n" + 
 			"  </tr>");
 		}
 		
 		response.getWriter().append("</table>");
 		
 		String onNewBtnClick = " onclick=\"loadDoc('EditVitalparameter?new=1&id=" + p.getId() + " ', 'editContent'); document.getElementById('myModal').style.display='block';\"";
-		response.getWriter().append("<button id='newButton' " + onNewBtnClick + ">+</button>");
+		response.getWriter().append("<button class='newButton' " + onNewBtnClick + ">+</button>");
 		
 	}
 

@@ -64,11 +64,13 @@ public class EditVitalparameter extends HttpServlet {
 			v = (new PatientService()).findVitalparameterById(Integer.parseInt(vid));
 		}
 		
+		if(createNew != null) createNew = "true"; else createNew = "false";
+		
 		response.getWriter().append(
 				"<span onclick=\"document.getElementById('myModal').style.display='none'\" class=\"close\">&times;</span>")
 				.append("<h3>" + title + "</h3><form><input type='hidden' id='pid' value='" + id + "' type='text' /><br />"
 						+ "<input type='hidden' id='vid' value='" + v.getId() + "' type='text' /><br />"
-						+ "<input type='hidden' id='create' value='" + ( (createNew) != null ? "true" : "false") + "' />"
+						+ "<input type='hidden' id='create' value='" + createNew + "' />"
 						+ "<label>Datum:</label>  <input id='DiagnosisDate' value='" + v.getDiagnosisDate() + "' type='text' /><br />"
 						+ "<label>BD Diastolisch:</label>  <input id='BlutdruckDiastolisch' value='" + v.getBlutdruckDiastolisch() + "' type='text' /><br />"
 						+ "<label>BD Systolisch:</label>  <input id='BlutdruckSystolisch' value='" + v.getBlutdruckSystolisch() + "' type='text' /><br />"
@@ -77,7 +79,7 @@ public class EditVitalparameter extends HttpServlet {
 						+ "<label>Belastungsschmerz:</label> <input id='BelastungsSchmerz' value='" + v.getBelastungsSchmerz() + "' type='text' /><br />" 
 						+ "<label>Maximalschmerz:</label> <input id='MaximalSchmerz' value='" + v.getMaximalSchmerz() + "' type='text' /><br />" 
 						+ "<label>Ruheschmerz:</label> <input id='RuheSchmerz' value='" + v.getRuheSchmerz() + "' type='text' /><br />" 
-						+ "<button id='editSubmit' onclick='sendVitalparameterForm()'>Absenden</button></form>");
+						+ "<button class='editSubmit' onclick='sendVitalparameterForm()'>Absenden</button></form>");
 
 	}
 

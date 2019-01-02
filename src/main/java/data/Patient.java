@@ -147,7 +147,7 @@ public class Patient implements Serializable {
 	}
 
 	public String getSsn() {
-		return ssn;
+		return ssn != null ? ssn : "";
 	}
 
 	public void setSsn(String ssn) {
@@ -164,7 +164,7 @@ public class Patient implements Serializable {
 	
 
 	public String getStreet() {
-		return street;
+		return street != null ? street : "";
 	}
 
 	public void setStreet(String street) {
@@ -172,7 +172,7 @@ public class Patient implements Serializable {
 	}
 
 	public String getCity() {
-		return city;
+		return city != null ? city : "";
 	}
 
 	public void setCity(String city) {
@@ -180,7 +180,7 @@ public class Patient implements Serializable {
 	}
 
 	public String getZip() {
-		return zip;
+		return zip != null ? zip : "";
 	}
 
 	public void setZip(String zip) {

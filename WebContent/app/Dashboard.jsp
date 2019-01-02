@@ -1,9 +1,9 @@
-<%@ page language="java" contentType="text/html; charset=ISO-8859-1"
+<%@ page language="java" contentType="text/html; charset=utf-8"
 	pageEncoding="ISO-8859-1"%>
-<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<!DOCTYPE html>
 <html>
 <head>
-<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
 <title>Dashboard</title>
 <meta name="viewport" content="width=device-width, initial-scale=1">
 
@@ -64,11 +64,11 @@ tr {
 	cursor: pointer;
 }
 
-#editButton {
+.editButton {
 	background-color: #008CBA;
 }
 
-#deleteButton {
+.deleteButton {
 	background-color: #f44336;
 }
 
@@ -116,10 +116,6 @@ tr:hover {
 }
 
 #content {
-	padding: 32px;
-}
-
-#detail {
 	padding: 32px;
 }
 
@@ -194,7 +190,7 @@ input[type=button], input[type=submit], input[type=reset] {
 	cursor: pointer;
 }
 
-#newButton {
+.newButton {
 	cursor: pointer;
 	background-color: #4CAF50; /* Green */
 	border: none;
@@ -209,7 +205,7 @@ input[type=button], input[type=submit], input[type=reset] {
 	width: 32px;
 }
 
-#editSubmit {
+.editSubmit {
 	cursor: pointer;
 	background-color: #4CAF50; /* Green */
 	border: none;
@@ -219,39 +215,73 @@ input[type=button], input[type=submit], input[type=reset] {
 	font-size: 16px;
 	margin-left: 32px;
 }
+
+.tab{
+	padding: 32px;
+}
+
+.w3-button:hover {
+    color: #000!important;
+    background-color: #ccc!important;
+}
+.w3-bar .w3-button {
+    white-space: normal;
+}
+.w3-bar .w3-bar-item {
+    padding: 8px 16px;
+    float: left;
+    width: auto;
+    border: none;
+    display: block;
+    outline: 0;
+}
+.w3-btn, .w3-button {
+    -webkit-touch-callout: none;
+    -webkit-user-select: none;
+    -khtml-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+}
+.w3-btn, .w3-button {
+	font-size: 14px;
+    border: none;
+    display: inline-block;
+    padding: 8px 16px;
+    vertical-align: middle;
+    overflow: hidden;
+    text-decoration: none;
+    color: inherit;
+    background-color: inherit;
+    text-align: center;
+    cursor: pointer;
+    white-space: nowrap;
+}
+.w3-bar:before, .w3-bar:after {
+    content: "";
+    display: table;
+    clear: both;
+}
+.w3-black, .w3-hover-black:hover {
+    color: #fff!important;
+	background-color: #333;
+}
+.w3-bar {
+    margin:auto;
+    overflow: hidden;
+}
+.detail {
+padding:0px 32px 0px 32px;
+}
 </style>
 
 
 </head>
 
 
-<body>
+<body onload="if (document.getElementsByClassName('active').length < 1) {loadDoc('Patienten'); console.log('loading main content')}">
 
-	<div class="topnav">
-		<a href="#" id="Patienten" onclick="loadDoc('Patienten')">Patienten</a>
-		<a href="#" id="Termine" onclick="loadDoc('Termine')">Termine</a> <a
-			href="#" id="Personal" onclick="loadDoc('Personal')">Personal</a>
-
-		<form id="logout" action="LogoutController" method="post">
-			<input class="w3-button w3-red" type="submit" value="Logout">
-		</form>
-	</div>
-
-
-	<div id="content"></div>
-
-
-	<!-- The Modal -->
-	<div id="myModal" class="modal">
-		<!-- Modal content -->
-		<div id="editContent" class="modal-content"></div>
-	</div>
-
-
-	<div id="status" class="status"></div>
-
-
-	<script type="text/javascript">
+	<script>
 		function loadDoc(which, where) {
 			where = where || "content";
 
@@ -285,6 +315,10 @@ input[type=button], input[type=submit], input[type=reset] {
 			var age = document.getElementById('age').value;
 			var admission_date = document.getElementById('admission_date').value;
 			var comment = document.getElementById('comment').value;
+			var street = document.getElementById('street').value;
+			var city = document.getElementById('city').value;
+			var zip = document.getElementById('zip').value;
+			var ssn = document.getElementById('ssn').value;
 
 			var xhttp = new XMLHttpRequest();
 			xhttp.onreadystatechange = function() {
@@ -303,9 +337,10 @@ input[type=button], input[type=submit], input[type=reset] {
 			xhttp.send("id=" + id + "&first_name=" + first_name + "&create="
 					+ create + "&last_name=" + last_name + "&age=" + age
 					+ "&admission_date=" + admission_date + "&comment="
-					+ comment);
+					+ comment + "&city=" + city + "&ssn=" + ssn
+					+ "&street=" + street + "&zip=" + zip);
 
-			console.log("sent form via post");
+			console.log("sendPatientForm post");
 		}
 		
 		function sendVitalparameterForm() {
@@ -343,7 +378,7 @@ input[type=button], input[type=submit], input[type=reset] {
 					+ create + "&BlutdruckSystolisch=" + BlutdruckSystolisch + "&DiagnosisDate=" + DiagnosisDate
 					+ "&MaximalSchmerz=" + MaximalSchmerz + "&Puls=" + Puls + "&RuheSchmerz=" + RuheSchmerz + "&Temperatur=" + Temperatur);
 
-			console.log("sent form via post");
+			console.log("sendVitalparameterForm post");
 		}
 
 		// Get the modal
@@ -359,15 +394,59 @@ input[type=button], input[type=submit], input[type=reset] {
 				modal.style.display = "none";
 			}
 		}
+		
+		function loadTab(tabName) {
+			  var i;
+			  var x = document.getElementsByClassName("tab");
+			  for (i = 0; i < x.length; i++) {
+			    x[i].style.display = "none"; 
+			  }
+			  document.getElementById(tabName).style.display = "block"; 
+			}
 	</script>
+
+	<div class="topnav">
+		<a href="#" id="Patienten" onclick="loadDoc('Patienten')">Patienten</a>
+		<a href="#" id="Termine" onclick="loadDoc('Termine')">Termine</a> <a
+			href="#" id="Personal" onclick="loadDoc('Personal')">Personal</a>
+
+		<form id="logout" action="LogoutController" method="post">
+			<input class="w3-button w3-red" type="submit" value="Logout">
+		</form>
+	</div>
+
+
+	<div id="content"></div>
+	
+	<div class="detail">
+		<div class="w3-bar w3-black">
+		  <button class="w3-bar-item w3-button" onclick="loadTab('vitalparameter')">Vitalparameter</button>
+		  <button class="w3-bar-item w3-button" onclick="loadTab('medikation')">Medikation</button>
+		  <button class="w3-bar-item w3-button" onclick="loadTab('termine')">Termine</button>
+		</div>
+		<div id="vitalparameter" class="tab"></div>
+		<div id="medikation" class="tab" style="display:none"><p>load medikation here</p></div>
+		<div id="termine" class="tab" style="display:none"><p>load termine here</p></div>
+	</div>
+
+	<!-- modal dialog -->
+	<div id="myModal" class="modal">
+		<!-- modal content -->
+		<div id="editContent" class="modal-content"></div>
+	</div>
+
+
+	<div id="status" class="status"></div>
+
 
 	<%
 		if (session != null) {
 			if (session.getAttribute("role") != null) {
 				String role = (String) session.getAttribute("role");
-				out.print("<script>if (document.getElementsByClassName('active').length == 0) loadDoc('Patienten')</script>");
+				//out.print("<script>if (document.getElementsByClassName('active').length == 0) {loadDoc('Patienten'); console.log('loading main content')}</script>");
 
 			} else {
+				System.out.print("redirecting to /index.html");
 				response.sendRedirect("/index.html");
 			}
 		}
