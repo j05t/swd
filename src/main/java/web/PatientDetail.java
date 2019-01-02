@@ -34,8 +34,9 @@ public class PatientDetail extends HttpServlet {
         
 		Patient p = (new PatientService()).findById(Integer.parseInt(id));
 		
-		response.getWriter().append("<h3>Vitalparameter fuer " + p.getFirstName() + " " + p.getLastName() + "</h3>");
+		response.getWriter().append("<div id=\"vitalparameter\" class=\"tab\">"); 
 		
+		response.getWriter().append("<h3>Vitalparameter fuer " + p.getFirstName() + " " + p.getLastName() + "</h3>");
 		response.getWriter().append("<table>\n" + 
 				"  <tr>\n" + 
 				"    <th>Datum</th>\n" + 
@@ -73,6 +74,21 @@ public class PatientDetail extends HttpServlet {
 		String onNewBtnClick = " onclick=\"loadDoc('EditVitalparameter?new=1&id=" + p.getId() + " ', 'editContent'); document.getElementById('myModal').style.display='block';\"";
 		response.getWriter().append("<button class='newButton' " + onNewBtnClick + ">+</button>");
 		
+		response.getWriter().append("</div>");
+		
+		
+		
+		response.getWriter().append("<div id=\"medikation\" class=\"tab\" style=\"display:none\">");
+		response.getWriter().append("<p>load medikation here</p>");
+		response.getWriter().append("</div>\n");
+		
+		
+		
+		
+		response.getWriter().append("<div id=\"termine\" class=\"tab\" style=\"display:none\">");
+		response.getWriter().append("<p>load termine here</p>");
+		response.getWriter().append("</div>\n");
+				
 	}
 
 	/**

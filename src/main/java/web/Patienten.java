@@ -42,7 +42,7 @@ public class Patienten extends HttpServlet {
 				"  </tr>");
 		
 		for(Patient p: (new PatientService()).findAll()) {
-			String onClick = " onclick=\"loadDoc('PatientDetail?id=" + p.getId() + "', 'vitalparameter')\" ";
+			String onClick = " onclick=\"loadDoc('PatientDetail?id=" + p.getId() + "', 'patientDetail')\" ";
 			String onBtnClick = " onclick=\"loadDoc('EditPatient?id=" + p.getId() + "', 'editContent'); document.getElementById('myModal').style.display='block';\"";
 			String onDelBtnClick = " onclick=\"loadDoc('DeletePatient?id=" + p.getId() + "', 'editContent'); document.getElementById('myModal').style.display='block';\"";
 			response.getWriter().append(

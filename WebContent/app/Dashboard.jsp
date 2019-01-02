@@ -23,7 +23,7 @@ body {
 	float: left;
 	color: #f2f2f2;
 	text-align: center;
-	padding: 14px 16px;
+	padding: 6px 8px;
 	text-decoration: none;
 	font-size: 17px;
 }
@@ -39,9 +39,21 @@ body {
 }
 
 #logout {
-	height: 80%;
-	background: none;
+	text-align: center;
 	float: right;
+}
+
+#logout input{
+	background: none;
+	padding: 2px 4px;
+	margin: 2px;
+	height: 32px;
+	font-size: 17px;
+}
+
+#logout input:hover {
+	background-color: #ddd;
+	color: black;
 }
 
 table {
@@ -362,7 +374,7 @@ padding:0px 32px 0px 32px;
 					document.getElementById('status').innerHTML = this.responseText;
 					modal.style.display = "none";
 					console.log('ajax done, loading PatientDetail?id=' + id);
-					loadDoc(' PatientDetail?id=' + id, "vitalparameter");
+					loadDoc(' PatientDetail?id=' + id, "patientDetail");
 				}
 			};
 			xhttp.open("POST", 'EditVitalparameter', true);
@@ -402,27 +414,25 @@ padding:0px 32px 0px 32px;
 	</script>
 
 	<div class="topnav">
-		<a href="#" id="Patienten" onclick="loadDoc('Patienten'); document.getElementById('patientDetail').style.display='block';">Patienten</a>
-		<a href="#" id="Termine" onclick="loadDoc('Termine'); document.getElementById('patientDetail').style.display='none';">Termine</a> <a
-			href="#" id="Personal" onclick="loadDoc('Personal'); document.getElementById('patientDetail').style.display='none';">Personal</a>
+		<a href="#" id="Patienten" onclick="loadDoc('Patienten'); document.getElementById('patientDetailmenu').style.display='block';">Patienten</a>
+		<a href="#" id="Termine" onclick="loadDoc('Termine'); document.getElementById('patientDetailmenu').style.display='none';">Termine</a> <a
+			href="#" id="Personal" onclick="loadDoc('Personal'); document.getElementById('patientDetailmenu').style.display='none';">Personal</a>
 
 		<form id="logout" action="LogoutController" method="post">
-			<input class="w3-button w3-red" type="submit" value="Logout">
+			<input type="submit" value="Logout">
 		</form>
 	</div>
 
 
 	<div id="content"></div>
 	
-	<div class="detail" id="patientDetail">
+	<div class="detail" id="patientDetailmenu">
 		<div class="w3-bar w3-black">
 		  <button class="w3-bar-item w3-button" onclick="loadTab('vitalparameter')">Vitalparameter</button>
 		  <button class="w3-bar-item w3-button" onclick="loadTab('medikation')">Medikation</button>
 		  <button class="w3-bar-item w3-button" onclick="loadTab('termine')">Termine</button>
 		</div>
-		<div id="vitalparameter" class="tab"></div>
-		<div id="medikation" class="tab" style="display:none"><p>load medikation here</p></div>
-		<div id="termine" class="tab" style="display:none"><p>load termine here</p></div>
+		<div id="patientDetail"></div>
 	</div>
 
 	<!-- modal dialog -->
