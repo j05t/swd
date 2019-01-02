@@ -84,10 +84,13 @@ public class Patient implements Serializable {
 		return termine;
 	}
 
-	public void add(Termin termin) {
+	public void addTermin(Termin termin) {
 		termine.add(termin);
 		termin.add(this);
 	}
+	
+	private List<Medikament> medikation;
+	
 
 	public Arzt getBetreuer() {
 		return arzt;
@@ -189,6 +192,14 @@ public class Patient implements Serializable {
 
 	public String getAddress() {
 		return getStreet() + ", " + getZip() + " " + getCity();
+	}
+
+	public List<Medikament> getMedikation() {
+		return medikation;
+	}
+
+	public void addMedikation(Medikament medikament) {
+		this.medikation.add(medikament);
 	}
 
 }

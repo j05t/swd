@@ -50,7 +50,7 @@ public class DeleteVitalparameter extends HttpServlet {
 		JPAService.getEntityManager().flush();
 		tx.commit();
 		
-		String loadDoc = " loadDoc('PatientDetail?id=" + p.getId() + "', 'detail')";
+		String loadDoc = " loadDoc('PatientDetail?id=" + p.getId() + "', 'vitalparameter')";
 
 		response.getWriter().append("<span onclick=\"document.getElementById('myModal').style.display='none'; " + loadDoc + "\" class=\"close\">&times;</span>")
 				.append("<h3>Vitalparameter entfernt</h3>");

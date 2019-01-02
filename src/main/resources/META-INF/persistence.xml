@@ -11,6 +11,7 @@
 		<class>main.java.data.Patient</class>
 		<class>main.java.data.Role</class>
 		<class>main.java.data.Vitalparameter</class>
+		<class>main.java.data.Medikament</class>
 		<properties>
 			
 			<!--  heroku postgres

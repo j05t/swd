@@ -216,10 +216,6 @@ input[type=button], input[type=submit], input[type=reset] {
 	margin-left: 32px;
 }
 
-.tab{
-	padding: 32px;
-}
-
 .w3-button:hover {
     color: #000!important;
     background-color: #ccc!important;
@@ -366,7 +362,7 @@ padding:0px 32px 0px 32px;
 					document.getElementById('status').innerHTML = this.responseText;
 					modal.style.display = "none";
 					console.log('ajax done, loading PatientDetail?id=' + id);
-					loadDoc(' PatientDetail?id=' + id, "detail");
+					loadDoc(' PatientDetail?id=' + id, "vitalparameter");
 				}
 			};
 			xhttp.open("POST", 'EditVitalparameter', true);
@@ -406,9 +402,9 @@ padding:0px 32px 0px 32px;
 	</script>
 
 	<div class="topnav">
-		<a href="#" id="Patienten" onclick="loadDoc('Patienten')">Patienten</a>
-		<a href="#" id="Termine" onclick="loadDoc('Termine')">Termine</a> <a
-			href="#" id="Personal" onclick="loadDoc('Personal')">Personal</a>
+		<a href="#" id="Patienten" onclick="loadDoc('Patienten'); document.getElementById('patientDetail').style.display='block';">Patienten</a>
+		<a href="#" id="Termine" onclick="loadDoc('Termine'); document.getElementById('patientDetail').style.display='none';">Termine</a> <a
+			href="#" id="Personal" onclick="loadDoc('Personal'); document.getElementById('patientDetail').style.display='none';">Personal</a>
 
 		<form id="logout" action="LogoutController" method="post">
 			<input class="w3-button w3-red" type="submit" value="Logout">
@@ -418,7 +414,7 @@ padding:0px 32px 0px 32px;
 
 	<div id="content"></div>
 	
-	<div class="detail">
+	<div class="detail" id="patientDetail">
 		<div class="w3-bar w3-black">
 		  <button class="w3-bar-item w3-button" onclick="loadTab('vitalparameter')">Vitalparameter</button>
 		  <button class="w3-bar-item w3-button" onclick="loadTab('medikation')">Medikation</button>
