@@ -14,13 +14,52 @@ INSERT INTO PATIENT(ID, FIRST_NAME, LAST_NAME, ARZT_ID, AGE, COMMENT, ADMISSION_
 INSERT INTO PATIENT(ID, FIRST_NAME, LAST_NAME, ARZT_ID, AGE, ADMISSION_DATE, BIRTHDATE, STREET, CITY, ZIP) VALUES (3, 'Fran', 'Bow', 2, 14, '2018-03-02', '2013-07-15','Eggenberger Allee 1337', 'Graz', '8010');
 INSERT INTO PATIENT(ID, FIRST_NAME, LAST_NAME, ARZT_ID, AGE, ADMISSION_DATE, BIRTHDATE, STREET, CITY, ZIP) VALUES (4, 'Michelle', 'Obama', 1, 45, '2017-07-15', '1990-07-15','Eggenberger Allee 1337', 'Graz', '8010');
 
+insert into medikament (id, Bezeichnung) values (1, 'Parkemed');
+insert into medikament (id, Bezeichnung) values (2, 'Voltaren Schmerzgel');
+insert into medikament (id, Bezeichnung) values (3, 'Immodium Akut');
+insert into medikament (id, Bezeichnung) values (4, 'L-Thyroxin Henning');
+insert into medikament (id, Bezeichnung) values (5, 'Beloc-Zoc mite');
+insert into medikament (id, Bezeichnung) values (6, 'Pantozol 20mg');
+insert into medikament (id, Bezeichnung) values (7, 'Nexium mups');
+insert into medikament (id, Bezeichnung) values (8, 'Diclofenac-ratiopharm');
+insert into medikament (id, Bezeichnung) values (9, 'Euthyrox 25');
+insert into medikament (id, Bezeichnung) values (10, 'Olynth');
+
+insert into diagnose (id, Bezeichnung) values (1,'Bakterielle Meningitis');
+insert into diagnose (id, Bezeichnung) values (2,'Diabetes mellitus Typ 2');
+insert into diagnose (id, Bezeichnung) values (3,'Arthrose');
+insert into diagnose (id, Bezeichnung) values (4,'Bindehautentzündung');
+insert into diagnose (id, Bezeichnung) values (5,'Thrombose');
+insert into diagnose (id, Bezeichnung) values (6,'Pulmonale Hypertonie');
+insert into diagnose (id, Bezeichnung) values (7,'Akute allergische Konjunktivitis');
+insert into diagnose (id, Bezeichnung) values (8,'Postinfektiöse Hypothyreose');
+insert into diagnose (id, Bezeichnung) values (9,'Diabetes mellitus Typ 1');
+insert into diagnose (id, Bezeichnung) values (10,'Polymyositis');
+
 INSERT INTO TERMIN(ID, DATUM, ZEIT) VALUES (1, '2019-01-01', '09:15:00');
-INSERT INTO TERMIN(ID, DATUM, ZEIT) VALUES (2, '2019-02-12', '11:00:00');
+INSERT INTO TERMIN(ID, DATUM, ZEIT) VALUES (2, '2012-03-18', '12:00:00');
+INSERT INTO TERMIN(ID, DATUM, ZEIT) VALUES (3, '2013-04-17', '13:00:00');
+INSERT INTO TERMIN(ID, DATUM, ZEIT) VALUES (4, '2014-05-16', '14:00:00');
+INSERT INTO TERMIN(ID, DATUM, ZEIT) VALUES (5, '2015-06-15', '15:00:00');
+INSERT INTO TERMIN(ID, DATUM, ZEIT) VALUES (6, '2016-07-14', '16:00:00');
+INSERT INTO TERMIN(ID, DATUM, ZEIT) VALUES (7, '2017-08-13', '17:00:00');
+INSERT INTO TERMIN(ID, DATUM, ZEIT) VALUES (8, '2017-08-13', '17:00:00');
+
+INSERT INTO TERMIN_DIAGNOSE(TERMIN_ID, DIAGNOSEN_ID) VALUES (1, 1);
+INSERT INTO TERMIN_DIAGNOSE(TERMIN_ID, DIAGNOSEN_ID) VALUES (1, 2);
+
+INSERT INTO MEDIKATION(ID, MEDIKAMENT_ID) VALUES (1, 1);
+
+INSERT INTO TERMIN_MEDIKAMENT(TERMIN_ID, MEDIKATION_ID) VALUES (1, 1);
 
 INSERT INTO PATIENT_TERMIN(TERMIN_ID, PATIENT_ID) VALUES(1, 1);
 INSERT INTO PATIENT_TERMIN(TERMIN_ID, PATIENT_ID) VALUES(2, 2);
-INSERT INTO PATIENT_TERMIN(TERMIN_ID, PATIENT_ID) VALUES(2, 3);
-INSERT INTO PATIENT_TERMIN(TERMIN_ID, PATIENT_ID) VALUES(2, 4);
+INSERT INTO PATIENT_TERMIN(TERMIN_ID, PATIENT_ID) VALUES(3, 3);
+INSERT INTO PATIENT_TERMIN(TERMIN_ID, PATIENT_ID) VALUES(4, 4);
+INSERT INTO PATIENT_TERMIN(TERMIN_ID, PATIENT_ID) VALUES(5, 2);
+INSERT INTO PATIENT_TERMIN(TERMIN_ID, PATIENT_ID) VALUES(6, 2);
+INSERT INTO PATIENT_TERMIN(TERMIN_ID, PATIENT_ID) VALUES(7, 2);
+INSERT INTO PATIENT_TERMIN(TERMIN_ID, PATIENT_ID) VALUES(8, 2);
 
 INSERT INTO VITALPARAMETER (ID, BLUTDRUCKDIASTOLISCH, BLUTDRUCKSYSTOLISCH, DIAGNOSEDATUM, MAXIMALSCHMERZ, BELASTUNGSSCHMERZ, RUHESCHMERZ, PULS, TEMPERATUR) VALUES (1,120, 40, '2018-12-24', 200,100, 60, 42, 35);
 INSERT INTO VITALPARAMETER (ID, BLUTDRUCKDIASTOLISCH, BLUTDRUCKSYSTOLISCH, DIAGNOSEDATUM, MAXIMALSCHMERZ, BELASTUNGSSCHMERZ, RUHESCHMERZ, PULS, TEMPERATUR) VALUES (2,120, 40, '2017-12-22', 200,100, 60, 42, 35);

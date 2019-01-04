@@ -7,11 +7,13 @@ import java.time.LocalTime;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.Id;
 import javax.persistence.ManyToMany;
+import javax.persistence.OneToMany;
 
 @Entity
 public class Termin implements Serializable {
@@ -24,6 +26,22 @@ public class Termin implements Serializable {
 	@ManyToMany(mappedBy = "termine",  fetch=FetchType.EAGER)
 	private List<Patient> persons = new ArrayList<Patient>();
 
+	private List<Medikament> medikation;
+	
+	public List<Medikament> getMedikation() {
+		return medikation;
+	}
+
+	public void addMedikation(Medikament medikament) {
+		this.medikation.add(medikament);
+	}
+	
+
+	
+	@OneToMany(fetch = FetchType.EAGER, cascade=CascadeType.ALL)
+	private List<Diagnose> diagnosen;
+	
+	
 	protected Termin() {
 	};
 	
@@ -80,6 +98,32 @@ public class Termin implements Serializable {
 
 	public void setPersons(List<Patient> persons) {
 		this.persons = persons;
+	}
+
+	public String getMedikationAsString() {
+		StringBuilder sb = new StringBuilder();
+		
+		for (Medikament m : getMedikation()) {
+			sb.append(m.getBezeichnung()).append("<br>");
+		}
+		return sb.toString();
+	}
+
+	public List<Diagnose> getDiagnosen() {
+		return diagnosen;
+	}
+
+	public void addDiagnose(Diagnose diagnose) {
+		this.diagnosen.add(diagnose);
+	}
+
+	public String getDiagnosenAsString() {
+		StringBuilder sb = new StringBuilder();
+		
+		for (Diagnose d : getDiagnosen()) {
+			sb.append(d.getBezeichnung()).append("<br>");
+		}
+		return sb.toString();
 	}
 
 }

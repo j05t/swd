@@ -8,8 +8,10 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import main.java.data.Patient;
+import main.java.data.Termin;
 import main.java.data.Vitalparameter;
 import main.java.service.PatientService;
+import main.java.service.TerminService;
 
 /**
  * Servlet implementation class PersonDetail
@@ -35,7 +37,6 @@ public class PatientDetail extends HttpServlet {
 		Patient p = (new PatientService()).findById(Integer.parseInt(id));
 		
 		response.getWriter().append("<div id=\"vitalparameter\" class=\"tab\">"); 
-		
 		response.getWriter().append("<h3>Vitalparameter fuer " + p.getFirstName() + " " + p.getLastName() + "</h3>");
 		response.getWriter().append("<table>\n" + 
 				"  <tr>\n" + 
@@ -54,7 +55,6 @@ public class PatientDetail extends HttpServlet {
 		for (Vitalparameter v: p.getVitalParameter()) {
 			String onEditBtnClick = " onclick=\"loadDoc('EditVitalparameter?id=" + p.getId() + "&vid=" + v.getId() + "', 'editContent'); document.getElementById('myModal').style.display='block';\"";
 			String onDelBtnClick = " onclick=\"loadDoc('DeleteVitalparameter?id=" + p.getId()  + "&vid=" + v.getId() + "', 'editContent'); document.getElementById('myModal').style.display='block';\"";
-		
 			response.getWriter().append(
 			"  <tr>\n" + 
 			"    <td>" + v.getDiagnosisDate() + "</td>\n" + 
@@ -68,25 +68,59 @@ public class PatientDetail extends HttpServlet {
 			"    <td><button class='editButton'" + onEditBtnClick + ">Edit</button> <button class='deleteButton'" + onDelBtnClick + ">X</button>\n" + 
 			"  </tr>");
 		}
-		
+	
 		response.getWriter().append("</table>");
-		
 		String onNewBtnClick = " onclick=\"loadDoc('EditVitalparameter?new=1&id=" + p.getId() + " ', 'editContent'); document.getElementById('myModal').style.display='block';\"";
 		response.getWriter().append("<button class='newButton' " + onNewBtnClick + ">+</button>");
-		
 		response.getWriter().append("</div>");
 		
 		
 		
 		response.getWriter().append("<div id=\"medikation\" class=\"tab\" style=\"display:none\">");
-		response.getWriter().append("<p>load medikation here</p>");
+		response.getWriter().append("<h3>Medikation fuer " + p.getFirstName() + " " + p.getLastName() + "</h3>");
+		response.getWriter().append("<table>\n" + 
+				"  <tr>\n" + 
+				"    <th>Datum</th>\n" + 
+				"    <th>Uhrzeit</th>\n" + 
+				"    <th>Diagnose</th>\n" + 
+				"    <th>Medikation</th>\n" + 
+				"  </tr>");
+		
+		for(Termin t: p.getTermine()) {				
+			response.getWriter().append(
+			"  <tr onclick=\"loadDoc('TerminDetail?id=" + t.getId() + "', 'detail')\">\n" + 
+			"    <td>" + t.getDate() + "</td>\n" + 
+			"    <td>" + t.getTime() + "</td>\n" + 
+			"    <td>" + t.getDiagnosenAsString()+ "</td>\n" + 
+			"    <td>" + t.getMedikationAsString() + "</td>\n" + 
+			"  </tr>");
+		}
+		response.getWriter().append("</table>");
 		response.getWriter().append("</div>\n");
 		
 		
 		
 		
 		response.getWriter().append("<div id=\"termine\" class=\"tab\" style=\"display:none\">");
-		response.getWriter().append("<p>load termine here</p>");
+		response.getWriter().append("<h3>Termine fuer " + p.getFirstName() + " " + p.getLastName() + "</h3>");
+		response.getWriter().append("<table>\n" + 
+				"  <tr>\n" + 
+				"    <th>Datum</th>\n" + 
+				"    <th>Uhrzeit</th>\n" + 
+				"    <th>Adresse</th>\n" + 
+				"    <th>Medikation</th>\n" + 
+				"  </tr>");
+		
+		for(Termin t: p.getTermine()) {				
+			response.getWriter().append(
+			"  <tr onclick=\"loadDoc('TerminDetail?id=" + t.getId() + "', 'detail')\">\n" + 
+			"    <td>" + t.getDate() + "</td>\n" + 
+			"    <td>" + t.getTime() + "</td>\n" + 
+			"    <td>" + p.getAddress() + "</td>\n" + 
+			"    <td>" + t.getMedikationAsString() + "</td>\n" +
+			"  </tr>");
+		}
+		response.getWriter().append("</table>");
 		response.getWriter().append("</div>\n");
 				
 	}
