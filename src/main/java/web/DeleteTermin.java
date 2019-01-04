@@ -13,21 +13,21 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import main.java.data.Patient;
-import main.java.data.Vitalparameter;
+import main.java.data.Termin;
 import main.java.service.JPAService;
 import main.java.service.PatientService;
 
 /**
  * Servlet implementation class EditPatient
  */
-@WebServlet("/app/DeleteVitalparameter")
-public class DeleteVitalparameter extends HttpServlet {
+@WebServlet("/app/DeleteTermin")
+public class DeleteTermin extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
 	/**
 	 * @see HttpServlet#HttpServlet()
 	 */
-	public DeleteVitalparameter() {
+	public DeleteTermin() {
 		super();
 		// TODO Auto-generated constructor stub
 	}
@@ -38,19 +38,22 @@ public class DeleteVitalparameter extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-		String id = request.getParameter("id");
-		String vid = request.getParameter("vid");
+		String tid = request.getParameter("tid");
+		String pid = request.getParameter("pid");
 
 		EntityTransaction tx = JPAService.getEntityManager().getTransaction();
 		tx.begin();
-		Patient p = (new PatientService()).findById(Integer.parseInt(id));
-		Vitalparameter vp = (new PatientService()).findVitalparameterById(Integer.parseInt(vid));
-		p.getVitalParameter().remove(vp);
+		
+		Termin t = (new PatientService()).findTerminById(Integer.parseInt(tid));
+		Patient p = (new PatientService()).findById(Integer.parseInt(pid));
+
+		p.getTermine().remove(t);
 		JPAService.getEntityManager().merge(p);
+		
 		JPAService.getEntityManager().flush();
 		tx.commit();
-
-		response.getWriter().append("Vitalparameter entfernt");
+		
+		response.getWriter().append("Termin entfernt");
 	}
 
 	/**

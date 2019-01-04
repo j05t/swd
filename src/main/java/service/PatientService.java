@@ -5,6 +5,7 @@ import javax.persistence.NoResultException;
 import javax.persistence.Query;
 
 import main.java.data.Patient;
+import main.java.data.Termin;
 import main.java.data.Vitalparameter;
 
 public class PatientService {
@@ -58,6 +59,20 @@ public class PatientService {
 
 		try {
 			return (Vitalparameter) query.getSingleResult();
+		} catch (NoResultException e) {
+			System.out.println("no result");
+			// not found
+		} 
+
+		return null;
+	}
+
+	public Termin findTerminById(int tid) {
+		Query query = service.getEntityManager().createQuery("Select t from Termin t where t.id = :tid");
+		query.setParameter("tid", tid);
+
+		try {
+			return (Termin) query.getSingleResult();
 		} catch (NoResultException e) {
 			System.out.println("no result");
 			// not found

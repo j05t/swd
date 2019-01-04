@@ -61,42 +61,29 @@
                    </execution>
                </executions>
            </plugin>
-          <!--
+       
 	      <plugin>
 	        <groupId>com.heroku.sdk</groupId>
 	        <artifactId>heroku-maven-plugin</artifactId>
 	        <version>2.0.6</version>
 	      </plugin>
-	  -->
+	
 		</plugins>
 	</build>
 
 
 	<dependencies>
-	<!--
+
 		<dependency>
 			<groupId>org.hibernate</groupId>
 			<artifactId>hibernate-core</artifactId>
 			<version>5.4.0.Final</version>
 		</dependency>
 
-		 https://mvnrepository.com/artifact/postgresql/postgresql 
 		<dependency>
 		    <groupId>postgresql</groupId>
 		    <artifactId>postgresql</artifactId>
 		    <version>9.1-901-1.jdbc4</version>
-		</dependency>
--->
-		<!-- for local testing only - comment this out before deploying -->
-		<dependency>
-			<groupId>org.eclipse.persistence</groupId>
-			<artifactId>org.eclipse.persistence.jpa</artifactId>
-			<version>2.7.3</version>
-		</dependency>
-		<dependency>
-			<groupId>com.h2database</groupId>
-			<artifactId>h2</artifactId>
-			<version>1.4.197</version>
 		</dependency>
 
 

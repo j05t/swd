@@ -4,7 +4,9 @@ import java.util.List;
 import javax.persistence.NoResultException;
 import javax.persistence.Query;
 
+import main.java.data.Patient;
 import main.java.data.Termin;
+import main.java.data.Vitalparameter;
 
 public class TerminService {
 	private static JPAService service = JPAService.getInstance();
@@ -16,9 +18,9 @@ public class TerminService {
 			return query.getResultList();
 		} catch (NoResultException e) {
 			System.out.println("no result");
-			// not found
 		} 
 
 		return null;
 	}
+
 }

@@ -2,33 +2,43 @@ package main.java.data;
 
 import java.io.Serializable;
 import java.time.LocalDate;
-import java.time.LocalDateTime;
 import java.time.LocalTime;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Set;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.FetchType;
 import javax.persistence.Id;
 import javax.persistence.ManyToMany;
-import javax.persistence.OneToMany;
+
+import org.hibernate.annotations.LazyCollection;
+import org.hibernate.annotations.LazyCollectionOption;
+
 
 @Entity
 public class Termin implements Serializable {
 
 	private static final long serialVersionUID = 1L;
+	
 	@Id
 	private int id;
 	private String name;
 
-	@ManyToMany(mappedBy = "termine",  fetch=FetchType.EAGER)
-	private List<Patient> persons = new ArrayList<Patient>();
-
-	private List<Medikament> medikation;
+	@ManyToMany(mappedBy = "termine", cascade=CascadeType.MERGE)
+	@LazyCollection(LazyCollectionOption.FALSE)
+	private List<Patient> patienten = new ArrayList<Patient>();
 	
-	public List<Medikament> getMedikation() {
+	@LazyCollection(LazyCollectionOption.FALSE)
+	@ManyToMany(targetEntity=Medikament.class, cascade=CascadeType.MERGE)
+	private Set<Medikament> medikation;
+	
+	@LazyCollection(LazyCollectionOption.FALSE)
+	@ManyToMany(targetEntity=Diagnose.class, cascade=CascadeType.MERGE)
+	private Set<Diagnose> diagnosen;
+	
+	public Set<Medikament> getMedikation() {
 		return medikation;
 	}
 
@@ -37,10 +47,6 @@ public class Termin implements Serializable {
 	}
 	
 
-	
-	@OneToMany(fetch = FetchType.EAGER, cascade=CascadeType.ALL)
-	private List<Diagnose> diagnosen;
-	
 	
 	protected Termin() {
 	};
@@ -73,7 +79,7 @@ public class Termin implements Serializable {
 	}
 
 	public void add(Patient person) {
-		persons.add(person);
+		patienten.add(person);
 	}
 
 	public int getId() {
@@ -92,24 +98,26 @@ public class Termin implements Serializable {
 		this.name = name;
 	}
 
-	public List<Patient> getPersons() {
-		return persons;
+	public List<Patient> getPatienten() {
+		return patienten;
 	}
 
-	public void setPersons(List<Patient> persons) {
-		this.persons = persons;
+	public void addPatient(Patient patient) {
+		this.patienten.add(patient);
 	}
 
 	public String getMedikationAsString() {
 		StringBuilder sb = new StringBuilder();
 		
-		for (Medikament m : getMedikation()) {
-			sb.append(m.getBezeichnung()).append("<br>");
-		}
+		if(getMedikation() != null)
+			for (Medikament m : getMedikation()) {
+				sb.append(m.getBezeichnung()).append("<br/>");
+			}
+		
 		return sb.toString();
 	}
 
-	public List<Diagnose> getDiagnosen() {
+	public Set<Diagnose> getDiagnosen() {
 		return diagnosen;
 	}
 
@@ -120,9 +128,11 @@ public class Termin implements Serializable {
 	public String getDiagnosenAsString() {
 		StringBuilder sb = new StringBuilder();
 		
-		for (Diagnose d : getDiagnosen()) {
-			sb.append(d.getBezeichnung()).append("<br>");
-		}
+		if(getDiagnosen() != null)
+			for (Diagnose d : getDiagnosen()) {
+				sb.append(d.getBezeichnung()).append("<br/>");
+			}
+		
 		return sb.toString();
 	}
 

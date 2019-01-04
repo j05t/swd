@@ -36,6 +36,8 @@ public class PatientDetail extends HttpServlet {
         
 		Patient p = (new PatientService()).findById(Integer.parseInt(id));
 		
+		
+		// tab vitalparameter
 		response.getWriter().append("<div id=\"vitalparameter\" class=\"tab\">"); 
 		response.getWriter().append("<h3>Vitalparameter fuer " + p.getFirstName() + " " + p.getLastName() + "</h3>");
 		response.getWriter().append("<table>\n" + 
@@ -50,13 +52,12 @@ public class PatientDetail extends HttpServlet {
 				"    <th>NRS Ruheschmerz</th>\n" + 
 				"    <th>Tools</th>\n" + 
 				"  </tr>");
-		
 
 		for (Vitalparameter v: p.getVitalParameter()) {
 			String onEditBtnClick = " onclick=\"loadDoc('EditVitalparameter?id=" + p.getId() + "&vid=" + v.getId() + "', 'editContent'); document.getElementById('myModal').style.display='block';\"";
-			String onDelBtnClick = " onclick=\"loadDoc('DeleteVitalparameter?id=" + p.getId()  + "&vid=" + v.getId() + "', 'editContent'); document.getElementById('myModal').style.display='block';\"";
+			String onDelBtnClick = " onclick=\"loadDoc('DeleteVitalparameter?id=" + p.getId()  + "&vid=" + v.getId() + "', 'status'); document.getElementById('vitalparam" + v.getId() + "').style.display='none';\"";
 			response.getWriter().append(
-			"  <tr>\n" + 
+			"  <tr id='vitalparam" + v.getId() + "' >\n" + 
 			"    <td>" + v.getDiagnosisDate() + "</td>\n" + 
 			"    <td>" + v.getBlutdruckDiastolisch() + "</td>\n" + 
 			"    <td>" + v.getBlutdruckSystolisch() + "</td>\n" + 
@@ -76,6 +77,7 @@ public class PatientDetail extends HttpServlet {
 		
 		
 		
+		// tab medikation
 		response.getWriter().append("<div id=\"medikation\" class=\"tab\" style=\"display:none\">");
 		response.getWriter().append("<h3>Medikation fuer " + p.getFirstName() + " " + p.getLastName() + "</h3>");
 		response.getWriter().append("<table>\n" + 
@@ -86,7 +88,7 @@ public class PatientDetail extends HttpServlet {
 				"    <th>Medikation</th>\n" + 
 				"  </tr>");
 		
-		for(Termin t: p.getTermine()) {				
+		for(Termin t: p.getTermine()) {	
 			response.getWriter().append(
 			"  <tr onclick=\"loadDoc('TerminDetail?id=" + t.getId() + "', 'detail')\">\n" + 
 			"    <td>" + t.getDate() + "</td>\n" + 
@@ -100,7 +102,7 @@ public class PatientDetail extends HttpServlet {
 		
 		
 		
-		
+		// tab termine
 		response.getWriter().append("<div id=\"termine\" class=\"tab\" style=\"display:none\">");
 		response.getWriter().append("<h3>Termine fuer " + p.getFirstName() + " " + p.getLastName() + "</h3>");
 		response.getWriter().append("<table>\n" + 
@@ -109,18 +111,26 @@ public class PatientDetail extends HttpServlet {
 				"    <th>Uhrzeit</th>\n" + 
 				"    <th>Adresse</th>\n" + 
 				"    <th>Medikation</th>\n" + 
+				"    <th>Tools</th>\n" + 
 				"  </tr>");
 		
-		for(Termin t: p.getTermine()) {				
+		for(Termin t: p.getTermine()) {		
+			String onEditBtnClick = " onclick=\"loadDoc('EditTermin?tid=" + p.getId() + "&tid=" + t.getId() + "', 'editContent'); document.getElementById('myModal').style.display='block';\"";
+			String onDelBtnClick = " onclick=\"loadDoc('DeleteTermin?pid=" + p.getId()  + "&tid=" + t.getId() + "', 'status'); document.getElementById('" + "termin" + t.getId() + "').style.display='none';\"";
+
 			response.getWriter().append(
-			"  <tr onclick=\"loadDoc('TerminDetail?id=" + t.getId() + "', 'detail')\">\n" + 
+			"  <tr id='termin" + t.getId() + "'>\n" + 
 			"    <td>" + t.getDate() + "</td>\n" + 
 			"    <td>" + t.getTime() + "</td>\n" + 
 			"    <td>" + p.getAddress() + "</td>\n" + 
 			"    <td>" + t.getMedikationAsString() + "</td>\n" +
+			"    <td><button class='editButton'" + onEditBtnClick + ">Edit</button> <button class='deleteButton'" + onDelBtnClick + ">X</button>\n" + 
 			"  </tr>");
 		}
 		response.getWriter().append("</table>");
+		String onNewTerminBtnClick = " onclick=\"loadDoc('EditTermin?new=1&pid=" + p.getId() + " ', 'editContent'); document.getElementById('myModal').style.display='block';\"";
+		response.getWriter().append("<button class='newButton' " + onNewTerminBtnClick + ">+</button>");
+	
 		response.getWriter().append("</div>\n");
 				
 	}

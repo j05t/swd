@@ -42,7 +42,7 @@ public class Termine extends HttpServlet {
 			
 			StringBuilder sb = new StringBuilder();
 			sb.append("<ul>");
-			for (Patient p: t.getPersons()) {
+			for (Patient p: t.getPatienten()) {
 				sb.append("<li>").append(p.getFirstName()).append(" ").append(p.getLastName()).append("</li>");
 			}
 			sb.append("</ul>");
