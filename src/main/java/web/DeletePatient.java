@@ -46,8 +46,7 @@ public class DeletePatient extends HttpServlet {
 		JPAService.getEntityManager().flush();
 		tx.commit();
 		
-		response.getWriter().append("<span onclick=\"document.getElementById('myModal').style.display='none'; loadDoc('Patienten')\" class=\"close\">&times;</span>")
-				.append("Patient entfernt");
+		response.getWriter().append("Patient entfernt");
 	}
 
 	/**

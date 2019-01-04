@@ -309,7 +309,7 @@ padding:0px 32px 0px 32px;
 					x[i].classList.remove("active");
 				}
 
-				document.getElementById(which).classList.add("active");
+				document.getElementById(which.split(/(\?)/)[0]).classList.add("active");
 			}
 		}
 
@@ -374,7 +374,7 @@ padding:0px 32px 0px 32px;
 					document.getElementById('status').innerHTML = this.responseText;
 					modal.style.display = "none";
 					console.log('ajax done, loading PatientDetail?id=' + id);
-					loadDoc(' PatientDetail?id=' + id, "patientDetail");
+					loadDoc("PatientDetail?id=" + id, 'patientDetail');
 				}
 			};
 			xhttp.open("POST", 'EditVitalparameter', true);

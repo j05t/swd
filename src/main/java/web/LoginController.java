@@ -37,7 +37,6 @@ public class LoginController extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-		// TODO Auto-generated method stub
 		response.getWriter().append("Served at: ").append(request.getContextPath());
 	}
 
@@ -47,11 +46,8 @@ public class LoginController extends HttpServlet {
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-		// TODO Auto-generated method stub
-		// doGet(request, response);
 
 		response.setContentType("text/html");
-		PrintWriter out = response.getWriter();
 		String username = request.getParameter("username");
 		String password = request.getParameter("password");
 
@@ -64,7 +60,7 @@ public class LoginController extends HttpServlet {
 															// or create one
 			session.setAttribute("role", user.getRole());
 			session.setMaxInactiveInterval(600); // 10 minutes
-			response.sendRedirect("app/Dashboard.jsp");
+			response.sendRedirect("app/Dashboard.jsp?#");
 		} else {            
 			response.sendRedirect(request.getContextPath() + "/index.html#badLogin");
 		}
