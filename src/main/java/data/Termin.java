@@ -48,7 +48,7 @@ public class Termin implements Serializable {
 	
 
 	
-	protected Termin() {
+	public Termin() {
 	};
 	
 	@Column

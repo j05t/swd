@@ -51,6 +51,8 @@ public class DeleteTermin extends HttpServlet {
 		JPAService.getEntityManager().merge(p);
 		
 		JPAService.getEntityManager().flush();
+		JPAService.getEntityManager().refresh(p);
+
 		tx.commit();
 		
 		response.getWriter().append("Termin entfernt");

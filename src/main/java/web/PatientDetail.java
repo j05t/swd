@@ -115,7 +115,7 @@ public class PatientDetail extends HttpServlet {
 				"  </tr>");
 		
 		for(Termin t: p.getTermine()) {		
-			String onEditBtnClick = " onclick=\"loadDoc('EditTermin?tid=" + p.getId() + "&tid=" + t.getId() + "', 'editContent'); document.getElementById('myModal').style.display='block';\"";
+			String onEditBtnClick = " onclick=\"loadDoc('EditTermin?pid=" + p.getId() + "&tid=" + t.getId() + "', 'editContent'); document.getElementById('myModal').style.display='block';\"";
 			String onDelBtnClick = " onclick=\"loadDoc('DeleteTermin?pid=" + p.getId()  + "&tid=" + t.getId() + "', 'status'); document.getElementById('" + "termin" + t.getId() + "').style.display='none';\"";
 
 			response.getWriter().append(

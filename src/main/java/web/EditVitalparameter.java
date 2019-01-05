@@ -60,7 +60,6 @@ public class EditVitalparameter extends HttpServlet {
 			v.setTemperatur("");
 		} else {
 			title = "Vitalparameter bearbeiten";
-			vid = request.getParameter("vid");
 			v = (new PatientService()).findVitalparameterById(Integer.parseInt(vid));
 		}
 		

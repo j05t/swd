@@ -388,6 +388,38 @@ padding:0px 32px 0px 32px;
 
 			console.log("sendVitalparameterForm post");
 		}
+		
+		function sendEditTerminForm() {
+			var modal = document.getElementById('myModal');
+			
+			var pid = document.getElementById('pid').value;
+			var tid = document.getElementById('tid').value;
+			var create = document.getElementById('create').value;
+			
+			var datum = document.getElementById('datum').value;
+			var zeit = document.getElementById('zeit').value;
+
+
+			var xhttp = new XMLHttpRequest();
+			xhttp.onreadystatechange = function() {
+				if (this.readyState == 4 && this.status == 200) {
+
+					document.getElementById('status').innerHTML = this.responseText;
+					modal.style.display = "none";
+					console.log('ajax done, loading PatientDetail?id=' + pid);
+					loadDoc("PatientDetail?id=" + pid, 'patientDetail');
+				}
+			};
+			xhttp.open("POST", 'EditTermin', true);
+			xhttp.setRequestHeader("Content-type",
+					"application/x-www-form-urlencoded");
+
+
+			xhttp.send("pid=" + pid + "&datum=" + datum + "&tid=" + tid + "&zeit=" + zeit + "&create="
+					+ create);
+
+			console.log("sendEditTerminForm post");
+		}
 
 		// Get the modal
 		var modal = document.getElementById('edit');
