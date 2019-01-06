@@ -314,12 +314,6 @@ color: #f46242;
 				}
 
 				document.getElementById(which.split(/(\?)/)[0]).classList.add("active");
-			
-				if(which == "Patienten") {
-					document.getElementById("patientDetailmenu").style.display = "block";
-				} else {
-					document.getElementById("patientDetailmenu").style.display = "none";
-				}
 			}
 		}
 

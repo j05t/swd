@@ -44,7 +44,7 @@ public class Patienten extends HttpServlet {
 		for(Patient p: (new PatientService()).findAll()) {
 			String onClick = " onclick=\"loadDoc('PatientDetail?id=" + p.getId() + "', 'patientDetail')\" ";
 			String onBtnClick = " onclick=\"loadDoc('EditPatient?id=" + p.getId() + "', 'editContent'); document.getElementById('myModal').style.display='block';\"";
-			String onDelBtnClick = " onclick=\"loadDoc('DeletePatient?id=" + p.getId() + "', 'editContent'); document.getElementById('patient" + p.getId() + "').style.display='none';\"";
+			String onDelBtnClick = " onclick=\"loadDoc('DeletePatient?id=" + p.getId() + "', 'status'); document.getElementById('patient" + p.getId() + "').style.display='none';\"";
 			response.getWriter().append(
 			"  <tr id='patient" + p.getId() + "' title=\"" + p.getAddress() + "\">\n" +
 			"    <td " + onClick + ">" + p.getFirstName() + "</td>\n" + 
