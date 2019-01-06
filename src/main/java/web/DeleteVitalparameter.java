@@ -42,15 +42,20 @@ public class DeleteVitalparameter extends HttpServlet {
 		String vid = request.getParameter("vid");
 
 		EntityTransaction tx = JPAService.getEntityManager().getTransaction();
-		tx.begin();
-		Patient p = (new PatientService()).findById(Integer.parseInt(id));
-		Vitalparameter vp = (new PatientService()).findVitalparameterById(Integer.parseInt(vid));
-		p.getVitalParameter().remove(vp);
-		JPAService.getEntityManager().merge(p);
-		JPAService.getEntityManager().flush();
-		tx.commit();
+		try {
+			tx.begin();
+			Patient p = (new PatientService()).findById(Integer.parseInt(id));
+			Vitalparameter vp = (new PatientService()).findVitalparameterById(Integer.parseInt(vid));
+			p.getVitalParameter().remove(vp);
+			JPAService.getEntityManager().merge(p);
+			JPAService.getEntityManager().flush();
+			tx.commit();
 
-		response.getWriter().append("Vitalparameter entfernt");
+			response.getWriter().append("Vitalparameter entfernt");
+		} catch (Exception e) {
+			response.getWriter().append("<div class='error'>Fehler bei Entfernen!</div>");
+			tx.rollback();
+		}
 	}
 
 	/**

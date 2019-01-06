@@ -36,6 +36,12 @@ public class PatientDetail extends HttpServlet {
         
 		Patient p = (new PatientService()).findById(Integer.parseInt(id));
 		
+		response.getWriter().append("		<div class=\"w3-bar w3-black\">\n" + 
+				"		  <button class=\"w3-bar-item w3-button\" onclick=\"loadTab('vitalparameter')\">Vitalparameter</button>\n" + 
+				"		  <button class=\"w3-bar-item w3-button\" onclick=\"loadTab('medikation')\">Medikation</button>\n" + 
+				"		  <button class=\"w3-bar-item w3-button\" onclick=\"loadTab('termine')\">Termine</button>\n" + 
+				"		</div>");
+		
 		
 		// tab vitalparameter
 		response.getWriter().append("<div id=\"vitalparameter\" class=\"tab\">"); 

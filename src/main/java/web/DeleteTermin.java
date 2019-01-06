@@ -42,20 +42,25 @@ public class DeleteTermin extends HttpServlet {
 		String pid = request.getParameter("pid");
 
 		EntityTransaction tx = JPAService.getEntityManager().getTransaction();
-		tx.begin();
-		
-		Termin t = (new PatientService()).findTerminById(Integer.parseInt(tid));
-		Patient p = (new PatientService()).findById(Integer.parseInt(pid));
+		try {
+			tx.begin();
 
-		p.getTermine().remove(t);
-		JPAService.getEntityManager().merge(p);
-		
-		JPAService.getEntityManager().flush();
-		JPAService.getEntityManager().refresh(p);
+			Termin t = (new PatientService()).findTerminById(Integer.parseInt(tid));
+			Patient p = (new PatientService()).findById(Integer.parseInt(pid));
 
-		tx.commit();
-		
-		response.getWriter().append("Termin entfernt");
+			p.getTermine().remove(t);
+			JPAService.getEntityManager().merge(p);
+
+			JPAService.getEntityManager().flush();
+			JPAService.getEntityManager().refresh(p);
+
+			tx.commit();
+
+			response.getWriter().append("Termin entfernt");
+		} catch (Exception e) {
+			response.getWriter().append("<div class='error'>Fehler bei Entfernen!</div>");
+			tx.rollback();
+		}
 	}
 
 	/**

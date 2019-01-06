@@ -40,13 +40,19 @@ public class DeletePatient extends HttpServlet {
 		String id = request.getParameter("id");
 
 		EntityTransaction tx = JPAService.getEntityManager().getTransaction();
-		tx.begin();
-		Patient p = (new PatientService()).findById(Integer.parseInt(id));
-		JPAService.getEntityManager().remove(p);
-		JPAService.getEntityManager().flush();
-		tx.commit();
-		
-		response.getWriter().append("Patient entfernt");
+
+		try {
+			tx.begin();
+			Patient p = (new PatientService()).findById(Integer.parseInt(id));
+			JPAService.getEntityManager().remove(p);
+			JPAService.getEntityManager().flush();
+			tx.commit();
+
+			response.getWriter().append("Patient entfernt");
+		} catch (Exception e) {
+			response.getWriter().append("<div class='error'>Fehler bei Entfernen!</div>");
+			tx.rollback();
+		}
 	}
 
 	/**

@@ -93,16 +93,19 @@ public class EditVitalparameter extends HttpServlet {
 		String createNew = request.getParameter("create");
 		
 		Vitalparameter v;
-
-		Enumeration<String> params = request.getParameterNames(); 
-		while(params.hasMoreElements()){
-		 String paramName = params.nextElement();
-		 System.out.println("Parameter Name - "+paramName+", Value - "+request.getParameter(paramName));
+		
+		DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+		LocalDate date;
+		
+		try {
+			date = LocalDate.parse(request.getParameter("DiagnosisDate"), formatter);
+		} catch (Exception e) {
+			System.out.println("Error converting date.");
+			response.sendError(500);
+			return;
 		}
 		
 		Patient p = (new PatientService()).findById(Integer.parseInt(id));
-		
-		System.out.println(p);
 		
 		EntityTransaction tx = JPAService.getEntityManager().getTransaction();
 		tx.begin();
@@ -113,13 +116,11 @@ public class EditVitalparameter extends HttpServlet {
 		} else {
 			v = (new PatientService()).findVitalparameterById(Integer.parseInt(vid));
 		}
-		
-		DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
 
 		v.setBelastungsSchmerz(request.getParameter("BelastungsSchmerz"));
 		v.setBlutdruckDiastolisch(request.getParameter("BlutdruckDiastolisch"));
 		v.setBlutdruckSystolisch(request.getParameter("BlutdruckSystolisch"));
-		v.setDiagnosisDate(LocalDate.parse(request.getParameter("DiagnosisDate"), formatter) );
+		v.setDiagnosisDate(date );
 		v.setMaximalSchmerz(request.getParameter("MaximalSchmerz"));
 		v.setPuls(request.getParameter("Puls"));
 		v.setRuheSchmerz(request.getParameter("RuheSchmerz"));
@@ -135,6 +136,7 @@ public class EditVitalparameter extends HttpServlet {
 			JPAService.getEntityManager().persist(v);
 		}
 				
+		
 		JPAService.getEntityManager().flush();
 		JPAService.getEntityManager().refresh(p);
 
@@ -143,10 +145,6 @@ public class EditVitalparameter extends HttpServlet {
 		response.setContentType("text/html");
 		PrintWriter out = response.getWriter();
 		out.append("comitted changes on person #" + id + " to database..");
-
-		//reload tables
-		//String loadDoc = " loadDoc('PatientDetail?id=" + p.getId() + "', 'detail')";
-		//out.append("<script>loadDoc('Patienten');" + loadDoc + "</script>");
 	}
 
 }

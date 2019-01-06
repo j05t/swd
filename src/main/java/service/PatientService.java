@@ -12,7 +12,8 @@ public class PatientService {
 	private static JPAService service = JPAService.getInstance();
 
 	public List<Patient> find(String firstName, String lastName) {
-		Query query = service.getEntityManager().createQuery("Select p from Patient p WHERE p.first_name LIKE :firstName AND p.last_name LIKE :lastName");
+		Query query = service.getEntityManager().createQuery(
+				"Select p from Patient p WHERE p.first_name LIKE :firstName AND p.last_name LIKE :lastName");
 		query.setParameter("firstName", firstName);
 		query.setParameter("lastName", lastName);
 
@@ -21,20 +22,20 @@ public class PatientService {
 		} catch (NoResultException e) {
 			System.out.println("no result");
 			// not found
-		} 
+		}
 
 		return null;
 	}
-	
+
 	public List<Patient> findAll() {
-		Query query = service.getEntityManager().createQuery("Select p from Patient p");
+		Query query = service.getEntityManager().createQuery("Select p from Patient p order by p.lastName");
 
 		try {
 			return query.getResultList();
 		} catch (NoResultException e) {
 			System.out.println("no result");
 			// not found
-		} 
+		}
 
 		return null;
 	}
@@ -48,11 +49,11 @@ public class PatientService {
 		} catch (NoResultException e) {
 			System.out.println("no result");
 			// not found
-		} 
+		}
 
 		return null;
 	}
-	
+
 	public Vitalparameter findVitalparameterById(int vid) {
 		Query query = service.getEntityManager().createQuery("Select p from Vitalparameter p where p.id = :vid");
 		query.setParameter("vid", vid);
@@ -62,7 +63,7 @@ public class PatientService {
 		} catch (NoResultException e) {
 			System.out.println("no result");
 			// not found
-		} 
+		}
 
 		return null;
 	}
@@ -76,7 +77,7 @@ public class PatientService {
 		} catch (NoResultException e) {
 			System.out.println("no result");
 			// not found
-		} 
+		}
 
 		return null;
 	}

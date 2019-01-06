@@ -281,6 +281,10 @@ input[type=button], input[type=submit], input[type=reset] {
 .detail {
 padding:0px 32px 0px 32px;
 }
+
+.error {
+color: #f46242;
+}
 </style>
 
 
@@ -310,6 +314,12 @@ padding:0px 32px 0px 32px;
 				}
 
 				document.getElementById(which.split(/(\?)/)[0]).classList.add("active");
+			
+				if(which == "Patienten") {
+					document.getElementById("patientDetailmenu").style.display = "block";
+				} else {
+					document.getElementById("patientDetailmenu").style.display = "none";
+				}
 			}
 		}
 
@@ -335,6 +345,11 @@ padding:0px 32px 0px 32px;
 					document.getElementById('status').innerHTML = this.responseText;
 					modal.style.display = "none";
 					loadDoc('Patienten');
+				}
+				// server error
+				if (this.readyState == 4 && this.status == 500) {
+					document.getElementById('status').innerHTML = "<div class='error'>Fehler bei Persistierung!</div>";
+					modal.style.display = "none";
 				}
 			};
 			xhttp.open("POST", 'EditPatient', true);
@@ -376,6 +391,11 @@ padding:0px 32px 0px 32px;
 					console.log('ajax done, loading PatientDetail?id=' + id);
 					loadDoc("PatientDetail?id=" + id, 'patientDetail');
 				}
+				// server error
+				if (this.readyState == 4 && this.status == 500) {
+					document.getElementById('status').innerHTML = "<div class='error'>Fehler bei Persistierung!</div>";
+					modal.style.display = "none";
+				}
 			};
 			xhttp.open("POST", 'EditVitalparameter', true);
 			xhttp.setRequestHeader("Content-type",
@@ -408,6 +428,11 @@ padding:0px 32px 0px 32px;
 					modal.style.display = "none";
 					console.log('ajax done, loading PatientDetail?id=' + pid);
 					loadDoc("PatientDetail?id=" + pid, 'patientDetail');
+				}
+				// server error
+				if (this.readyState == 4 && this.status == 500) {
+					document.getElementById('status').innerHTML = "<div class='error'>Fehler bei Persistierung!</div>";
+					modal.style.display = "none";
 				}
 			};
 			xhttp.open("POST", 'EditTermin', true);
@@ -459,11 +484,6 @@ padding:0px 32px 0px 32px;
 	<div id="content"></div>
 	
 	<div class="detail" id="patientDetailmenu">
-		<div class="w3-bar w3-black">
-		  <button class="w3-bar-item w3-button" onclick="loadTab('vitalparameter')">Vitalparameter</button>
-		  <button class="w3-bar-item w3-button" onclick="loadTab('medikation')">Medikation</button>
-		  <button class="w3-bar-item w3-button" onclick="loadTab('termine')">Termine</button>
-		</div>
 		<div id="patientDetail"></div>
 	</div>
 

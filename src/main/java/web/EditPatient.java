@@ -39,11 +39,11 @@ public class EditPatient extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 		String createNew = request.getParameter("new");
-		
+
 		Patient p;
 		String title;
 
-		if(createNew != null) {
+		if (createNew != null) {
 			title = "Patient Anlegen";
 			p = new Patient();
 			p.setAdmissionDate(LocalDate.now());
@@ -55,20 +55,24 @@ public class EditPatient extends HttpServlet {
 			String id = request.getParameter("id");
 			p = (new PatientService()).findById(Integer.parseInt(id));
 		}
-		
+
 		response.getWriter().append(
 				"<span onclick=\"document.getElementById('myModal').style.display='none'\" class=\"close\">&times;</span>")
-				.append("<h3>" + title + "</h3><form><input type='hidden' id='id' value='" + p.getId() + "' type='text' /><br />"
-						+ "<input type='hidden' id='create' value='" + ( (createNew) != null ? "true" : "false") + "' />"
-						+ "<label>Vorname:</label>  <input id='first_name' value='" + p.getFirstName() + "' type='text' /><br />"
-						+ "<label>Nachname:</label>  <input id='last_name' value='" + p.getLastName() + "' type='text' /><br />"
-						+ "<label>Alter:</label>  <input id='age' value='" + p.getAge() + "' type='text' /><br />"
-						+ "<label>Aufnahmedatum:</label>  <input id='admission_date' value='" + p.getAdmissionDate() + "' type='text' /><br />" 
-						+ "<label>Warnhinweis:</label> <input id='comment' value='" + p.getComment() + "' type='text' /><br />"
-						+ "<label>Adresse:</label> <input id='street' value='" + p.getStreet() + "' type='text' /><br />"
-						+ "<label>City:</label> <input id='city' value='" + p.getCity() + "' type='text' /><br />"
-						+ "<label>PLZ:</label> <input id='zip' value='" + p.getZip() + "' type='text' /><br />"
-						+ "<label>SV-Nummer:</label> <input id='ssn' value='" + p.getSsn() + "' type='text' /><br />"
+				.append("<h3>" + title + "</h3><form><input type='hidden' id='id' value='" + p.getId()
+						+ "' type='text' /><br />" + "<input type='hidden' id='create' value='"
+						+ ((createNew) != null ? "true" : "false") + "' />"
+						+ "<label>Vorname:</label>  <input id='first_name' value='" + p.getFirstName()
+						+ "' type='text' /><br />" + "<label>Nachname:</label>  <input id='last_name' value='"
+						+ p.getLastName() + "' type='text' /><br />" + "<label>Alter:</label>  <input id='age' value='"
+						+ p.getAge() + "' type='text' /><br />"
+						+ "<label>Aufnahmedatum:</label>  <input id='admission_date' value='" + p.getAdmissionDate()
+						+ "' type='text' /><br />" + "<label>Warnhinweis:</label> <input id='comment' value='"
+						+ p.getComment() + "' type='text' /><br />"
+						+ "<label>Adresse:</label> <input id='street' value='" + p.getStreet()
+						+ "' type='text' /><br />" + "<label>City:</label> <input id='city' value='" + p.getCity()
+						+ "' type='text' /><br />" + "<label>PLZ:</label> <input id='zip' value='" + p.getZip()
+						+ "' type='text' /><br />" + "<label>SV-Nummer:</label> <input id='ssn' value='" + p.getSsn()
+						+ "' type='text' /><br />"
 						+ "<button class='editSubmit' onclick='sendPatientForm()'>Absenden</button></form>");
 
 	}
@@ -94,49 +98,52 @@ public class EditPatient extends HttpServlet {
 		DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
 		LocalDate dateTime = LocalDate.parse(admission_date, formatter);
 
-		Enumeration<String> params = request.getParameterNames(); 
-		while(params.hasMoreElements()){
-		 String paramName = params.nextElement();
-		 System.out.println("Parameter Name - "+paramName+", Value - "+request.getParameter(paramName));
+		Enumeration<String> params = request.getParameterNames();
+		while (params.hasMoreElements()) {
+			String paramName = params.nextElement();
+			System.out.println("Parameter Name - " + paramName + ", Value - " + request.getParameter(paramName));
 		}
-		
+
 		Patient p;
-		
+
 		EntityTransaction tx = JPAService.getEntityManager().getTransaction();
-		tx.begin();
-		
-		if(createNew.equals("true")) {
-			p = new Patient();
-		} else {
-			p = (new PatientService()).findById(Integer.parseInt(id));
+		try {
+			tx.begin();
+
+			if (createNew.equals("true")) {
+				p = new Patient();
+			} else {
+				p = (new PatientService()).findById(Integer.parseInt(id));
+			}
+
+			p.setFirstName(firstName);
+			p.setLastName(lastName);
+			p.setAge(Integer.parseInt(age));
+			p.setAdmissionDate(dateTime);
+			p.setComment(comment);
+			p.setCity(city);
+			p.setStreet(street);
+			p.setZip(zip);
+			p.setSsn(ssn);
+
+			System.out.println(p);
+
+			JPAService.getEntityManager().persist(p);
+
+			JPAService.getEntityManager().flush();
+			JPAService.getEntityManager().refresh(p);
+			tx.commit();
+
+			System.out.println("merged entity " + p);
+
+			response.setContentType("text/html");
+			PrintWriter out = response.getWriter();
+			out.append("comitted changes on person #" + id + " to database..");
+
+		} catch (Exception e) {
+			System.out.println(e.getMessage());
+			tx.rollback();
 		}
-		
-		p.setFirstName(firstName);
-		p.setLastName(lastName);
-		p.setAge(Integer.parseInt(age));
-		p.setAdmissionDate(dateTime);
-		p.setComment(comment);
-		p.setCity(city);
-		p.setStreet(street);
-		p.setZip(zip);
-		p.setSsn(ssn);
-		
-		System.out.println(p);
-		
-		JPAService.getEntityManager().persist(p);
-
-		JPAService.getEntityManager().flush();
-		JPAService.getEntityManager().refresh(p);
-		tx.commit();
-
-		System.out.println("merged entity " + p);
-
-		response.setContentType("text/html");
-		PrintWriter out = response.getWriter();
-		out.append("comitted changes on person #" + id + " to database..");
-
-		//reload table
-		out.append("<script>loadDoc('Patienten')</script>");
 	}
 
 }

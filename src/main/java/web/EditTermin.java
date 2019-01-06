@@ -47,16 +47,16 @@ public class EditTermin extends HttpServlet {
 
 		Termin t;
 		String title;
-		
-		Enumeration<String> params = request.getParameterNames(); 
-		while(params.hasMoreElements()){
-		 String paramName = params.nextElement();
-		 System.out.println("Parameter Name - "+paramName+", Value - "+request.getParameter(paramName));
+
+		Enumeration<String> params = request.getParameterNames();
+		while (params.hasMoreElements()) {
+			String paramName = params.nextElement();
+			System.out.println("Parameter Name - " + paramName + ", Value - " + request.getParameter(paramName));
 		}
-		
+
 		System.out.println("createNew is " + createNew);
-		
-		if(createNew != null) {
+
+		if (createNew != null) {
 			title = "Termin anlegen";
 			t = new Termin();
 			t.setDate(LocalDate.now());
@@ -65,16 +65,20 @@ public class EditTermin extends HttpServlet {
 			title = "Termin bearbeiten";
 			t = (new PatientService()).findTerminById(Integer.parseInt(tid));
 		}
-		
-		if(createNew != null) createNew = "true"; else createNew = "false";
-		
+
+		if (createNew != null)
+			createNew = "true";
+		else
+			createNew = "false";
+
 		response.getWriter().append(
 				"<span onclick=\"document.getElementById('myModal').style.display='none'\" class=\"close\">&times;</span>")
-				.append("<h3>" + title + "</h3><form><input type='hidden' id='pid' value='" + pid + "' type='text' /><br />"
-						+ "<input type='hidden' id='tid' value='" + t.getId() + "' type='text' /><br />"
-						+ "<input type='hidden' id='create' value='" + createNew + "' />"
+				.append("<h3>" + title + "</h3><form><input type='hidden' id='pid' value='" + pid
+						+ "' type='text' /><br />" + "<input type='hidden' id='tid' value='" + t.getId()
+						+ "' type='text' /><br />" + "<input type='hidden' id='create' value='" + createNew + "' />"
 						+ "<label>Datum:</label>  <input id='datum' value='" + t.getDate() + "' type='text' /><br />"
-						+ "<label>Zeit:</label>  <input id='zeit' value='" + (t.getTime() != null ? t.getTime() : "00:00") + "' type='text' /><br />"
+						+ "<label>Zeit:</label>  <input id='zeit' value='"
+						+ (t.getTime() != null ? t.getTime() : "00:00") + "' type='text' /><br />"
 						+ "<button class='editSubmit' onclick='sendEditTerminForm()'>Absenden</button></form>");
 
 	}
@@ -88,34 +92,44 @@ public class EditTermin extends HttpServlet {
 		String pid = request.getParameter("pid");
 		String tid = request.getParameter("tid");
 		String createNew = request.getParameter("create");
-		
+
+		PrintWriter out = response.getWriter();
+
 		Termin t;
 
 		Patient p = (new PatientService()).findById(Integer.parseInt(pid));
-				
-		EntityTransaction tx = JPAService.getEntityManager().getTransaction();
-		tx.begin();
-		
-		if(createNew != null && createNew.equals("true")) {
+
+		if (createNew != null && createNew.equals("true")) {
 			t = new Termin();
 			p.getTermine().add(t);
 		} else {
 			t = (new PatientService()).findTerminById(Integer.parseInt(tid));
 		}
-		
+
 		DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
 		DateTimeFormatter timeFormatter = DateTimeFormatter.ofPattern("HH:mm");
 
-		t.setTime(LocalTime.parse(request.getParameter("zeit"), timeFormatter) );
-		t.setDate(LocalDate.parse(request.getParameter("datum"), formatter) );
+		try {
+			t.setTime(LocalTime.parse(request.getParameter("zeit"), timeFormatter));
+			t.setDate(LocalDate.parse(request.getParameter("datum"), formatter));
+		} catch (Exception e) {
+			System.out.println("Error converting date or time.");
+			response.sendError(500);
+			return;
+		}
 		
-		if(createNew == null) {
+		EntityTransaction tx = JPAService.getEntityManager().getTransaction();
+		tx.begin();
+
+		if (createNew == null) {
 			System.out.println("merging termin " + t);
 			JPAService.getEntityManager().merge(t);
 		} else {
 			System.out.println("persisting new termin " + t);
+			t.getPatienten().add(p);
 			JPAService.getEntityManager().persist(t);
 		}
+		
 		JPAService.getEntityManager().merge(p);
 
 		JPAService.getEntityManager().flush();
@@ -124,8 +138,8 @@ public class EditTermin extends HttpServlet {
 		tx.commit();
 
 		response.setContentType("text/html");
-		PrintWriter out = response.getWriter();
 		out.append("comitted changes on termin #" + tid + " to database..");
+
 	}
 
 }
