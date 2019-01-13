@@ -1,6 +1,7 @@
 package main.java.web;
 
 import java.io.IOException;
+
 import javax.servlet.Filter;
 import javax.servlet.FilterChain;
 import javax.servlet.FilterConfig;
@@ -22,14 +23,12 @@ public class LoginFilter implements Filter {
      * Default constructor. 
      */
     public LoginFilter() {
-        // TODO Auto-generated constructor stub
     }
 
 	/**
 	 * @see Filter#destroy()
 	 */
 	public void destroy() {
-		// TODO Auto-generated method stub
 	}
 
 	/**
@@ -42,6 +41,7 @@ public class LoginFilter implements Filter {
 	        HttpSession session = request.getSession(false);
 
 	        if (session == null || session.getAttribute("role") == null) {
+	        	response.reset();
 	            response.sendRedirect(request.getContextPath() + "/index.html"); // No logged-in user found, so redirect to login page.
 	        } else {
 				response.setHeader("Cache-Control", "no-cache, no-store, must-revalidate"); // HTTP 1.1.
@@ -57,7 +57,6 @@ public class LoginFilter implements Filter {
 	 * @see Filter#init(FilterConfig)
 	 */
 	public void init(FilterConfig fConfig) throws ServletException {
-		// TODO Auto-generated method stub
 	}
 
 }

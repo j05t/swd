@@ -1,7 +1,6 @@
 package main.java.web;
 
 import java.io.IOException;
-import java.util.List;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -24,13 +23,18 @@ public class Patienten extends HttpServlet {
      */
     public Patienten() {
         super();
-        // TODO Auto-generated constructor stub
     }
 
 	/**
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        boolean allowEdit = false;
+        String role = (String) request.getSession().getAttribute("role");
+        
+        if (role != null)
+        	allowEdit = role.equals("admin");
+                
 		response.getWriter().append("<table>\n" + 
 				"  <tr>\n" + 
 				"    <th>Vorname</th>\n" + 
@@ -51,25 +55,24 @@ public class Patienten extends HttpServlet {
 			"    <td " + onClick + ">" + p.getLastName() + "</td>\n" + 
 			"    <td " + onClick + ">" + p.getAge() + "</td>\n" + 
 			"    <td " + onClick + ">" + p.getAdmissionDate() + "</td>\n" + 
-			"    <td " + onClick + ">" + p.getComment() + "</td>\n" + 
-			"    <td><button class='editButton'" + onBtnClick + ">Edit</button> <button class='deleteButton'" + onDelBtnClick + ">X</button>\n" + 
+			"    <td " + onClick + ">" + p.getComment() + "</td>\n" + (allowEdit ?
+			"    <td><button class='editButton'" + onBtnClick + ">Edit</button> <button class='deleteButton'" + onDelBtnClick + ">X</button>\n" : "<td></td>") + 
 			"</td>\n" + 
 			"  </tr>");
 		}
 		
 		response.getWriter().append("</table>");
 		
-		String onNewBtnClick = " onclick=\"loadDoc('EditPatient?new=1', 'editContent'); document.getElementById('myModal').style.display='block';\"";
-		response.getWriter().append("<button class='newButton' " + onNewBtnClick + ">+</button>");
-		
-		//response.getWriter().append("<div id=\"detail\"></div>\n");
+		if (allowEdit) {
+			String onNewBtnClick = " onclick=\"loadDoc('EditPatient?new=1', 'editContent'); document.getElementById('myModal').style.display='block';\"";
+			response.getWriter().append("<button class='newButton' " + onNewBtnClick + ">+</button>");
+		}
 	}
 
 	/**
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// TODO Auto-generated method stub
 		doGet(request, response);
 	}
 

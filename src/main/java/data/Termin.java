@@ -10,32 +10,38 @@ import java.util.Set;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToMany;
+import javax.persistence.SequenceGenerator;
 
 import org.hibernate.annotations.LazyCollection;
 import org.hibernate.annotations.LazyCollectionOption;
 
 
 @Entity
+@SequenceGenerator(name="termin_id_seq", initialValue=100, allocationSize=10)
 public class Termin implements Serializable {
 
 	private static final long serialVersionUID = 1L;
 	
 	@Id
+    @GeneratedValue(strategy=GenerationType.SEQUENCE, generator="termin_id_seq")
 	private int id;
+	
 	private String name;
 
-	@ManyToMany(mappedBy = "termine", cascade=CascadeType.MERGE)
+	@ManyToMany(mappedBy = "termine", cascade=CascadeType.ALL)
 	@LazyCollection(LazyCollectionOption.FALSE)
 	private List<Patient> patienten = new ArrayList<Patient>();
 	
 	@LazyCollection(LazyCollectionOption.FALSE)
-	@ManyToMany(targetEntity=Medikament.class, cascade=CascadeType.MERGE)
+	@ManyToMany(targetEntity=Medikament.class, cascade=CascadeType.ALL)
 	private Set<Medikament> medikation;
 	
 	@LazyCollection(LazyCollectionOption.FALSE)
-	@ManyToMany(targetEntity=Diagnose.class, cascade=CascadeType.MERGE)
+	@ManyToMany(targetEntity=Diagnose.class, cascade=CascadeType.ALL)
 	private Set<Diagnose> diagnosen;
 	
 	public Set<Medikament> getMedikation() {
@@ -46,16 +52,13 @@ public class Termin implements Serializable {
 		this.medikation.add(medikament);
 	}
 	
-
-	
-	public Termin() {
-	};
+	public Termin() {};
 	
 	@Column
     private LocalDate datum;
+	
 	@Column
     private LocalTime zeit;
-    
     
 	public LocalDate getDate() {
 		return datum;

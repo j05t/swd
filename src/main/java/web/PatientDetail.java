@@ -1,6 +1,7 @@
 package main.java.web;
 
 import java.io.IOException;
+
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -11,7 +12,6 @@ import main.java.data.Patient;
 import main.java.data.Termin;
 import main.java.data.Vitalparameter;
 import main.java.service.PatientService;
-import main.java.service.TerminService;
 
 /**
  * Servlet implementation class PersonDetail
@@ -25,7 +25,6 @@ public class PatientDetail extends HttpServlet {
      */
     public PatientDetail() {
         super();
-        // TODO Auto-generated constructor stub
     }
 
 	/**
@@ -34,8 +33,14 @@ public class PatientDetail extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         String id = request.getParameter("id");
         
+        boolean allowEdit = false;
+        String role = (String) request.getSession().getAttribute("role");
+        
+        if (role != null)
+        	allowEdit = role.equals("admin");
+        
 		Patient p = (new PatientService()).findById(Integer.parseInt(id));
-		
+
 		response.getWriter().append("		<div class=\"w3-bar w3-black\">\n" + 
 				"		  <button class=\"w3-bar-item w3-button\" onclick=\"loadTab('vitalparameter')\">Vitalparameter</button>\n" + 
 				"		  <button class=\"w3-bar-item w3-button\" onclick=\"loadTab('medikation')\">Medikation</button>\n" + 
@@ -71,14 +76,18 @@ public class PatientDetail extends HttpServlet {
 			"    <td>" + v.getTemperatur() + "</td>\n" + 
 			"    <td>" + v.getBelastungsSchmerz() + "</td>\n" + 
 			"    <td>" + v.getMaximalSchmerz() + "</td>\n" + 
-			"    <td>" + v.getRuheSchmerz() + "</td>\n" + 
-			"    <td><button class='editButton'" + onEditBtnClick + ">Edit</button> <button class='deleteButton'" + onDelBtnClick + ">X</button>\n" + 
+			"    <td>" + v.getRuheSchmerz() + "</td>\n" + (allowEdit?
+			"    <td><button class='editButton'" + onEditBtnClick + ">Edit</button> <button class='deleteButton'" + onDelBtnClick + ">X</button>\n" : "<td></td>") + 
 			"  </tr>");
 		}
 	
 		response.getWriter().append("</table>");
-		String onNewBtnClick = " onclick=\"loadDoc('EditVitalparameter?new=1&id=" + p.getId() + " ', 'editContent'); document.getElementById('myModal').style.display='block';\"";
-		response.getWriter().append("<button class='newButton' " + onNewBtnClick + ">+</button>");
+		
+		if (allowEdit) {
+			String onNewBtnClick = " onclick=\"loadDoc('EditVitalparameter?new=1&id=" + p.getId() + " ', 'editContent'); document.getElementById('myModal').style.display='block';\"";
+			response.getWriter().append("<button class='newButton' " + onNewBtnClick + ">+</button>");
+		}
+		
 		response.getWriter().append("</div>");
 		
 		
@@ -129,14 +138,17 @@ public class PatientDetail extends HttpServlet {
 			"    <td>" + t.getDate() + "</td>\n" + 
 			"    <td>" + t.getTime() + "</td>\n" + 
 			"    <td>" + p.getAddress() + "</td>\n" + 
-			"    <td>" + t.getMedikationAsString() + "</td>\n" +
-			"    <td><button class='editButton'" + onEditBtnClick + ">Edit</button> <button class='deleteButton'" + onDelBtnClick + ">X</button>\n" + 
+			"    <td>" + t.getMedikationAsString() + "</td>\n" + (allowEdit ?
+			"    <td><button class='editButton'" + onEditBtnClick + ">Edit</button> <button class='deleteButton'" + onDelBtnClick + ">X</button>\n" : "<td></td>" ) + 
 			"  </tr>");
 		}
 		response.getWriter().append("</table>");
-		String onNewTerminBtnClick = " onclick=\"loadDoc('EditTermin?new=1&pid=" + p.getId() + " ', 'editContent'); document.getElementById('myModal').style.display='block';\"";
-		response.getWriter().append("<button class='newButton' " + onNewTerminBtnClick + ">+</button>");
-	
+		
+		if (allowEdit) {
+			String onNewTerminBtnClick = " onclick=\"loadDoc('EditTermin?new=1&pid=" + p.getId() + " ', 'editContent'); document.getElementById('myModal').style.display='block'\"";
+			response.getWriter().append("<button class='newButton' " + onNewTerminBtnClick + ">+</button>");
+		}
+		
 		response.getWriter().append("</div>\n");
 				
 	}
@@ -145,7 +157,6 @@ public class PatientDetail extends HttpServlet {
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// TODO Auto-generated method stub
 		doGet(request, response);
 	}
 

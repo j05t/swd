@@ -16,7 +16,6 @@ import javax.servlet.http.HttpServletResponse;
 
 import main.java.data.Patient;
 import main.java.data.Termin;
-import main.java.data.Vitalparameter;
 import main.java.service.JPAService;
 import main.java.service.PatientService;
 
@@ -32,7 +31,6 @@ public class EditTermin extends HttpServlet {
 	 */
 	public EditTermin() {
 		super();
-		// TODO Auto-generated constructor stub
 	}
 
 	/**
@@ -47,14 +45,6 @@ public class EditTermin extends HttpServlet {
 
 		Termin t;
 		String title;
-
-		Enumeration<String> params = request.getParameterNames();
-		while (params.hasMoreElements()) {
-			String paramName = params.nextElement();
-			System.out.println("Parameter Name - " + paramName + ", Value - " + request.getParameter(paramName));
-		}
-
-		System.out.println("createNew is " + createNew);
 
 		if (createNew != null) {
 			title = "Termin anlegen";
@@ -101,7 +91,6 @@ public class EditTermin extends HttpServlet {
 
 		if (createNew != null && createNew.equals("true")) {
 			t = new Termin();
-			p.getTermine().add(t);
 		} else {
 			t = (new PatientService()).findTerminById(Integer.parseInt(tid));
 		}
@@ -121,24 +110,31 @@ public class EditTermin extends HttpServlet {
 		EntityTransaction tx = JPAService.getEntityManager().getTransaction();
 		tx.begin();
 
-		if (createNew == null) {
-			System.out.println("merging termin " + t);
-			JPAService.getEntityManager().merge(t);
-		} else {
-			System.out.println("persisting new termin " + t);
-			t.getPatienten().add(p);
-			JPAService.getEntityManager().persist(t);
+		try {
+			if (createNew == null) {
+				System.out.println("merging termin " + t);
+				JPAService.getEntityManager().merge(t);
+			} else {
+				System.out.println("persisting new termin # " + t.getId());
+				JPAService.getEntityManager().persist(t);
+				t.getPatienten().add(p);
+				p.getTermine().add(t);
+			}
+			
+			JPAService.getEntityManager().merge(p);
+			JPAService.getEntityManager().flush();
+			JPAService.getEntityManager().refresh(p);
+	
+			tx.commit();
+			
+			response.setContentType("text/html");
+			out.append("comitted changes on termin #" + tid + " to database..");
+			
+		} catch (Exception e) {
+			System.out.println(e.getMessage());
+			tx.rollback();
+			response.sendError(500);
 		}
-		
-		JPAService.getEntityManager().merge(p);
-
-		JPAService.getEntityManager().flush();
-		JPAService.getEntityManager().refresh(p);
-
-		tx.commit();
-
-		response.setContentType("text/html");
-		out.append("comitted changes on termin #" + tid + " to database..");
 
 	}
 

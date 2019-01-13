@@ -1,7 +1,6 @@
 package main.java.web;
 
 import java.io.IOException;
-import java.io.PrintWriter;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -11,7 +10,6 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import main.java.data.User;
-import main.java.service.JPAService;
 import main.java.service.UserService;
 
 
@@ -55,9 +53,9 @@ public class LoginController extends HttpServlet {
 		System.out.println("Found " + user);
 		
 		if (user != null) {
-			HttpSession session = request.getSession(true); // reuse existing
-															// session if exist
-															// or create one
+			// reuse existing session if exist or create one
+			HttpSession session = request.getSession(true); 
+
 			session.setAttribute("role", user.getRole());
 			session.setMaxInactiveInterval(600); // 10 minutes
 			response.sendRedirect("app/Dashboard.jsp?#");

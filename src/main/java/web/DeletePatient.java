@@ -1,9 +1,6 @@
 package main.java.web;
 
 import java.io.IOException;
-import java.io.PrintWriter;
-import java.time.LocalDate;
-import java.time.format.DateTimeFormatter;
 
 import javax.persistence.EntityTransaction;
 import javax.servlet.ServletException;
@@ -28,7 +25,6 @@ public class DeletePatient extends HttpServlet {
 	 */
 	public DeletePatient() {
 		super();
-		// TODO Auto-generated constructor stub
 	}
 
 	/**

@@ -126,12 +126,10 @@ public class EditPatient extends HttpServlet {
 			p.setZip(zip);
 			p.setSsn(ssn);
 
-			System.out.println(p);
-
 			JPAService.getEntityManager().persist(p);
-
 			JPAService.getEntityManager().flush();
 			JPAService.getEntityManager().refresh(p);
+			
 			tx.commit();
 
 			System.out.println("merged entity " + p);
@@ -143,6 +141,7 @@ public class EditPatient extends HttpServlet {
 		} catch (Exception e) {
 			System.out.println(e.getMessage());
 			tx.rollback();
+			response.sendError(500);
 		}
 	}
 

@@ -495,7 +495,6 @@ color: #f46242;
 		if (session != null) {
 			if (session.getAttribute("role") != null) {
 				String role = (String) session.getAttribute("role");
-				//out.print("<script>if (document.getElementsByClassName('active').length == 0) {loadDoc('Patienten'); console.log('loading main content')}</script>");
 
 			} else {
 				System.out.print("redirecting to /index.html");

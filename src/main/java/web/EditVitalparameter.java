@@ -4,7 +4,6 @@ import java.io.IOException;
 import java.io.PrintWriter;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
-import java.util.Enumeration;
 
 import javax.persistence.EntityTransaction;
 import javax.servlet.ServletException;
@@ -30,7 +29,6 @@ public class EditVitalparameter extends HttpServlet {
 	 */
 	public EditVitalparameter() {
 		super();
-		// TODO Auto-generated constructor stub
 	}
 
 	/**
@@ -108,43 +106,50 @@ public class EditVitalparameter extends HttpServlet {
 		Patient p = (new PatientService()).findById(Integer.parseInt(id));
 		
 		EntityTransaction tx = JPAService.getEntityManager().getTransaction();
-		tx.begin();
-		
-		if(createNew != null && createNew.equals("true")) {
-			v = new Vitalparameter();
-			p.getVitalParameter().add(v);
-		} else {
-			v = (new PatientService()).findVitalparameterById(Integer.parseInt(vid));
+		try {
+			tx.begin();
+			
+			if(createNew != null && createNew.equals("true")) {
+				v = new Vitalparameter();
+				p.getVitalParameter().add(v);
+			} else {
+				v = (new PatientService()).findVitalparameterById(Integer.parseInt(vid));
+			}
+	
+			v.setBelastungsSchmerz(request.getParameter("BelastungsSchmerz"));
+			v.setBlutdruckDiastolisch(request.getParameter("BlutdruckDiastolisch"));
+			v.setBlutdruckSystolisch(request.getParameter("BlutdruckSystolisch"));
+			v.setDiagnosisDate(date );
+			v.setMaximalSchmerz(request.getParameter("MaximalSchmerz"));
+			v.setPuls(request.getParameter("Puls"));
+			v.setRuheSchmerz(request.getParameter("RuheSchmerz"));
+			v.setTemperatur(request.getParameter("Temperatur"));
+			
+			JPAService.getEntityManager().merge(p);
+			
+			if(createNew == null) {
+				System.out.println("merging vitalparameter " + v);
+				JPAService.getEntityManager().merge(v);
+			} else {
+				System.out.println("persisting new vitalparameter " + v);
+				JPAService.getEntityManager().persist(v);
+			}
+					
+			JPAService.getEntityManager().flush();
+			JPAService.getEntityManager().refresh(p);
+	
+			tx.commit();
+			
+			response.setContentType("text/html");
+			PrintWriter out = response.getWriter();
+			out.append("comitted changes on person #" + id + " to database..");
+			
+		} catch (Exception e) {
+			System.out.println(e.getMessage());
+			tx.rollback();
+			response.sendError(500);
 		}
 
-		v.setBelastungsSchmerz(request.getParameter("BelastungsSchmerz"));
-		v.setBlutdruckDiastolisch(request.getParameter("BlutdruckDiastolisch"));
-		v.setBlutdruckSystolisch(request.getParameter("BlutdruckSystolisch"));
-		v.setDiagnosisDate(date );
-		v.setMaximalSchmerz(request.getParameter("MaximalSchmerz"));
-		v.setPuls(request.getParameter("Puls"));
-		v.setRuheSchmerz(request.getParameter("RuheSchmerz"));
-		v.setTemperatur(request.getParameter("Temperatur"));
-		
-		JPAService.getEntityManager().merge(p);
-		
-		if(createNew == null) {
-			System.out.println("merging vitalparameter " + v);
-			JPAService.getEntityManager().merge(v);
-		} else {
-			System.out.println("persisting new vitalparameter " + v);
-			JPAService.getEntityManager().persist(v);
-		}
-				
-		
-		JPAService.getEntityManager().flush();
-		JPAService.getEntityManager().refresh(p);
-
-		tx.commit();
-
-		response.setContentType("text/html");
-		PrintWriter out = response.getWriter();
-		out.append("comitted changes on person #" + id + " to database..");
 	}
 
 }
