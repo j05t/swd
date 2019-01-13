@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <class-diagram version="1.2.2" icons="true" automaticImage="PNG" always-add-relationships="false" generalizations="true" 
   realizations="true" associations="true" dependencies="false" nesting-relationships="true" router="FAN">  
-  <class id="1" language="java" name="main.java.data.Vitalparameter" project="swd" 
-    file="/swd/src/main/java/data/Vitalparameter.java" binary="false" corner="BOTTOM_RIGHT">    
+  <class id="1" language="java" name="data.Vitalparameter" project="swd" file="/swd/src/data/Vitalparameter.java" 
+    binary="false" corner="BOTTOM_RIGHT">    
     <position height="-1" width="-1" x="344" y="555"/>    
     <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
       sort-features="false" accessors="true" visibility="true">      
@@ -10,8 +10,8 @@
       <operations public="true" package="true" protected="true" private="true" static="true"/>    
     </display>  
   </class>  
-  <class id="2" language="java" name="main.java.data.Arzt" project="swd" file="/swd/src/main/java/data/Arzt.java" 
-    binary="false" corner="BOTTOM_RIGHT">    
+  <class id="2" language="java" name="data.Arzt" project="swd" file="/swd/src/data/Arzt.java" binary="false" 
+    corner="BOTTOM_RIGHT">    
     <position height="-1" width="-1" x="967" y="493"/>    
     <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
       sort-features="false" accessors="true" visibility="true">      
@@ -19,8 +19,8 @@
       <operations public="true" package="true" protected="true" private="true" static="true"/>    
     </display>  
   </class>  
-  <class id="3" language="java" name="main.java.data.Termin" project="swd" file="/swd/src/main/java/data/Termin.java" 
-    binary="false" corner="BOTTOM_RIGHT">    
+  <class id="3" language="java" name="data.Termin" project="swd" file="/swd/src/data/Termin.java" binary="false" 
+    corner="BOTTOM_RIGHT">    
     <position height="-1" width="-1" x="972" y="847"/>    
     <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
       sort-features="false" accessors="true" visibility="true">      
@@ -28,8 +28,8 @@
       <operations public="true" package="true" protected="true" private="true" static="true"/>    
     </display>  
   </class>  
-  <class id="4" language="java" name="main.java.data.User" project="swd" file="/swd/src/main/java/data/User.java" 
-    binary="false" corner="BOTTOM_RIGHT">    
+  <class id="4" language="java" name="data.User" project="swd" file="/swd/src/data/User.java" binary="false" 
+    corner="BOTTOM_RIGHT">    
     <position height="-1" width="-1" x="739" y="91"/>    
     <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
       sort-features="false" accessors="true" visibility="true">      
@@ -37,8 +37,8 @@
       <operations public="true" package="true" protected="true" private="true" static="true"/>    
     </display>  
   </class>  
-  <class id="5" language="java" name="main.java.data.Patient" project="swd" file="/swd/src/main/java/data/Patient.java" 
-    binary="false" corner="BOTTOM_RIGHT">    
+  <class id="5" language="java" name="data.Patient" project="swd" file="/swd/src/data/Patient.java" binary="false" 
+    corner="BOTTOM_RIGHT">    
     <position height="-1" width="-1" x="656" y="609"/>    
     <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
       sort-features="false" accessors="true" visibility="true">      
@@ -46,8 +46,8 @@
       <operations public="true" package="true" protected="true" private="true" static="true"/>    
     </display>  
   </class>  
-  <class id="6" language="java" name="main.java.data.Role" project="swd" file="/swd/src/main/java/data/Role.java" 
-    binary="false" corner="BOTTOM_RIGHT">    
+  <class id="6" language="java" name="data.Role" project="swd" file="/swd/src/data/Role.java" binary="false" 
+    corner="BOTTOM_RIGHT">    
     <position height="-1" width="-1" x="571" y="61"/>    
     <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
       sort-features="false" accessors="true" visibility="true">      
@@ -56,39 +56,39 @@
     </display>  
   </class>  
   <association id="7">    
-    <end type="SOURCE" refId="3" navigable="false">      
-      <attribute id="8" name="patienten">        
+    <end type="SOURCE" refId="5" navigable="false">      
+      <attribute id="8" name="vitalParameter">        
         <position height="0" width="0" x="0" y="0"/>      
       </attribute>      
       <multiplicity id="9" minimum="0" maximum="2147483647">        
         <position height="0" width="0" x="0" y="0"/>      
       </multiplicity>    
     </end>    
-    <end type="TARGET" refId="5" navigable="true"/>    
+    <end type="TARGET" refId="1" navigable="true"/>    
     <display labels="true" multiplicity="true"/>  
   </association>  
   <association id="10">    
     <end type="SOURCE" refId="5" navigable="false">      
-      <attribute id="11" name="vitalParameter">        
+      <attribute id="11" name="termine">        
         <position height="0" width="0" x="0" y="0"/>      
       </attribute>      
       <multiplicity id="12" minimum="0" maximum="2147483647">        
         <position height="0" width="0" x="0" y="0"/>      
       </multiplicity>    
     </end>    
-    <end type="TARGET" refId="1" navigable="true"/>    
+    <end type="TARGET" refId="3" navigable="true"/>    
     <display labels="true" multiplicity="true"/>  
   </association>  
   <association id="13">    
-    <end type="SOURCE" refId="5" navigable="false">      
-      <attribute id="14" name="termine">        
+    <end type="SOURCE" refId="3" navigable="false">      
+      <attribute id="14" name="patienten">        
         <position height="0" width="0" x="0" y="0"/>      
       </attribute>      
       <multiplicity id="15" minimum="0" maximum="2147483647">        
         <position height="0" width="0" x="0" y="0"/>      
       </multiplicity>    
     </end>    
-    <end type="TARGET" refId="3" navigable="true"/>    
+    <end type="TARGET" refId="5" navigable="true"/>    
     <display labels="true" multiplicity="true"/>  
   </association>  
   <classifier-display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 

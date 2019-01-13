@@ -9,6 +9,7 @@ import main.java.data.Patient;
 import main.java.data.Termin;
 import main.java.data.Vitalparameter;
 
+
 public class PatientService {
 	private static JPAService service = JPAService.getInstance();
 

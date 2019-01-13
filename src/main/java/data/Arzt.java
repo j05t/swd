@@ -31,7 +31,7 @@ public class Arzt implements Serializable{
 
 	private String name;
 	
-	@ManyToOne(fetch =FetchType.EAGER)
+	@ManyToOne(fetch = FetchType.EAGER)
 	private Role role;
 	
 	public Role getRole() {

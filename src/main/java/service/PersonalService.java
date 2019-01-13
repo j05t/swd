@@ -7,6 +7,7 @@ import javax.persistence.Query;
 
 import main.java.data.Arzt;
 
+
 public class PersonalService {
 	private static JPAService service = JPAService.getInstance();
 

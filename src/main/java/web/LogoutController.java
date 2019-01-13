@@ -19,9 +19,6 @@ public class LogoutController extends HttpServlet {
 	protected void doPost(HttpServletRequest request,
 			HttpServletResponse response) throws ServletException, IOException {
 
-		//response.setContentType("text/html");
-		//PrintWriter out = response.getWriter();
-		//out.println("Session destroyed. Display a nice logout message here.");
 		HttpSession session = request.getSession(false);
 		
 		if (session != null)
