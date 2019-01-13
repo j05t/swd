@@ -1,4 +1,4 @@
-package main.java.web;
+package web;
 
 import java.io.IOException;
 
@@ -8,8 +8,8 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import main.java.data.Patient;
-import main.java.service.PatientService;
+import data.Patient;
+import service.PatientService;
 
 /**
  * Servlet implementation class Patienten

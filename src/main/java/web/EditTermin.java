@@ -1,4 +1,4 @@
-package main.java.web;
+package web;
 
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -13,10 +13,10 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import main.java.data.Patient;
-import main.java.data.Termin;
-import main.java.service.JPAService;
-import main.java.service.PatientService;
+import data.Patient;
+import data.Termin;
+import service.JPAService;
+import service.PatientService;
 
 /**
  * Servlet implementation class EditPatient

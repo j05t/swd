@@ -1,10 +1,9 @@
-package main.java.service;
-
+package service;
 
 import javax.persistence.NoResultException;
 import javax.persistence.Query;
 
-import main.java.data.User;
+import data.User;
 
 public class UserService {
 	private static JPAService service = JPAService.getInstance();

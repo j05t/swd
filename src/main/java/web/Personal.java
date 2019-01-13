@@ -1,4 +1,4 @@
-package main.java.web;
+package web;
 
 import java.io.IOException;
 
@@ -8,8 +8,8 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import main.java.data.Arzt;
-import main.java.service.PersonalService;
+import data.Arzt;
+import service.PersonalService;
 
 /**
  * Servlet implementation class Personal

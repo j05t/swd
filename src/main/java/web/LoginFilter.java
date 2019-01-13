@@ -1,4 +1,4 @@
-package main.java.web;
+package web;
 
 import java.io.IOException;
 
@@ -47,7 +47,6 @@ public class LoginFilter implements Filter {
 				response.setHeader("Cache-Control", "no-cache, no-store, must-revalidate"); // HTTP 1.1.
 				response.setHeader("Pragma", "no-cache"); // HTTP 1.0.
 				response.setDateHeader("Expires", 0);
-
 	            chain.doFilter(req, res); // Logged-in user found, so just continue request.
 	        }
 	    }

@@ -1,4 +1,4 @@
-package main.java.web;
+package web;
 
 import java.io.IOException;
 
@@ -9,9 +9,9 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import main.java.data.Patient;
-import main.java.service.JPAService;
-import main.java.service.PatientService;
+import data.Patient;
+import service.JPAService;
+import service.PatientService;
 
 /**
  * Servlet implementation class EditPatient
@@ -36,7 +36,6 @@ public class DeletePatient extends HttpServlet {
 		String id = request.getParameter("id");
 		Patient p;
 
-
 		try {
 			p = (new PatientService()).findById(Integer.parseInt(id));
 		} catch (Exception e) {
@@ -44,14 +43,20 @@ public class DeletePatient extends HttpServlet {
 			response.sendError(500);
 			return;
 		}
-		
+
 		EntityTransaction tx = JPAService.getEntityManager().getTransaction();
 		tx.begin();
-		JPAService.getEntityManager().remove(p);
-		JPAService.getEntityManager().flush();
-		tx.commit();
 
-		response.getWriter().append("Patient entfernt");
+		try {
+			JPAService.getEntityManager().remove(p);
+			JPAService.getEntityManager().flush();
+			tx.commit();
+			response.getWriter().append("Patient entfernt");
+		} catch (Exception e) {
+			response.getWriter().append("<div class='error'>Fehler bei Entfernen!</div>");
+			tx.rollback();
+			response.sendError(500);
+		}
 	}
 
 	/**

@@ -1,4 +1,4 @@
-package main.java.web;
+package web;
 
 import java.io.IOException;
 
@@ -24,7 +24,7 @@ public class LogoutController extends HttpServlet {
 		if (session != null)
 			session.invalidate();
 		
-        response.sendRedirect(request.getContextPath() + "/index.html"); // redirect to login page.
-
+		// redirect to login page.
+        response.sendRedirect(request.getContextPath() + "/index.html"); 
 	}
 }

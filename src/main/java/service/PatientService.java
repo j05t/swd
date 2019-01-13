@@ -1,13 +1,13 @@
-package main.java.service;
+package service;
 
 import java.util.List;
 
 import javax.persistence.NoResultException;
 import javax.persistence.Query;
 
-import main.java.data.Patient;
-import main.java.data.Termin;
-import main.java.data.Vitalparameter;
+import data.Patient;
+import data.Termin;
+import data.Vitalparameter;
 
 
 public class PatientService {

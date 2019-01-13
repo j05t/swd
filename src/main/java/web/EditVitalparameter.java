@@ -1,4 +1,4 @@
-package main.java.web;
+package web;
 
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -12,10 +12,10 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import main.java.data.Patient;
-import main.java.data.Vitalparameter;
-import main.java.service.JPAService;
-import main.java.service.PatientService;
+import data.Patient;
+import data.Vitalparameter;
+import service.JPAService;
+import service.PatientService;
 
 /**
  * Servlet implementation class EditPatient
@@ -40,9 +40,7 @@ public class EditVitalparameter extends HttpServlet {
 		String createNew = request.getParameter("new");
 		String id = request.getParameter("id");
 		String vid = request.getParameter("vid");
-
 		Vitalparameter v;
-		
 		String title;
 		
 		if(createNew != null) {

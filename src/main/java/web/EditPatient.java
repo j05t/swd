@@ -1,4 +1,4 @@
-package main.java.web;
+package web;
 
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -13,9 +13,9 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import main.java.data.Patient;
-import main.java.service.JPAService;
-import main.java.service.PatientService;
+import data.Patient;
+import service.JPAService;
+import service.PatientService;
 
 /**
  * Servlet implementation class EditPatient
@@ -29,7 +29,6 @@ public class EditPatient extends HttpServlet {
 	 */
 	public EditPatient() {
 		super();
-		// TODO Auto-generated constructor stub
 	}
 
 	/**
@@ -97,13 +96,6 @@ public class EditPatient extends HttpServlet {
 
 		DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
 		LocalDate dateTime = LocalDate.parse(admission_date, formatter);
-
-		Enumeration<String> params = request.getParameterNames();
-		while (params.hasMoreElements()) {
-			String paramName = params.nextElement();
-			System.out.println("Parameter Name - " + paramName + ", Value - " + request.getParameter(paramName));
-		}
-
 		Patient p;
 
 		EntityTransaction tx = JPAService.getEntityManager().getTransaction();

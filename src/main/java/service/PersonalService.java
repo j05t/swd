@@ -1,11 +1,11 @@
-package main.java.service;
+package service;
 
 import java.util.List;
 
 import javax.persistence.NoResultException;
 import javax.persistence.Query;
 
-import main.java.data.Arzt;
+import data.Arzt;
 
 
 public class PersonalService {

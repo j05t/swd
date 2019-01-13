@@ -1,11 +1,11 @@
-package main.java.service;
+package service;
 
 import java.util.List;
 
 import javax.persistence.NoResultException;
 import javax.persistence.Query;
 
-import main.java.data.Termin;
+import data.Termin;
 
 public class TerminService {
 	private static JPAService service = JPAService.getInstance();
