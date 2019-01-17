@@ -541,7 +541,7 @@ input[type=button], input[type=submit], input[type=reset] {
 			filter = input.value.toUpperCase();
 			table = document.getElementById("mainTable");
 			tr = table.getElementsByTagName("tr");
-			for (i = 0; i < tr.length; i++) {
+			for (i = 1; i < tr.length; i++) {
 				var lineStr = "";
 				var tdElems = tr[i].getElementsByTagName("td");
 				
