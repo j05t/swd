@@ -25,4 +25,14 @@ public class Diagnose implements Serializable{
 		this.bezeichnung = bezeichnung;
 	}
 
+
+	public int getId() {
+		return id;
+	}
+
+
+	public void setId(int id) {
+		this.id = id;
+	}
+
 }

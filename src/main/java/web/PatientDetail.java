@@ -31,10 +31,11 @@ public class PatientDetail extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        String id = request.getParameter("id");
-        
-        boolean allowEdit = false;
+		response.setContentType("text/html;charset=UTF-8");
+
         String role = (String) request.getSession().getAttribute("role");
+		String id = request.getParameter("id");
+        boolean allowEdit = false;
         
         if (role != null)
         	allowEdit = role.equals("admin");
@@ -108,7 +109,7 @@ public class PatientDetail extends HttpServlet {
 			"  <tr onclick=\"loadDoc('TerminDetail?id=" + t.getId() + "', 'detail')\">\n" + 
 			"    <td>" + t.getDate() + "</td>\n" + 
 			"    <td>" + t.getTime() + "</td>\n" + 
-			"    <td>" + t.getDiagnosenAsString()+ "</td>\n" + 
+			"    <td>" + t.getDiagnosenAsHtmlString()+ "</td>\n" + 
 			"    <td>" + t.getMedikationAsString() + "</td>\n" + 
 			"  </tr>");
 		}
@@ -126,6 +127,7 @@ public class PatientDetail extends HttpServlet {
 				"    <th>Uhrzeit</th>\n" + 
 				"    <th>Adresse</th>\n" + 
 				"    <th>Medikation</th>\n" + 
+				"    <th>Diagnose</th>\n" + 
 				"    <th>Tools</th>\n" + 
 				"  </tr>");
 		
@@ -138,7 +140,8 @@ public class PatientDetail extends HttpServlet {
 			"    <td>" + t.getDate() + "</td>\n" + 
 			"    <td>" + t.getTime() + "</td>\n" + 
 			"    <td>" + p.getAddress() + "</td>\n" + 
-			"    <td>" + t.getMedikationAsString() + "</td>\n" + (allowEdit ?
+			"    <td>" + t.getMedikationAsString() + "</td>\n" +
+			"    <td>" + t.getDiagnosenAsHtmlString() + "</td>\n" + (allowEdit ?
 			"    <td><button class='editButton'" + onEditBtnClick + ">Edit</button> <button class='deleteButton'" + onDelBtnClick + ">X</button>\n" : "<td></td>" ) + 
 			"  </tr>");
 		}

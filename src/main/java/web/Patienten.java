@@ -29,7 +29,9 @@ public class Patienten extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        boolean allowEdit = false;
+		response.setContentType("text/html;charset=UTF-8");
+
+		boolean allowEdit = false;
         String role = (String) request.getSession().getAttribute("role");
         
         if (role != null)

@@ -4,7 +4,6 @@ import java.io.IOException;
 import java.io.PrintWriter;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
-import java.util.Enumeration;
 
 import javax.persistence.EntityTransaction;
 import javax.servlet.ServletException;
@@ -37,8 +36,9 @@ public class EditPatient extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-		String createNew = request.getParameter("new");
+		response.setContentType("text/html;charset=UTF-8");
 
+		String createNew = request.getParameter("new");
 		Patient p;
 		String title;
 
@@ -57,8 +57,8 @@ public class EditPatient extends HttpServlet {
 
 		response.getWriter().append(
 				"<span onclick=\"document.getElementById('myModal').style.display='none'\" class=\"close\">&times;</span>")
-				.append("<h3>" + title + "</h3><form><input type='hidden' id='id' value='" + p.getId()
-						+ "' type='text' /><br />" + "<input type='hidden' id='create' value='"
+				.append("<h3>" + title + "</h3><form><input type='hidden' id='id' value='" + p.getId() + "' />" 
+						+ "<input type='hidden' id='create' value='"
 						+ ((createNew) != null ? "true" : "false") + "' />"
 						+ "<label>Vorname:</label>  <input id='first_name' value='" + p.getFirstName()
 						+ "' type='text' /><br />" + "<label>Nachname:</label>  <input id='last_name' value='"

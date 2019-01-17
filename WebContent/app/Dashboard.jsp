@@ -43,7 +43,7 @@ body {
 	float: right;
 }
 
-#logout input{
+#logout input {
 	background: none;
 	padding: 2px 4px;
 	margin: 2px;
@@ -151,7 +151,7 @@ tr:hover {
 .modal-content {
 	background-color: #fefefe;
 	margin: auto;
-	padding: 20px;
+	padding: 10px;
 	border: 1px solid #888;
 	width: 500px;
 }
@@ -229,61 +229,69 @@ input[type=button], input[type=submit], input[type=reset] {
 }
 
 .w3-button:hover {
-    color: #000!important;
-    background-color: #ccc!important;
+	color: #000 !important;
+	background-color: #ccc !important;
 }
+
 .w3-bar .w3-button {
-    white-space: normal;
+	white-space: normal;
 }
+
 .w3-bar .w3-bar-item {
-    padding: 8px 16px;
-    float: left;
-    width: auto;
-    border: none;
-    display: block;
-    outline: 0;
+	padding: 8px 16px;
+	float: left;
+	width: auto;
+	border: none;
+	display: block;
+	outline: 0;
 }
+
 .w3-btn, .w3-button {
-    -webkit-touch-callout: none;
-    -webkit-user-select: none;
-    -khtml-user-select: none;
-    -moz-user-select: none;
-    -ms-user-select: none;
-    user-select: none;
+	-webkit-touch-callout: none;
+	-webkit-user-select: none;
+	-khtml-user-select: none;
+	-moz-user-select: none;
+	-ms-user-select: none;
+	user-select: none;
 }
+
 .w3-btn, .w3-button {
 	font-size: 14px;
-    border: none;
-    display: inline-block;
-    padding: 8px 16px;
-    vertical-align: middle;
-    overflow: hidden;
-    text-decoration: none;
-    color: inherit;
-    background-color: inherit;
-    text-align: center;
-    cursor: pointer;
-    white-space: nowrap;
+	border: none;
+	display: inline-block;
+	padding: 8px 16px;
+	vertical-align: middle;
+	overflow: hidden;
+	text-decoration: none;
+	color: inherit;
+	background-color: inherit;
+	text-align: center;
+	cursor: pointer;
+	white-space: nowrap;
 }
+
 .w3-bar:before, .w3-bar:after {
-    content: "";
-    display: table;
-    clear: both;
+	content: "";
+	display: table;
+	clear: both;
 }
+
 .w3-black, .w3-hover-black:hover {
-    color: #fff!important;
+	color: #fff !important;
 	background-color: #333;
 }
+
 .w3-bar {
-    margin:auto;
-    overflow: hidden;
+	margin: auto;
+	overflow: hidden;
 }
+
 .detail {
-padding:0px 32px 0px 32px;
+	padding: 0px 32px 0px 32px;
 }
 
 .error {
-color: #f46242;
+	color: #f46242;
 }
 </style>
 
@@ -291,7 +299,8 @@ color: #f46242;
 </head>
 
 
-<body onload="if (document.getElementsByClassName('active').length < 1) {loadDoc('Patienten'); console.log('loading main content')}">
+<body
+	onload="if (document.getElementsByClassName('active').length < 1) {loadDoc('Patienten'); console.log('loading main content')}">
 
 	<script>
 		function loadDoc(which, where) {
@@ -412,8 +421,19 @@ color: #f46242;
 			
 			var datum = document.getElementById('datum').value;
 			var zeit = document.getElementById('zeit').value;
-
-
+			
+			// construct post string
+			var diagnosis = document.getElementsByClassName("diagCheckBox");
+			  var diagPost = "&diag=";
+			  var i;
+			  for (i = 1; i < diagnosis.length; i++) {
+			    if (diagnosis[i].checked) {
+			    	diagPost += diagnosis[i].id + ",";
+			    }
+			  }
+			// remove superfluous ","
+			diagPost = diagPost.substring(0, diagPost.length-1);
+			
 			var xhttp = new XMLHttpRequest();
 			xhttp.onreadystatechange = function() {
 				if (this.readyState == 4 && this.status == 200) {
@@ -435,7 +455,7 @@ color: #f46242;
 
 
 			xhttp.send("pid=" + pid + "&datum=" + datum + "&tid=" + tid + "&zeit=" + zeit + "&create="
-					+ create);
+					+ create + diagPost);
 
 			console.log("sendEditTerminForm post");
 		}
@@ -465,9 +485,12 @@ color: #f46242;
 	</script>
 
 	<div class="topnav">
-		<a href="#" id="Patienten" onclick="loadDoc('Patienten'); document.getElementById('patientDetailmenu').style.display='block';">Patienten</a>
-		<a href="#" id="Termine" onclick="loadDoc('Termine'); document.getElementById('patientDetailmenu').style.display='none';">Termine</a> <a
-			href="#" id="Personal" onclick="loadDoc('Personal'); document.getElementById('patientDetailmenu').style.display='none';">Personal</a>
+		<a href="#" id="Patienten"
+			onclick="loadDoc('Patienten'); document.getElementById('patientDetailmenu').style.display='block';">Patienten</a>
+		<a href="#" id="Termine"
+			onclick="loadDoc('Termine'); document.getElementById('patientDetailmenu').style.display='none';">Termine</a>
+		<a href="#" id="Personal"
+			onclick="loadDoc('Personal'); document.getElementById('patientDetailmenu').style.display='none';">Personal</a>
 
 		<form id="logout" action="LogoutController" method="post">
 			<input type="submit" value="Logout">
@@ -476,7 +499,7 @@ color: #f46242;
 
 
 	<div id="content"></div>
-	
+
 	<div class="detail" id="patientDetailmenu">
 		<div id="patientDetail"></div>
 	</div>

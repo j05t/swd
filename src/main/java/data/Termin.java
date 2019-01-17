@@ -125,18 +125,26 @@ public class Termin implements Serializable {
 	}
 
 	public void addDiagnose(Diagnose diagnose) {
-		this.diagnosen.add(diagnose);
+		this.getDiagnosen().add(diagnose);
 	}
 
-	public String getDiagnosenAsString() {
+	public String getDiagnosenAsHtmlString() {
 		StringBuilder sb = new StringBuilder();
-		
-		if(getDiagnosen() != null)
+
+		if(getDiagnosen() != null) {
+			sb.append("<ul>");
+
 			for (Diagnose d : getDiagnosen()) {
-				sb.append(d.getBezeichnung()).append("<br/>");
+				sb.append("<li>").append(d.getBezeichnung()).append("</li>");
 			}
+			sb.append("</ul>");
+		}
 		
 		return sb.toString();
+	}
+
+	public void setDiagnosen(Set<Diagnose> diagnosen) {
+		this.diagnosen = diagnosen;
 	}
 
 }

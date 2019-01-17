@@ -1,6 +1,10 @@
 package service;
 
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 import javax.persistence.NoResultException;
 import javax.persistence.Query;
@@ -8,6 +12,7 @@ import javax.persistence.Query;
 import data.Patient;
 import data.Termin;
 import data.Vitalparameter;
+import data.Diagnose;
 
 
 public class PatientService {
@@ -76,6 +81,33 @@ public class PatientService {
 
 		try {
 			return (Termin) query.getSingleResult();
+		} catch (NoResultException e) {
+			System.out.println("no result");
+			// not found
+		}
+
+		return null;
+	}
+	
+	public Set<Diagnose> findDiagnosisByIds(List<Integer> ids) {
+		Query query = service.getEntityManager().createQuery("Select d from Diagnose d where d.id in (:selectedValues)");
+		query.setParameter("selectedValues", ids);
+
+		try {
+			return new HashSet<Diagnose>(query.getResultList());
+		} catch (NoResultException e) {
+			System.out.println("no result");
+			// not found
+		}
+
+		return null;
+	}
+	
+	public List<Diagnose> findAllPossibleDiagnosis() {
+		Query query = service.getEntityManager().createQuery("Select d from Diagnose d order by d.bezeichnung");
+
+		try {
+			return query.getResultList();
 		} catch (NoResultException e) {
 			System.out.println("no result");
 			// not found

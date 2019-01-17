@@ -37,6 +37,8 @@ public class EditVitalparameter extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
+		response.setContentType("text/html;charset=UTF-8");
+
 		String createNew = request.getParameter("new");
 		String id = request.getParameter("id");
 		String vid = request.getParameter("vid");
@@ -44,6 +46,7 @@ public class EditVitalparameter extends HttpServlet {
 		String title;
 		
 		if(createNew != null) {
+			createNew = "true";
 			title = "Vitalparameter anlegen";
 			v = new Vitalparameter();
 			v.setBelastungsSchmerz("");
@@ -55,16 +58,15 @@ public class EditVitalparameter extends HttpServlet {
 			v.setRuheSchmerz("");
 			v.setTemperatur("");
 		} else {
+			createNew = "false";
 			title = "Vitalparameter bearbeiten";
 			v = (new PatientService()).findVitalparameterById(Integer.parseInt(vid));
 		}
-		
-		if(createNew != null) createNew = "true"; else createNew = "false";
-		
+				
 		response.getWriter().append(
 				"<span onclick=\"document.getElementById('myModal').style.display='none'\" class=\"close\">&times;</span>")
-				.append("<h3>" + title + "</h3><form><input type='hidden' id='pid' value='" + id + "' type='text' /><br />"
-						+ "<input type='hidden' id='vid' value='" + v.getId() + "' type='text' /><br />"
+				.append("<h3>" + title + "</h3><form><input type='hidden' id='pid' value='" + id + "' />"
+						+ "<input type='hidden' id='vid' value='" + v.getId() + "' />"
 						+ "<input type='hidden' id='create' value='" + createNew + "' />"
 						+ "<label>Datum:</label>  <input id='DiagnosisDate' value='" + v.getDiagnosisDate() + "' type='text' /><br />"
 						+ "<label>BD Diastolisch:</label>  <input id='BlutdruckDiastolisch' value='" + v.getBlutdruckDiastolisch() + "' type='text' /><br />"
