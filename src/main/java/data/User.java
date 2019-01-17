@@ -4,12 +4,16 @@ import java.io.Serializable;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.Id;
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
 @Entity
 @Table(name = "USERS")
 public class User implements Serializable {
+
+	private static final long serialVersionUID = 1L;
 
 	@Id
 	private int id;
@@ -20,16 +24,11 @@ public class User implements Serializable {
 	@Column
 	private String password;
 
-	@Column
-	private int role;
-
-	/**
-	 * 
-	 */
-	private static final long serialVersionUID = 1L;
+	@ManyToOne(fetch = FetchType.EAGER)
+	private Role role;
 
 	public boolean isAdmin() {
-		if (role == 1)
+		if (role.getName().equals("Admin"))
 			return true;
 		
 		return false;

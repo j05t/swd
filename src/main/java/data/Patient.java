@@ -2,8 +2,9 @@ package data;
 
 import java.io.Serializable;
 import java.time.LocalDate;
-import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
@@ -78,9 +79,9 @@ public class Patient implements Serializable {
 
 	@ManyToMany
 	@JoinTable(joinColumns = @JoinColumn(name = "PATIENT_ID"), inverseJoinColumns = @JoinColumn(name = "TERMIN_ID"))
-	private List<Termin> termine = new ArrayList<Termin>();
+	private Set<Termin> termine = new HashSet<Termin>();
 
-	public List<Termin> getTermine() {
+	public Set<Termin> getTermine() {
 		return termine;
 	}
 

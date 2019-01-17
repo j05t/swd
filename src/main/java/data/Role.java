@@ -20,4 +20,8 @@ public class Role implements Serializable{
 	public String toString() {
 		return this.name;
 	}
+
+	public String getName() {
+		return name;
+	}
 }
