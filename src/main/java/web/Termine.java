@@ -32,7 +32,7 @@ public class Termine extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		response.setContentType("text/html;charset=UTF-8");
 
-		response.getWriter().append("<table>\n" + 
+		response.getWriter().append("<table id='mainTable'>\n" + 
 				"  <tr>\n" + 
 				"    <th>Datum</th>\n" + 
 				"    <th>Uhrzeit</th>\n" + 
@@ -42,11 +42,11 @@ public class Termine extends HttpServlet {
 		for(Termin t: (new TerminService()).findAll()) {
 			
 			StringBuilder sb = new StringBuilder();
-			sb.append("<ul>");
+
 			for (Patient p: t.getPatienten()) {
-				sb.append("<li>").append(p.getFirstName()).append(" ").append(p.getLastName()).append("</li>");
+				sb.append("<p>").append(p.getFirstName()).append(" ").append(p.getLastName()).append("</p>");
 			}
-			sb.append("</ul>");
+
 				
 			response.getWriter().append(
 			"  <tr onclick=\"loadDoc('TerminDetail?id=" + t.getId() + "', 'detail')\">\n" + 

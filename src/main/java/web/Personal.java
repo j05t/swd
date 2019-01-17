@@ -31,7 +31,7 @@ public class Personal extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		response.setContentType("text/html;charset=UTF-8");
 
-		response.getWriter().append("<table>\n" + 
+		response.getWriter().append("<table id='mainTable'>\n" + 
 				"  <tr>\n" + 
 				"    <th>Funktion</th>\n" + 
 				"    <th>Name</th>\n" + 

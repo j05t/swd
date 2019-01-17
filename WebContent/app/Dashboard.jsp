@@ -293,6 +293,17 @@ input[type=button], input[type=submit], input[type=reset] {
 .error {
 	color: #f46242;
 }
+
+#searchInput {
+	background-image: url('img/searchicon.png');
+	background-position: 10px 7px;
+	background-repeat: no-repeat;
+	width: 100%;
+	font-size: 16px;
+	padding: 8px 20px 8px 40px;
+	border: 1px solid #ddd;
+	width: 100%;
+}
 </style>
 
 
@@ -317,18 +328,22 @@ input[type=button], input[type=submit], input[type=reset] {
 			xhttp.send();
 
 			if (where == "content") {
+				// reset search box text
+				document.getElementById("searchInput").value = "";
+				
 				var x = document.getElementsByClassName("active");
 				for (var i = 0; i < x.length; i++) {
 					x[i].classList.remove("active");
 				}
 
-				document.getElementById(which.split(/(\?)/)[0]).classList.add("active");
+				document.getElementById(which.split(/(\?)/)[0]).classList
+						.add("active");
 			}
 		}
 
 		function sendPatientForm() {
 			var modal = document.getElementById('myModal');
-			
+
 			var id = document.getElementById('id').value;
 			var create = document.getElementById('create').value;
 			var first_name = document.getElementById('first_name').value;
@@ -359,26 +374,28 @@ input[type=button], input[type=submit], input[type=reset] {
 			xhttp.setRequestHeader("Content-type",
 					"application/x-www-form-urlencoded");
 
-
 			xhttp.send("id=" + id + "&first_name=" + first_name + "&create="
 					+ create + "&last_name=" + last_name + "&age=" + age
 					+ "&admission_date=" + admission_date + "&comment="
-					+ comment + "&city=" + city + "&ssn=" + ssn
-					+ "&street=" + street + "&zip=" + zip);
+					+ comment + "&city=" + city + "&ssn=" + ssn + "&street="
+					+ street + "&zip=" + zip);
 
 			console.log("sendPatientForm post");
 		}
-		
+
 		function sendVitalparameterForm() {
 			var modal = document.getElementById('myModal');
-			
+
 			var id = document.getElementById('pid').value;
 			var vid = document.getElementById('vid').value;
 			var create = document.getElementById('create').value;
-			
-			var BelastungsSchmerz = document.getElementById('BelastungsSchmerz').value;
-			var BlutdruckDiastolisch = document.getElementById('BlutdruckDiastolisch').value;
-			var BlutdruckSystolisch = document.getElementById('BlutdruckSystolisch').value;
+
+			var BelastungsSchmerz = document
+					.getElementById('BelastungsSchmerz').value;
+			var BlutdruckDiastolisch = document
+					.getElementById('BlutdruckDiastolisch').value;
+			var BlutdruckSystolisch = document
+					.getElementById('BlutdruckSystolisch').value;
 			var DiagnosisDate = document.getElementById('DiagnosisDate').value;
 			var MaximalSchmerz = document.getElementById('MaximalSchmerz').value;
 			var Puls = document.getElementById('Puls').value;
@@ -404,36 +421,39 @@ input[type=button], input[type=submit], input[type=reset] {
 			xhttp.setRequestHeader("Content-type",
 					"application/x-www-form-urlencoded");
 
-
-			xhttp.send("id=" + id + "&BelastungsSchmerz=" + BelastungsSchmerz + "&vid=" + vid + "&BlutdruckDiastolisch=" + BlutdruckDiastolisch + "&create="
-					+ create + "&BlutdruckSystolisch=" + BlutdruckSystolisch + "&DiagnosisDate=" + DiagnosisDate
-					+ "&MaximalSchmerz=" + MaximalSchmerz + "&Puls=" + Puls + "&RuheSchmerz=" + RuheSchmerz + "&Temperatur=" + Temperatur);
+			xhttp.send("id=" + id + "&BelastungsSchmerz=" + BelastungsSchmerz
+					+ "&vid=" + vid + "&BlutdruckDiastolisch="
+					+ BlutdruckDiastolisch + "&create=" + create
+					+ "&BlutdruckSystolisch=" + BlutdruckSystolisch
+					+ "&DiagnosisDate=" + DiagnosisDate + "&MaximalSchmerz="
+					+ MaximalSchmerz + "&Puls=" + Puls + "&RuheSchmerz="
+					+ RuheSchmerz + "&Temperatur=" + Temperatur);
 
 			console.log("sendVitalparameterForm post");
 		}
-		
+
 		function sendEditTerminForm() {
 			var modal = document.getElementById('myModal');
-			
+
 			var pid = document.getElementById('pid').value;
 			var tid = document.getElementById('tid').value;
 			var create = document.getElementById('create').value;
-			
+
 			var datum = document.getElementById('datum').value;
 			var zeit = document.getElementById('zeit').value;
-			
+
 			// construct post string
 			var diagnosis = document.getElementsByClassName("diagCheckBox");
-			  var diagPost = "&diag=";
-			  var i;
-			  for (i = 1; i < diagnosis.length; i++) {
-			    if (diagnosis[i].checked) {
-			    	diagPost += diagnosis[i].id + ",";
-			    }
-			  }
+			var diagPost = "&diag=";
+			var i;
+			for (i = 1; i < diagnosis.length; i++) {
+				if (diagnosis[i].checked) {
+					diagPost += diagnosis[i].id + ",";
+				}
+			}
 			// remove superfluous ","
-			diagPost = diagPost.substring(0, diagPost.length-1);
-			
+			diagPost = diagPost.substring(0, diagPost.length - 1);
+
 			var xhttp = new XMLHttpRequest();
 			xhttp.onreadystatechange = function() {
 				if (this.readyState == 4 && this.status == 200) {
@@ -453,9 +473,8 @@ input[type=button], input[type=submit], input[type=reset] {
 			xhttp.setRequestHeader("Content-type",
 					"application/x-www-form-urlencoded");
 
-
-			xhttp.send("pid=" + pid + "&datum=" + datum + "&tid=" + tid + "&zeit=" + zeit + "&create="
-					+ create + diagPost);
+			xhttp.send("pid=" + pid + "&datum=" + datum + "&tid=" + tid
+					+ "&zeit=" + zeit + "&create=" + create + diagPost);
 
 			console.log("sendEditTerminForm post");
 		}
@@ -473,15 +492,15 @@ input[type=button], input[type=submit], input[type=reset] {
 				modal.style.display = "none";
 			}
 		}
-		
+
 		function loadTab(tabName) {
-			  var i;
-			  var x = document.getElementsByClassName("tab");
-			  for (i = 0; i < x.length; i++) {
-			    x[i].style.display = "none"; 
-			  }
-			  document.getElementById(tabName).style.display = "block"; 
+			var i;
+			var x = document.getElementsByClassName("tab");
+			for (i = 0; i < x.length; i++) {
+				x[i].style.display = "none";
 			}
+			document.getElementById(tabName).style.display = "block";
+		}
 	</script>
 
 	<div class="topnav">
@@ -497,6 +516,8 @@ input[type=button], input[type=submit], input[type=reset] {
 		</form>
 	</div>
 
+	<input type="text" id="searchInput" onkeyup="searchOnKeyUp()"
+		placeholder="Suche nach.." title="Gib einen Namen ein">
 
 	<div id="content"></div>
 
@@ -513,6 +534,33 @@ input[type=button], input[type=submit], input[type=reset] {
 
 	<div id="status" class="status"></div>
 
+	<script>
+		function searchOnKeyUp() {
+			var input, filter, table, tr, td, i, txtValue;
+			input = document.getElementById("searchInput");
+			filter = input.value.toUpperCase();
+			table = document.getElementById("mainTable");
+			tr = table.getElementsByTagName("tr");
+			for (i = 0; i < tr.length; i++) {
+				var lineStr = "";
+				var tdElems = tr[i].getElementsByTagName("td");
+				
+				for (j = 0; j < tdElems.length; j++) {
+					td = tdElems[j];
+
+					if (td) {
+						lineStr += td.textContent || td.innerText;
+					}
+				}
+
+				if (lineStr.toUpperCase().indexOf(filter) > -1) {
+					tr[i].style.display = "";
+				} else {
+					tr[i].style.display = "none";
+				}
+			}
+		}
+	</script>
 
 	<%
 		if (session != null) {

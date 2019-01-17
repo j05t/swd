@@ -37,7 +37,7 @@ public class Patienten extends HttpServlet {
         if (role != null)
         	allowEdit = role.equals("admin");
                 
-		response.getWriter().append("<table>\n" + 
+		response.getWriter().append("<table id='mainTable'>\n" + 
 				"  <tr>\n" + 
 				"    <th>Vorname</th>\n" + 
 				"    <th>Nachname</th>\n" + 
