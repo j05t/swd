@@ -442,7 +442,7 @@ input[type=button], input[type=submit], input[type=reset] {
 			var datum = document.getElementById('datum').value;
 			var zeit = document.getElementById('zeit').value;
 
-			// construct post string
+			// construct post string for diagnosis
 			var diagnosis = document.getElementsByClassName("diagCheckBox");
 			var diagPost = "&diag=";
 			var i;
@@ -461,7 +461,18 @@ input[type=button], input[type=submit], input[type=reset] {
 					document.getElementById('status').innerHTML = this.responseText;
 					modal.style.display = "none";
 					console.log('ajax done, loading PatientDetail?id=' + pid);
-					loadDoc("PatientDetail?id=" + pid, 'patientDetail');
+					//loadDoc("PatientDetail?id=" + pid, 'patientDetail');
+					
+					var xhttp2 = new XMLHttpRequest();
+					xhttp2.onreadystatechange = function() {
+						if (this.readyState == 4 && this.status == 200) {
+							document.getElementById("patientDetail").innerHTML = this.responseText;
+							loadTab("termine");
+						}
+					};
+
+					xhttp2.open("GET", "PatientDetail?id=" + pid, true);
+					xhttp2.send();
 				}
 				// server error
 				if (this.readyState == 4 && this.status == 500) {
