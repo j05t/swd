@@ -8,8 +8,9 @@
 
 * mvn clean heroku:deploy-war
 
-## Create Database Schema Diagram
+## Database Schema
 http://schemaspy.org/
+https://jdbc.postgresql.org/download.html
 <pre>
 # Schemaspy 6
 java -jar schemaspy-6.0.0.jar -t pgsql -dp postgresql-42.2.5.jar -db DATABASE \
@@ -17,4 +18,8 @@ java -jar schemaspy-6.0.0.jar -t pgsql -dp postgresql-42.2.5.jar -db DATABASE \
 -u USERNAME -p PASSWORD -o OUTPUTDIR
 </pre>
 
-![Database Schema](relationships.real.large.png "DB Schema")
+![Database Schema](relationships.real.compact.png "DB Schema")
+
+## Class Diagram
+
+![Class Diagram](ClassDiagram.png "Class Diagram")
