@@ -9,6 +9,12 @@ import javax.persistence.Id;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
+/**
+ * User authentication is performed within this class.
+ * 
+ * @author Julia
+ *
+ */
 @Entity
 @Table(name = "USERS")
 public class User implements Serializable {
@@ -30,17 +36,25 @@ public class User implements Serializable {
 	public boolean isAdmin() {
 		if (role.getName().equals("Admin"))
 			return true;
-		
+
 		return false;
 	}
-	
+
+	/**
+	 * This method determines if user has administrator or user role
+	 * 
+	 * @return
+	 */
 	public String getRole() {
 		if (isAdmin())
 			return "admin";
-		
+
 		return "user";
 	}
 
+	/**
+	 * This method returns a string representation of the user.
+	 */
 	@Override
 	public String toString() {
 		return "User: " + userName + " Password: ***** isAdmin: " + isAdmin();

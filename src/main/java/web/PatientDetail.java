@@ -104,7 +104,7 @@ public class PatientDetail extends HttpServlet {
 				"    <th>Medikation</th>\n" + 
 				"  </tr>");
 		
-		for(Termin t: p.getTermine()) {	
+		for(Termin t: p.getAppointments()) {	
 			response.getWriter().append(
 			"  <tr onclick=\"loadDoc('TerminDetail?id=" + t.getId() + "', 'detail')\">\n" + 
 			"    <td>" + t.getDate() + "</td>\n" + 
@@ -131,7 +131,7 @@ public class PatientDetail extends HttpServlet {
 				"    <th>Tools</th>\n" + 
 				"  </tr>");
 		
-		for(Termin t: p.getTermine()) {		
+		for(Termin t: p.getAppointments()) {		
 			String onEditBtnClick = " onclick=\"loadDoc('EditTermin?pid=" + p.getId() + "&tid=" + t.getId() + "', 'editContent'); document.getElementById('myModal').style.display='block';\"";
 			String onDelBtnClick = " onclick=\"loadDoc('DeleteTermin?pid=" + p.getId()  + "&tid=" + t.getId() + "', 'status'); document.getElementById('" + "termin" + t.getId() + "').style.display='none';\"";
 

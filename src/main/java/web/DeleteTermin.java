@@ -44,7 +44,7 @@ public class DeleteTermin extends HttpServlet {
 			Termin t = (new PatientService()).findTerminById(Integer.parseInt(tid));
 			Patient p = (new PatientService()).findById(Integer.parseInt(pid));
 
-			p.getTermine().remove(t);
+			p.getAppointments().remove(t);
 			JPAService.getEntityManager().merge(p);
 
 			JPAService.getEntityManager().flush();

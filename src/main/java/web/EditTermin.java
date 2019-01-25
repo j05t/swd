@@ -152,7 +152,7 @@ public class EditTermin extends HttpServlet {
 				System.out.println("persisting new termin # " + t.getId());
 				JPAService.getEntityManager().persist(t);
 				t.getPatienten().add(p);
-				p.getTermine().add(t);
+				p.getAppointments().add(t);
 			} else {
 				System.out.println("merging termin " + t);
 				JPAService.getEntityManager().merge(t);
