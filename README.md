@@ -20,6 +20,13 @@ java -jar schemaspy-6.0.0.jar -t pgsql -dp postgresql-42.2.5.jar -db DATABASE \
 
 ![Database Schema](relationships.real.compact.png "DB Schema")
 
-## Class Diagram
+## Class Diagrams
 
-![Class Diagram](ClassDiagram.png "Class Diagram")
+### Model
+
+![Data Layer Class Diagram](ClassDiagram.png "Class Diagram")
+
+
+### Servlets / Data Access
+
+![Servlets Class Diagram](ServletsClassDiagram.png "Servlets Class Diagram")
